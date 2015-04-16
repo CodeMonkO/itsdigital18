@@ -10,6 +10,6 @@ public class FineDineController {
 	@RequestMapping("/hello")
 	public ModelAndView sayHello() {
 		String message = "Welcome to Spring 4.0 !!! dineshonjava.com";
-		return new ModelAndView("hello", "message", message);
+		return new ModelAndView("about", "message", message);
 	}
 }
