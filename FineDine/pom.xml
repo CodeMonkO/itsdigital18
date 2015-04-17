@@ -10,6 +10,7 @@
 
 	<properties>
 		<spring.version>4.1.6.RELEASE</spring.version>
+		<hibernate.core>4.0.1.Final</hibernate.core>
 	</properties>
 
 	<build>
@@ -71,7 +72,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.0.1.Final</version>
+			<version>${hibernate.core}</version>
 		</dependency>
 
 	</dependencies>
