@@ -11,18 +11,18 @@
     
     <link href="http://projects.pulsarmedia.ca/vienna/bootstrap3/css/bootstrap.css" rel="stylesheet">
 
-    <!-- main css -->
+    <!-- main css --> 
     <link href="http://projects.pulsarmedia.ca/vienna/css/main.css" rel="stylesheet">
     
     <!-- mobile css -->
     <link href="http://projects.pulsarmedia.ca/vienna/css/responsive.css" rel="stylesheet">
     
     <!-- FontAwesome Support -->
-    <link rel="stylesheet" type="text/css" href="./font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
     <!-- FontAwesome Support -->
     
     <!-- Btns -->
-    <link rel="stylesheet" type="text/css" href="./btn.css">
+    <link rel="stylesheet" type="text/css" href="./css/btn.css">
     <!-- Btns -->
     
     <!-- Superfish menu -->
@@ -253,7 +253,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-12">
                     	
                         <div class="pm-header-logo-container">
-                    		<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img src="./VIENNA    Premium Restaurant Template_files/vienna-logo.png" class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a> 
+                    		<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img src="./images/vienna-logo.png" class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a> 
                         </div>
                         
                         <div class="pm-header-mobile-btn-container">
@@ -321,7 +321,7 @@
         <div class="pm-pulse-container" id="pm-pulse-container">
         
             <div id="pm-pulse-loader" style="display: none;">
-                <img src="./VIENNA    Premium Restaurant Template_files/ajax-loader.gif" alt="slider loading">
+                <img src="./images/ajax-loader.gif" alt="slider loading">
             </div>
             
             <div id="pm-slider" class="pm-slider" style="height: auto; opacity: 1;">
@@ -392,7 +392,7 @@
             	<div class="col-lg-4 col-md-4 col-sm-12 pm-center pm-column-spacing">
                 	
                     <div class="pm-image-container">
-               	    	<img src="./VIENNA    Premium Restaurant Template_files/image1.jpg" alt="image1">
+               	    	<img src="./images/image1.jpg" alt="image1">
                     </div>
                     
                     <h6>say hello to vienna</h6>
@@ -406,7 +406,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-12 pm-center pm-column-spacing">
                 	
                     <div class="pm-image-container">
-               	    	<img src="./VIENNA    Premium Restaurant Template_files/image2.jpg" alt="image2">
+               	    	<img src="./images/image2.jpg" alt="image2">
                     </div>
                     
                     <h6>we serve authentic cuisine</h6>
@@ -420,7 +420,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-12 pm-center pm-column-spacing">
                 	
                     <div class="pm-image-container">
-               	    	<img src="./VIENNA    Premium Restaurant Template_files/image3.jpg" alt="image3">
+               	    	<img src="./images/image3.jpg" alt="image3">
                     </div>
                     
                     <h6>take home the pleasure</h6>
@@ -730,7 +730,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-12 pm-widget-footer">
-                    	<img src="./VIENNA    Premium Restaurant Template_files/vienna-logo.png" class="img-responsive" alt="Vienna Restaurant"> 
+                    	<img src="./images/vienna-logo.png" class="img-responsive" alt="Vienna Restaurant"> 
                         <p>
                         Vienna a premium restaurant theme designed for restaurant and bar owners. This theme features many practical elements such as a catering and event form, photo gallery, events system, blog system and a menu system. Vienna is also WordPress and Woocommerce ready and is designed on an 1170 grid for bootstrap 3.
                         </p>
@@ -776,7 +776,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/1(1).jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/1(1).jpg">
                             </a>
                         </div>
                         
@@ -784,7 +784,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/2(1).jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/2(1).jpg">
                             </a>
                         </div>
                         
@@ -792,7 +792,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/3(1).jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/3(1).jpg">
                             </a>
                         </div>
                         
@@ -800,7 +800,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/4(1).jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/4(1).jpg">
                             </a>
                         </div>
                         
@@ -808,7 +808,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/5(1).jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/5(1).jpg">
                             </a>
                         </div>
                         
@@ -816,7 +816,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/6.jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/6.jpg">
                             </a>
                         </div>
                         
@@ -824,7 +824,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/7.jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/7.jpg">
                             </a>
                         </div>
                         
@@ -832,7 +832,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/8.jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/8.jpg">
                             </a>
                         </div>
                         
@@ -840,7 +840,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/9.jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/9.jpg">
                             </a>
                         </div>
                         
@@ -848,7 +848,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/10.jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/10.jpg">
                             </a>
                         </div>
                         
@@ -856,7 +856,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/11.jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/11.jpg">
                             </a>
                         </div>
                         
@@ -864,7 +864,7 @@
                             <a href="http://projects.pulsarmedia.ca/vienna/#">
                             	<span></span>
                                 <i class="fa fa-search-plus"></i>
-                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./VIENNA    Premium Restaurant Template_files/12.jpg">
+                            	<img width="63" height="63" title="" alt="A photo on Flickr" src="./images/12.jpg">
                             </a>
                         </div>
                         
@@ -973,23 +973,23 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./VIENNA    Premium Restaurant Template_files/jquery-2.1.1.min.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/jquery.viewport.mini.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/jquery.easing.1.3.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/bootstrap.min.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/modernizr.custom.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/owl.carousel.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/main.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/jquery.tooltip.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/jquery.hoverPanel.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/superfish.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/hoverIntent.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/tinynav.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/jquery.stellar.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/countdown.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/theme-color-selector.js"></script>
-	<script src="./VIENNA    Premium Restaurant Template_files/wow.min.js"></script>
-    <script src="./VIENNA    Premium Restaurant Template_files/jquery.PMSlider.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/jquery.viewport.mini.js"></script>
+    <script src="./js/jquery.easing.1.3.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/modernizr.custom.js"></script>
+    <script src="./js/owl.carousel.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/jquery.tooltip.js"></script>
+    <script src="./js/jquery.hoverPanel.js"></script>
+    <script src="./js/superfish.js"></script>
+    <script src="./js/hoverIntent.js"></script>
+    <script src="./js/tinynav.js"></script>
+    <script src="./js/jquery.stellar.js"></script>
+    <script src="./js/countdown.js"></script>
+    <script src="./js/theme-color-selector.js"></script>
+	<script src="./js/wow.min.js"></script>
+    <script src="./js/jquery.PMSlider.js"></script>
         
     <p id="back-top" class="visible-lg visible-md visible-sm" style="right: -70px;"> </p>
     
