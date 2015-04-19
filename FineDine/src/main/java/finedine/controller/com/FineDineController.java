@@ -12,16 +12,22 @@ public class FineDineController {
 		String message = "Welcome to Spring 4.0 !!! dineshonjava.com";
 		return new ModelAndView("home", "message", message);
 	}
-	
+
 	@RequestMapping("/restroframe")
 	public ModelAndView restroFrame() {
 		String message = "Welcome to Spring 4.0 !!! dineshonjava.com";
 		return new ModelAndView("restroframe", "message", message);
 	}
-	
+
 	@RequestMapping("/signup")
 	public ModelAndView signUp() {
 		String message = "Welcome to Spring 4.0 !!! dineshonjava.com";
 		return new ModelAndView("signup", "message", message);
+	}
+
+	@RequestMapping("/signin")
+	public ModelAndView signIn() {
+		String message = "Welcome to Spring 4.0 !!! dineshonjava.com";
+		return new ModelAndView("signin", "message", message);
 	}
 }

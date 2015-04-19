@@ -221,7 +221,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="signup.im">Sign&nbsp;In</a></li>
+                            <li><a href="signin.im">Sign&nbsp;In</a></li>
                             <li><a href="signup.im">Sign&nbsp;Up</a></li>
                             <!-- <li class="pm-search-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/#" class="pm-search-btn" id="pm-search-btn"><i class="fa fa-search"></i></a></li> -->
                             <!-- <li class="pm-cart-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/cart.html" class="pm-cart-btn"><i class="fa fa-shopping-cart"></i></a></li> -->
@@ -289,7 +289,7 @@
 				   		    <div id="row" >
 				      			<div id="col">
 				                	<div id="text_setting">
-				              		Total Capacity 
+				              		Country 
 				                    </div>
 				              	</div>
 				            	<div id="col">
@@ -299,7 +299,7 @@
 				   			<div id="row"  >
 				      			<div id="col">
 				                	<div id="text_setting">
-				         			Reserved Seats
+				         			State/Province
 				                    </div>
 				                </div>
 				                <div id="col">
@@ -309,7 +309,7 @@
 				    		 <div id="row"  >
 				      			<div id="col">
 				                	<div id="text_setting">
-				         			Vacant Seats
+				         			City
 				                    </div>
 				                </div>
 				                <div id="col">
@@ -319,13 +319,176 @@
 				      		<div id="row" >
 				      			<div id="col">
 				                	<div id="text_setting">
-				         			Hot Booking
+				         			Address
 				                    </div>
 				                </div>
 				                <div id="col">
 				                	<textarea name="address" type="text" id="textfield2" cols="46" rows="5" onkeyup="autoTab(this, document.form_device.locality)"></textarea>
 				                </div>
-				             </div>						
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Zipcode
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>		
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Name
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Email-ID
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Password
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Confirm Password
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Contact
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Alternative Contact
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Name
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Type
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Sub Type
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Max Seating
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Open Time
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Close Time
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Rating
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Status
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Menu Location
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				                <button type="button" class="pm-rounded-btn animated pm-primary">Submit</button>
+				             </div>							
 			        	</form>
 			        </div>
             </div>

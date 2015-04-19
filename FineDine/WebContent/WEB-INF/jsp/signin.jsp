@@ -7,13 +7,13 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="http://projects.pulsarmedia.ca/vienna/favicon.png">
 
-    <title>VIENNA :: Premium Restaurant Template</title>
+    <title>FINE DINE :: Growing Majestic</title>
     
     <link href="http://projects.pulsarmedia.ca/vienna/bootstrap3/css/bootstrap.css" rel="stylesheet">
 
     <!-- main css --> 
-    <link href="http://projects.pulsarmedia.ca/vienna/css/main.css" rel="stylesheet">
-    
+    <link href="./css/main.css" rel="stylesheet">
+    <link href="./css/form.css" rel="stylesheet">
     <!-- mobile css -->
     <link href="http://projects.pulsarmedia.ca/vienna/css/responsive.css" rel="stylesheet">
     
@@ -64,7 +64,22 @@
     <!-- Development Google Fonts -->
     <link href="./css/css" rel="stylesheet" type="text/css">
     <!-- Development Google Fonts -->
-    
+    <style type="text/css">
+    #popupbox {
+	margin: 0 auto;
+	margin-left: 15%;
+	margin-top: 1.5%;
+	width:69%;
+	height: 640px;
+	position: absolute;
+	background: #FFFFFF;
+	border: solid #000000 0px;
+	z-index: 9;
+	opacity:1;
+	font-family: arial;
+	visibility: visible;
+	overflow: scroll;
+}</style>
   </head>
 
   <body>
@@ -86,47 +101,25 @@
     
     <ul class="sf-menu pm-nav sf-js-enabled">
                         
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Home</a></li>
-        <li>
-            <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Menus<span class="sf-sub-indicator"> »</span></a>
+        <li><a href="home.im">Home</a></li>
+        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">About Us</a></li>
+        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Client & Partners</a></li>
+        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
+        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Contact Us</a></li>
+        <!-- <li>
+            <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">About Us<span class="sf-sub-indicator"> »</span></a>
             <ul style="display: none;">
-                <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Breakfast</a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Lunch</a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Dinner</a></li>
+                <li><a href="menus.jsp">Breakfast</a></li>
+                <li><a href="menus.jsp">Lunch</a></li>
+                <li><a href="menus.jsp">Dinner</a></li>
             </ul>
-        </li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/gallery.html">Gallery</a></li>
-        <li>
-            <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Events<span class="sf-sub-indicator"> »</span></a>
-            <ul style="display: none;">
-                <li><a href="http://projects.pulsarmedia.ca/vienna/book-an-event.html">Book an Event</a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/events.html">Browse Events</a></li>
-                <!--<li><a href="#">Social Events</a></li>-->
-            </ul>
-        </li>
-        <li>
-            <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">News<span class="sf-sub-indicator"> »</span></a>
-            <ul style="display: none;">
-                <li><a href="http://projects.pulsarmedia.ca/vienna/news.html">News Full Width</a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/news-with-sidebar.html">News with Sidebar</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Store<span class="sf-sub-indicator"> »</span></a>
-            <ul style="display: none;">
-            	<li><a href="http://projects.pulsarmedia.ca/vienna/store.html">Browse Store</a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/cart.html">View Cart</a></li>
-                <!--<li><a href="#">Customer Login</a></li>-->
-            </ul>
-        </li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/catering.html">Catering</a></li>
-    
+        </li> -->
     </ul>
         
   </div><!-- /pm-mobile-nav-overlay -->
   
   <!-- Theme color selector -->
-  <div id="pm_theme_color_selector">
+  <!-- <div id="pm_theme_color_selector">
         <a class="pm_theme_color_selector_btn"><i class="typcn typcn-cog"></i></a>
         <p class="pm_theme_color_selector_title">Style Sampler</p>
 
@@ -160,7 +153,7 @@
             </ul>
         </div>
    
-    </div>
+    </div> -->
     <!-- Theme color selector -->
     
 
@@ -173,9 +166,9 @@
             	<div class="row">
                 	
                     <div class="col-lg-10 col-md-10 col-sm-10">
-                    	<form action="http://projects.pulsarmedia.ca/vienna/#" method="post">
+                    	<!-- <form action="http://projects.pulsarmedia.ca/vienna/#" method="post">
                         	<input name="pm_search_field" type="text" class="pm-search-field-header" placeholder="Type Keywords...">
-                        </form>
+                        </form> -->
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2">
                     	<ul class="pm-search-controls">
@@ -207,9 +200,9 @@
                     </div>
                     
                     <div class="col-lg-2 col-md-2 col-sm-6 visible-lg visible-md pm-book-event">
-                    	<div class="pm-sub-menu-book-event">
+                    	<!-- <div class="pm-sub-menu-book-event">
                         	<a href="http://projects.pulsarmedia.ca/vienna/book-an-event.html">Book an Event <i class="fa fa-calendar"></i></a>
-                        </div>
+                        </div> -->
                     </div>
                     
                     <div class="col-lg-5 col-md-5 col-sm-6">
@@ -228,10 +221,10 @@
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="http://projects.pulsarmedia.ca/vienna/about-us.html">About Us</a></li>
-                            <li><a href="http://projects.pulsarmedia.ca/vienna/contact-us.html">Contact Us</a></li>
-                            <li class="pm-search-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/#" class="pm-search-btn" id="pm-search-btn"><i class="fa fa-search"></i></a></li>
-                            <li class="pm-cart-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/cart.html" class="pm-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
+                            <li><a href="signin.im">Sign&nbsp;In</a></li>
+                            <li><a href="signup.im">Sign&nbsp;Up</a></li>
+                            <!-- <li class="pm-search-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/#" class="pm-search-btn" id="pm-search-btn"><i class="fa fa-search"></i></a></li> -->
+                            <!-- <li class="pm-cart-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/cart.html" class="pm-cart-btn"><i class="fa fa-shopping-cart"></i></a></li> -->
                         </ul>
                     </div>
                     
@@ -269,47 +262,58 @@
                         
                         	<ul class="sf-menu pm-nav sf-js-enabled">
                         
-                                <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Home</a></li>
-                                <li>
+                                 <li><a href="home.im">Home</a></li>
+						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">About Us</a></li>
+						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Client & Partners</a></li>
+						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
+						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Contact Us</a></li>
+                               <!--  <li>
                                     <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Menus<span class="sf-sub-indicator"> »</span></a>
                                     <ul style="display: none;">
                                         <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Breakfast</a></li>
                                         <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Lunch</a></li>
                                         <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Dinner</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="http://projects.pulsarmedia.ca/vienna/gallery.html">Gallery</a></li>
-                                <li>
-                                	<a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Events<span class="sf-sub-indicator"> »</span></a>
-                                    <ul style="display: none;">
-                                        <li><a href="http://projects.pulsarmedia.ca/vienna/book-an-event.html">Book an Event</a></li>
-                                        <li><a href="http://projects.pulsarmedia.ca/vienna/events.html">Browse Events</a></li>
-                                        <!--<li><a href="#">Social Events</a></li>-->
-                                    </ul>
-                                </li>
-                                <li>
-                                	<a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">News<span class="sf-sub-indicator"> »</span></a>
-                                    <ul style="display: none;">
-                                        <li><a href="http://projects.pulsarmedia.ca/vienna/news.html">News Full Width</a></li>
-                                        <li><a href="http://projects.pulsarmedia.ca/vienna/news-with-sidebar.html">News with Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                	<a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Store<span class="sf-sub-indicator"> »</span></a>
-                                    <ul style="display: none;">
-                                        <li><a href="http://projects.pulsarmedia.ca/vienna/store.html">Browse Store</a></li>
-                                        <li><a href="http://projects.pulsarmedia.ca/vienna/cart.html">View Cart</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="http://projects.pulsarmedia.ca/vienna/catering.html">Catering</a></li>
-                            
+                                </li> -->
+                                                
                             </ul>
                         
                         </nav>  
                                               
                     </div>
-                    
-                </div>
+                    <div id="bind">
+                    <div id="popupbox">
+				    	<div id="deviceId">
+				    	<form name="form_device_1" method="post" action="">
+				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Order Device Form:</span> -->
+				   		    <div id="row" >
+				      			<div id="col">
+				                	<div id="text_setting">
+				              		Restaurant Email-ID / Access Key
+				                    </div>
+				              	</div>
+				            	<div id="col">
+				                	<input name="pincode" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
+				                </div>
+				   		 	</div>
+				   			<div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Password
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<input name="name" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				                <button type="button" class="pm-rounded-btn animated pm-primary">Submit</button>
+				             </div>							
+			        	</form>
+			        </div>
+            </div>
+              </div>   
+              </div>
             
             </div>
                     
@@ -335,11 +339,11 @@
                     
                         <div class="pm-holder">
                             <div class="pm-caption">
-                                  <h1 style="opacity: 1; margin-top: 0px; transition: all 0.6s ease 0s; -webkit-transition: all 0.6s ease 0s;"><span>Welcome to Vienna</span></h1>
+                                  <h1 style="opacity: 1; margin-top: 0px; transition: all 0.6s ease 0s; -webkit-transition: all 0.6s ease 0s;"><span>Welcome to Fine Dine</span></h1>
                                   <span class="pm-caption-decription" style="opacity: 1; margin-left: 0px; transition: all 0.6s ease 0s; -webkit-transition: all 0.6s ease 0s;">
-                                    A premium restaurant theme 
+                                    Growing Majestically
                                   </span>
-                                  <a href="http://projects.pulsarmedia.ca/vienna/menus.html" class="pm-slide-btn animated" style="opacity: 1; margin-top: 80px; transition: all 0.6s ease 0s; -webkit-transition: all 0.6s ease 0s;">View our menus <i class="fa fa-chevron-right"></i></a>
+                                  <!-- <a href="http://projects.pulsarmedia.ca/vienna/menus.html" class="pm-slide-btn animated" style="opacity: 1; margin-top: 80px; transition: all 0.6s ease 0s; -webkit-transition: all 0.6s ease 0s;">Unlock <i class="fa fa-chevron-right"></i></a> -->
                             </div>
                         </div>
                     
@@ -413,7 +417,7 @@
                     
                     <p>Come experience Vienna for yourself...we’ve been told it’s an unforgettable experience</p>
                     
-                    <a href="http://projects.pulsarmedia.ca/vienna/menus.html" class="pm-rounded-btn animated pm-primary">View our Menus <i class="fa fa-angle-right"></i></a>
+                    <!-- <a href="http://projects.pulsarmedia.ca/vienna/menus.html" class="pm-rounded-btn animated pm-primary">Unlock <i class="fa fa-angle-right"></i></a> -->
                     
                 </div>
                 
@@ -954,7 +958,7 @@
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-12 pm-footer-navigation-col">
                         <ul class="pm-footer-navigation l_tinynav1" id="pm-footer-nav">
-                            <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Home</a></li>
+                            <li><a href="home.im">Home</a></li>
                             <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Menus</a></li>
                             <li><a href="http://projects.pulsarmedia.ca/vienna/gallery.html">Gallery</a></li>
                             <li><a href="http://projects.pulsarmedia.ca/vienna/events.html">Browse Events</a></li>
@@ -990,7 +994,7 @@
     <script src="./js/theme-color-selector.js"></script>
 	<script src="./js/wow.min.js"></script>
     <script src="./js/jquery.PMSlider.js"></script>
-        
+    <script src="./js/Show_faded_box.js"></script>
     <p id="back-top" class="visible-lg visible-md visible-sm" style="right: -70px;"> </p>
     
   
