@@ -7,9 +7,21 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/")
 public class FineDineController {
-	@RequestMapping("/hello")
-	public ModelAndView sayHello() {
+	@RequestMapping("/home")
+	public ModelAndView home() {
 		String message = "Welcome to Spring 4.0 !!! dineshonjava.com";
-		return new ModelAndView("about", "message", message);
+		return new ModelAndView("home", "message", message);
+	}
+	
+	@RequestMapping("/restroframe")
+	public ModelAndView restroFrame() {
+		String message = "Welcome to Spring 4.0 !!! dineshonjava.com";
+		return new ModelAndView("restroframe", "message", message);
+	}
+	
+	@RequestMapping("/signup")
+	public ModelAndView signUp() {
+		String message = "Welcome to Spring 4.0 !!! dineshonjava.com";
+		return new ModelAndView("signup", "message", message);
 	}
 }

@@ -1,11 +1,1 @@
-<html>  
-<head>  
- <title>dineshonjava.com | Hello Spring 4 World</title>  
-</head>  
-<body>  
- <center>  
- <h2>dineshonjava.com | Hello Spring 4 World</h2>  
- <h4><a href="hello.im">Click Here</a></h4>  
- </center>  
-</body>  
-</html>  
+<jsp:forward page="home.im"></jsp:forward>
