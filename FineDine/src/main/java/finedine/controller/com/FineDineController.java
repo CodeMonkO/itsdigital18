@@ -1,7 +1,12 @@
 package main.java.finedine.controller.com;
 
+import main.java.finedine.pojo.com.SignUp;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -23,6 +28,13 @@ public class FineDineController {
 	public ModelAndView signUp() {
 		String message = "Welcome to Spring 4.0 !!! dineshonjava.com";
 		return new ModelAndView("signup", "message", message);
+	}
+	
+	@RequestMapping(value="/signupform", method = RequestMethod.POST)
+	public String signUpForm(@ModelAttribute("signup")SignUp signup) {
+		String message = "Sucessfully Registered";
+		//return new ModelAndView("signup", "message", message);
+		return "redirect:signup.im";
 	}
 
 	@RequestMapping("/signin")

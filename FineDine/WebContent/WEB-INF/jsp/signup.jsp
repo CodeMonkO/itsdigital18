@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 
 <html lang="en" class=" js csstransforms csstransforms3d csstransitions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -166,9 +167,6 @@
             	<div class="row">
                 	
                     <div class="col-lg-10 col-md-10 col-sm-10">
-                    	<!-- <form action="http://projects.pulsarmedia.ca/vienna/#" method="post">
-                        	<input name="pm_search_field" type="text" class="pm-search-field-header" placeholder="Type Keywords...">
-                        </form> -->
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2">
                     	<ul class="pm-search-controls">
@@ -284,7 +282,7 @@
                     <div id="bind">
                     <div id="popupbox">
 				    	<div id="deviceId">
-				    	<form name="form_device_1" method="post" action="">
+				    	<form:form method="POST" action="signUpForm.im" commandName="signup">
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Order Device Form:</span> -->
 				   		    <div id="row" >
 				      			<div id="col">
@@ -293,7 +291,7 @@
 				                    </div>
 				              	</div>
 				            	<div id="col">
-				                	<input name="pincode" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
+				                	<form:input path="country" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -303,7 +301,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="name" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="state" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
 				                </div>
 				             </div>
 				    		 <div id="row"  >
@@ -313,7 +311,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="city"  type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>
 				      		<div id="row" >
@@ -323,7 +321,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<textarea name="address" type="text" id="textfield2" cols="46" rows="5" onkeyup="autoTab(this, document.form_device.locality)"></textarea>
+				                	<form:textarea path="address" type="text" id="textfield2" cols="46" rows="5" onkeyup="autoTab(this, document.form_device.locality)"></form:textarea>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -333,7 +331,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="zipcode" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>		
 				             <div id="row"  >
@@ -343,7 +341,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rname" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -353,7 +351,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path= "rmailid" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -363,7 +361,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path= "password" type="password" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -373,7 +371,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path= "cpassword" type="password" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -383,7 +381,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rcontact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>
 				             <div id="row"  >
@@ -393,17 +391,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
-				                </div>
-				             </div>	
-				             <div id="row"  >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Restaurant Name
-				                    </div>
-				                </div>
-				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="raltcontact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -413,7 +401,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rtype" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -423,7 +411,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rsubtype" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -433,7 +421,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rmaxseats" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -443,7 +431,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="opentime" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>
 				             <div id="row"  >
@@ -453,7 +441,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="closetime" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -463,7 +451,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rrating" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -473,7 +461,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="status" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -483,13 +471,13 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="menulocation" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
 				                <button type="button" class="pm-rounded-btn animated pm-primary">Submit</button>
 				             </div>							
-			        	</form>
+			        	</form:form>
 			        </div>
             </div>
               </div>   
