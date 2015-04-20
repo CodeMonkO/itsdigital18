@@ -282,7 +282,7 @@
                     <div id="bind">
                     <div id="popupbox">
 				    	<div id="deviceId">
-				    	<form:form method="POST" action="signUpForm.im" commandName="signup">
+				    	<form:form method="POST" action="signupform.im" modelAttribute="signupform">
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Order Device Form:</span> -->
 				   		    <div id="row" >
 				      			<div id="col">
