@@ -1,10 +1,16 @@
 package main.java.finedine.pojo.com;
 
+import java.io.Serializable;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 
-public class SignUp {
+public class SignUp implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3870526690538161342L;
 	@NotEmpty
 	private String country;
 	private String state;
