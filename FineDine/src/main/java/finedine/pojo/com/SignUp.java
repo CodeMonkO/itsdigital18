@@ -1,7 +1,11 @@
 package main.java.finedine.pojo.com;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+
 public class SignUp {
 
+	@NotEmpty
 	private String country;
 	private String state;
 	private String city;

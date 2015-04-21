@@ -291,7 +291,9 @@
 				                    </div>
 				              	</div>
 				            	<div id="col">
-				                	<form:input path="country" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
+				            		<form:errors path="country" />
+				                	<form:input path="country" type="text" id="country" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
+ 	
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -475,7 +477,7 @@
 				                </div>
 				             </div>	
 				             <div id="row"  >
-				                <button type="button" class="pm-rounded-btn animated pm-primary">Submit</button>
+				                <button type="submit" class="pm-rounded-btn animated pm-primary">Submit</button>
 				             </div>							
 			        	</form:form>
 			        </div>
