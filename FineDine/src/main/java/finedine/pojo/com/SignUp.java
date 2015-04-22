@@ -11,25 +11,42 @@ public class SignUp implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3870526690538161342L;
-	@NotEmpty
+	@NotEmpty(message="Error")
 	private String country;
+	@NotEmpty
 	private String state;
+	@NotEmpty
 	private String city;
+	@NotEmpty
 	private String address;
+	@NotEmpty
 	private String zipcode;
+	@NotEmpty
 	private String rname;
+	@NotEmpty
 	private String rmailid;
+	@NotEmpty
 	private String password;
+	@NotEmpty
 	private String cpassword;
+	@NotEmpty
 	private String rcontact;
 	private String raltcontact;
+	@NotEmpty
 	private String rtype;
+	@NotEmpty
 	private String rsubtype;
+	@NotEmpty
 	private String rmaxseats;
+	@NotEmpty
 	private String opentime;
+	@NotEmpty
 	private String closetime;
+	@NotEmpty
 	private String rrating;
+	@NotEmpty
 	private String status;
+	@NotEmpty
 	private String menulocation;
 
 	public String getCountry() {

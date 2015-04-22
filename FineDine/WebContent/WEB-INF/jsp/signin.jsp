@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 
 <html lang="en" class=" js csstransforms csstransforms3d csstransitions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -284,7 +285,7 @@
                     <div id="bind">
                     <div id="popupbox">
 				    	<div id="deviceId">
-				    	<form name="form_device_1" method="post" action="">
+				    	<form:form method="POST" action="signinform.im" modelAttribute="signinform">
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Order Device Form:</span> -->
 				   		    <div id="row" >
 				      			<div id="col">
@@ -293,7 +294,7 @@
 				                    </div>
 				              	</div>
 				            	<div id="col">
-				                	<input name="pincode" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
+				                	<form:input path="email" type="text" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -303,13 +304,13 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="name" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="password" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
-				                <button type="button" class="pm-rounded-btn animated pm-primary">Submit</button>
+				                <button type="submit" class="pm-rounded-btn animated pm-primary">Submit</button>
 				             </div>							
-			        	</form>
+			        	</form:form>
 			        </div>
             </div>
               </div>   

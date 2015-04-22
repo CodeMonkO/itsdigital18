@@ -2,6 +2,8 @@ package main.java.finedine.controller.com;
 
 import javax.validation.Valid;
 
+import main.java.finedine.pojo.com.Billing;
+import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
 
 import org.springframework.stereotype.Controller;
@@ -21,12 +23,6 @@ public class FineDineController {
 		return new ModelAndView("home", "message", message);
 	}
 
-	@RequestMapping("/restroframe")
-	public ModelAndView restroFrame() {
-		String message = "JIT";
-		return new ModelAndView("restroframe", "message", message);
-	}
-
 	@RequestMapping("/signup")
 	public ModelAndView signUp(Model model) {
 		// clear everything from fields
@@ -38,7 +34,8 @@ public class FineDineController {
 
 	@RequestMapping(value = "/signupform", method = RequestMethod.POST)
 	public ModelAndView signUpForm(
-			  @ModelAttribute("signupform") @Valid SignUp signupform, BindingResult result) {
+			@ModelAttribute("signupform") @Valid SignUp signupform,
+			BindingResult result) {
 		if (result.hasErrors()) {
 			System.out.println("Country is null");
 		} else {
@@ -49,8 +46,45 @@ public class FineDineController {
 	}
 
 	@RequestMapping("/signin")
-	public ModelAndView signIn() {
+	public ModelAndView signIn(Model model) {
 		String message = "JIT";
+		SignIn signIn = new SignIn();
+		model.addAttribute("signinform", signIn);
 		return new ModelAndView("signin", "message", message);
 	}
+
+	@RequestMapping(value = "/signinform", method = RequestMethod.POST)
+	public ModelAndView signInForm(
+			@ModelAttribute("signinform") @Valid SignIn signinform,
+			BindingResult result) {
+		if (result.hasErrors()) {
+			System.out.println(result.getFieldError());
+		} else {
+			System.out.println(signinform.getEmail());
+		}
+		String message = "Sucess";
+		return new ModelAndView("restroframe", "message", message);
+	}
+
+	@RequestMapping("/restroframe")
+	public ModelAndView restroFrame(Model model) {
+		String message = "JIT";
+		Billing billing = new Billing();
+		model.addAttribute("billingform", billing);
+		return new ModelAndView("restroframe", "message", message);
+	}
+
+	/*@RequestMapping(value = "/billingform", method = RequestMethod.POST)
+	public ModelAndView billingForm(
+			@ModelAttribute("billingform") @Valid Billing billingform,
+			BindingResult result) {
+		if (result.hasErrors()) {
+			System.out.println(result.getFieldError());
+		} else {
+			System.out.println(billingform.getItem());
+		}
+		String message = "Sucess";
+		return new ModelAndView("restroframe", "message", message);
+	}
+*/
 }
