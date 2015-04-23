@@ -94,6 +94,9 @@ function addRow() {
 	var table = document.getElementById('datatable');
 	var rowCount = table.rows.length;
 	var row = table.insertRow(rowCount);
+	document.getElementById('itemf').value = "1";
+	document.getElementById('qtyf').value = "2";
+	document.getElementById('amountf').value = "2";
 	var colCount = table.rows[0].cells.length;
 	for (var i = 0; i < colCount; i++) {
 		var newcell = row.insertCell(i);
@@ -482,10 +485,10 @@ function addRow() {
 					   	<table style="width:100%;margin-top:8%;margin-left:2%" id='datatable'>
 					   		    <tr></tr>
 					   		    <tr>
-						   		    <td id='itemf'>Demo</td>
-						   		    <td id='qtyf'>Demo</td>
-						   		    <td id='amountf'>Demo</td>
-						   		    <td id='discountf'>Demo</td>
+						   		    <td><input type="text" id="itemf"></td>
+						   		    <td>Demo</td>
+						   		    <td>Demo</td>
+						   		    <td>Demo</td>
 					   		    </tr>
 				   		</table>
 				   		<form>
