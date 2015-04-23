@@ -90,23 +90,23 @@ function addToList(){
 	document.getElementById('list').value=array;
 	addRow();
 }
-
 function addRow() {
 	var table = document.getElementById('datatable');
-	alert(table);
 	var rowCount = table.rows.length;
 	var row = table.insertRow(rowCount);
 	var colCount = table.rows[0].cells.length;
 	for (var i = 0; i < colCount; i++) {
-		var newcell.childNodes[0].value = "";
-		break; = row.insertCell(i);
+		var newcell = row.insertCell(i);
 		newcell.innerHTML = table.rows[0].cells[i].innerHTML;
 		switch (newcell.childNodes[0].type) {
-		case "1":
-			newcell.childNodes[0].value = document.getElementById('item');
+		case "itemf":
+			newcell.childNodes[0].value = "21";
 			break;
-		case "2":
-			newcell.childNodes[0].value = "";
+		case "qtyf":
+			newcell.childNodes[0].value = "23";
+			break;
+		case "amountf":
+			newcell.childNodes[0].value = "44";
 			break;
 		}
 	}
@@ -471,19 +471,21 @@ function addRow() {
 		 					 		<button type="submit" class="pm-rounded-btn animated pm-primary">submit</button>
 		 					  </div>
 			        	</form:form>
-			        	<table style="width:100%;margin-top:8%;margin-left:2%" id='datatable'>
+			        	<table style="width:100%;margin-top:8%;margin-left:2%">
 					   		    <tr>
 						   		    <td><b>Item</b></td>
 						   		    <td><b>Qty</b></td>
 						   		    <td><b>Amount</b></td>
 						   		    <td><b>Discount</b></td>
 					   		    </tr>
+					   	</table>
+					   	<table style="width:100%;margin-top:8%;margin-left:2%" id='datatable'>
 					   		    <tr></tr>
 					   		    <tr>
-						   		    <td>Demo</td>
-						   		    <td>Demo</td>
-						   		    <td>Demo</td>
-						   		    <td>Demo</td>
+						   		    <td id='itemf'>Demo</td>
+						   		    <td id='qtyf'>Demo</td>
+						   		    <td id='amountf'>Demo</td>
+						   		    <td id='discountf'>Demo</td>
 					   		    </tr>
 				   		</table>
 				   		<form>
