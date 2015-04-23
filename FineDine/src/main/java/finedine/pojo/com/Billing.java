@@ -1,10 +1,11 @@
 package main.java.finedine.pojo.com;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class Billing implements Serializable{
+public class Billing implements Serializable {
 	/**
 	 * 
 	 */
@@ -13,16 +14,31 @@ public class Billing implements Serializable{
 	private String item;
 	@NotEmpty
 	private String qty;
+	@NotEmpty
+	private List<String> list;
+
 	public String getItem() {
 		return item;
 	}
+
 	public void setItem(String item) {
 		this.item = item;
 	}
+
 	public String getQty() {
 		return qty;
 	}
+
 	public void setQty(String qty) {
 		this.qty = qty;
 	}
+
+	public List<String> getList() {
+		return list;
+	}
+
+	public void setList(List<String> list) {
+		this.list = list;
+	}
+
 }

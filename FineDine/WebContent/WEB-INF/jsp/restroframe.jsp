@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 
 <html lang="en" class=" js csstransforms csstransforms3d csstransitions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -80,6 +81,37 @@
 	visibility: hidden;
 	overflow: scroll;
 }</style>
+<script type="text/javascript">
+var array = new Array();
+function addToList(){
+	var qty = document.getElementById('qty');
+	var item = document.getElementById('item');
+	array.push(qty.value);
+	document.getElementById('list').value=array;
+	addRow();
+}
+
+function addRow() {
+	var table = document.getElementById('datatable');
+	alert(table);
+	var rowCount = table.rows.length;
+	var row = table.insertRow(rowCount);
+	var colCount = table.rows[0].cells.length;
+	for (var i = 0; i < colCount; i++) {
+		var newcell.childNodes[0].value = "";
+		break; = row.insertCell(i);
+		newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+		switch (newcell.childNodes[0].type) {
+		case "1":
+			newcell.childNodes[0].value = document.getElementById('item');
+			break;
+		case "2":
+			newcell.childNodes[0].value = "";
+			break;
+		}
+	}
+}
+</script>
   </head>
 
   <body>
@@ -411,7 +443,7 @@
 			        	</form>
 			        </div>
 			        <div id="deviceId2">
-				    	<form name="form_device_1" method="post" action="">
+				    	<form:form method="POST" action="billingform.im" modelAttribute="billingform" id="billingform">
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Billing</span> -->
 				   		    <div id="row" >
 				      			<div id="col">
@@ -420,7 +452,7 @@
 				                    </div>
 				              	</div>
 				            	<div id="col">
-				                	<input name="pincode" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
+				                	<form:input path="item" type="text" id="item" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -430,14 +462,16 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="name" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="qty" type="text" id="qty" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
 				                </div>
 				            </div>
+				            		<form:input path="list" type="hidden" id="list"/>
 				             <div id="row">
-									<button type="button" class="pm-rounded-btn animated pm-primary">Add</button>		                        
+									<button type="button" class="pm-rounded-btn animated pm-primary" onclick="addToList()">Add</button>		                        
+		 					 		<button type="submit" class="pm-rounded-btn animated pm-primary">submit</button>
 		 					  </div>
-			        	</form>
-			        	<table style="width:100%;margin-top:8%;margin-left:2%">
+			        	</form:form>
+			        	<table style="width:100%;margin-top:8%;margin-left:2%" id='datatable'>
 					   		    <tr>
 						   		    <td><b>Item</b></td>
 						   		    <td><b>Qty</b></td>
