@@ -86,34 +86,66 @@ var array = new Array();
 function addToList(){
 	var qty = document.getElementById('qty');
 	var item = document.getElementById('item');
-	array.push(qty.value);
-	document.getElementById('list').value=array;
+	array.push(document.getElementById('qty').value);
 	addRow();
 }
 function addRow() {
-	var table = document.getElementById('datatable');
-	var rowCount = table.rows.length;
-	var row = table.insertRow(rowCount);
-	document.getElementById('itemf').value = "1";
-	document.getElementById('qtyf').value = "2";
-	document.getElementById('amountf').value = "2";
-	var colCount = table.rows[0].cells.length;
-	for (var i = 0; i < colCount; i++) {
-		var newcell = row.insertCell(i);
-		newcell.innerHTML = table.rows[0].cells[i].innerHTML;
-		switch (newcell.childNodes[0].type) {
-		case "itemf":
-			newcell.childNodes[0].value = "21";
-			break;
-		case "qtyf":
-			newcell.childNodes[0].value = "23";
-			break;
-		case "amountf":
-			newcell.childNodes[0].value = "44";
-			break;
-		}
+		var tabNode = document.getElementById("datatable");
+		var tBody = tabNode.getElementsByTagName("tbody")[0];
+		var rows = tBody.getElementsByTagName("tr");  	
+		var rowIndex = rows.length;
+		var trNode = tabNode.insertRow(rowIndex);	
+		trNode.id = "rowID_"+rowIndex;
+
+		tdNode = trNode.insertCell(0);
+		tdNode.width = '10%';		
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = document.getElementById('item').value;	
+		
+		tdNode = trNode.insertCell(1);		
+		tdNode.width = '10%';	
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = document.getElementById('qty').value	
+		
+		tdNode = trNode.insertCell(2);		
+		tdNode.width = '10%';	
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = document.getElementById('qty').value	
+		
+		tdNode = trNode.insertCell(3);		
+		tdNode.width = '10%';		
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = document.getElementById('qty').value	
+
+		tdNode = trNode.insertCell(4);		
+		tdNode.width = '10%';		
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = "<img src=\"images/red.gif\" align=\"absmiddle\" border=\"0\" width=\"15\" height=\"15\" onclick=\"javascript:removeRow("+rowIndex+")\"/>";			
+		document.getElementById('list').value=array;
+		document.getElementById('item').value="";
+		document.getElementById('qty').value="";
+	
+}
+
+function removeRow(rowIndex) {		
+	var table = document.getElementById("datatable");
+	var tBody = table.getElementsByTagName("tbody")[0];
+	var rows = tBody.getElementsByTagName("tr");  
+	var row = rows[rowIndex];			
+	if(rows.length > 1) {
+		tBody.removeChild(row);
+		renameRows(tBody);
+		array.splice(start, deletecount, items);
+	} else {
+		alert ("You cannot delete the last remaining row");
 	}
 }
+
 </script>
   </head>
 
@@ -455,7 +487,7 @@ function addRow() {
 				                    </div>
 				              	</div>
 				            	<div id="col">
-				                	<form:input path="item" type="text" id="item" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
+				                	<input name="item" type="text" id="item" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -465,47 +497,38 @@ function addRow() {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="qty" type="text" id="qty" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<input name="qty" type="text" id="qty" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
 				                </div>
 				            </div>
-				            		<form:input path="list" type="hidden" id="list"/>
 				             <div id="row">
 									<button type="button" class="pm-rounded-btn animated pm-primary" onclick="addToList()">Add</button>		                        
-		 					 		<button type="submit" class="pm-rounded-btn animated pm-primary">submit</button>
+		 					 		<!-- <button type="submit" class="pm-rounded-btn animated pm-primary">submit</button> -->
 		 					  </div>
-			        	</form:form>
-			        	<table style="width:100%;margin-top:8%;margin-left:2%">
+			        	<%-- </form:form> --%>
+			        	<table style="width:100%;margin-top:8%;margin-left:2%" id='datatable'>
 					   		    <tr>
-						   		    <td><b>Item</b></td>
-						   		    <td><b>Qty</b></td>
-						   		    <td><b>Amount</b></td>
-						   		    <td><b>Discount</b></td>
+						   		    <td style="width: 10%"><b>Item</b></td>
+						   		    <td style="width: 10%"><b>Qty</b></td>
+						   		    <td style="width: 10%"><b>Amount</b></td>
+						   		    <td style="width: 10%"><b>Discount</b></td>
 					   		    </tr>
 					   	</table>
-					   	<table style="width:100%;margin-top:8%;margin-left:2%" id='datatable'>
-					   		    <tr></tr>
-					   		    <tr>
-						   		    <td><input type="text" id="itemf"></td>
-						   		    <td>Demo</td>
-						   		    <td>Demo</td>
-						   		    <td>Demo</td>
-					   		    </tr>
-				   		</table>
-				   		<form>
+				   		<%-- <form:form method="POST" action="checkoutform.im" modelAttribute="checkoutform" id="checkoutform"> --%>
 				   			<div id="row"  >
 				      			<div id="col">
 				                	<div id="text_setting">
 				         			Email-ID
 				                    </div>
 				                </div>
+				                <form:input path="list" type="hidden" id="list"/>
 				                <div id="col">
-				                	<input name="name" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="emailid" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
 				                </div>
 				            </div>
 				             <div id="row">
-									<button type="button" class="pm-rounded-btn animated pm-primary">Check out</button>		                        
+									<button type="submit" class="pm-rounded-btn animated pm-primary">Check out</button>		                        
 		 					  </div>
-				   		</form>
+				   		</form:form>
 			        </div>
 			        <div id="deviceId3">
 				    	<form name="form_device_1" method="post" action="">
@@ -538,7 +561,7 @@ function addRow() {
 			    <div id="lmenu">
 					<div id="storage" style="display:none;"></div>
 						<ul id="menu">
-							<li><a href="javascript:Show_faded_box('order_device');">Payments Analysis</a></li>
+							<!-- <li><a href="javascript:Show_faded_box('order_device');">Payments Analysis</a></li> -->
 							<li><a href="javascript:Show_faded_box('add_device');">Reservation</a></li>
 							<li><a href="javascript:Show_faded_box('share_ownership');">Billing</a></li>
 			        		<li><a href="javascript:Show_faded_box('history_device');">Customer</a></li>

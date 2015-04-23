@@ -6,31 +6,19 @@ import java.util.List;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Billing implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -7988394113856044045L;
 	@NotEmpty
-	private String item;
-	@NotEmpty
-	private String qty;
+	private String emailid;
 	@NotEmpty
 	private List<String> list;
 
-	public String getItem() {
-		return item;
+	public String getEmailid() {
+		return emailid;
 	}
 
-	public void setItem(String item) {
-		this.item = item;
-	}
-
-	public String getQty() {
-		return qty;
-	}
-
-	public void setQty(String qty) {
-		this.qty = qty;
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
 	}
 
 	public List<String> getList() {
