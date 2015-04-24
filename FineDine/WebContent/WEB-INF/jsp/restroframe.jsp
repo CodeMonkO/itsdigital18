@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 
@@ -101,13 +102,13 @@ function addRow() {
 		tdNode.width = '10%';		
 		tdNode.className = "script_data";
 		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('item').value;	
+		tdNode.innerHTML = rowIndex;	
 		
-		tdNode = trNode.insertCell(1);		
-		tdNode.width = '10%';	
+		tdNode = trNode.insertCell(1);
+		tdNode.width = '10%';		
 		tdNode.className = "script_data";
 		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('qty').value	
+		tdNode.innerHTML = document.getElementById('item').value;	
 		
 		tdNode = trNode.insertCell(2);		
 		tdNode.width = '10%';	
@@ -116,16 +117,22 @@ function addRow() {
 		tdNode.innerHTML = document.getElementById('qty').value	
 		
 		tdNode = trNode.insertCell(3);		
+		tdNode.width = '10%';	
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = document.getElementById('qty').value	
+		
+		tdNode = trNode.insertCell(4);		
 		tdNode.width = '10%';		
 		tdNode.className = "script_data";
 		tdNode.style.color = "0033FF";
 		tdNode.innerHTML = document.getElementById('qty').value	
 
-		tdNode = trNode.insertCell(4);		
+		tdNode = trNode.insertCell(5);		
 		tdNode.width = '10%';		
 		tdNode.className = "script_data";
 		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = "<img src=\"images/red.gif\" align=\"absmiddle\" border=\"0\" width=\"15\" height=\"15\" onclick=\"javascript:removeRow("+rowIndex+")\"/>";			
+		tdNode.innerHTML = "<img src=\"./images/red.gif\" align=\"absmiddle\" border=\"0\" width=\"15\" height=\"15\" onclick=\"javascript:removeRow("+rowIndex+")\"/>";			
 		document.getElementById('list').value=array;
 		document.getElementById('item').value="";
 		document.getElementById('qty').value="";
@@ -133,14 +140,17 @@ function addRow() {
 }
 
 function removeRow(rowIndex) {		
+	array.splice(rowIndex-1,1);
+	alert(array);
+	document.getElementById('list').value=array;
 	var table = document.getElementById("datatable");
 	var tBody = table.getElementsByTagName("tbody")[0];
 	var rows = tBody.getElementsByTagName("tr");  
-	var row = rows[rowIndex];			
+	var row = rows[rowIndex];
+	alert(rowIndex-1);
 	if(rows.length > 1) {
 		tBody.removeChild(row);
 		renameRows(tBody);
-		array.splice(start, deletecount, items);
 	} else {
 		alert ("You cannot delete the last remaining row");
 	}
@@ -479,6 +489,12 @@ function removeRow(rowIndex) {
 			        </div>
 			        <div id="deviceId2">
 				    	<form:form method="POST" action="billingform.im" modelAttribute="billingform" id="billingform">
+					    	<c:set var="emailError">
+								<form:errors  path="emailid" />
+							</c:set>
+							<c:set var="listError">
+								<form:errors  path="list" />
+							</c:set>
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Billing</span> -->
 				   		    <div id="row" >
 				      			<div id="col">
@@ -507,6 +523,7 @@ function removeRow(rowIndex) {
 			        	<%-- </form:form> --%>
 			        	<table style="width:100%;margin-top:8%;margin-left:2%" id='datatable'>
 					   		    <tr>
+						   		    <td style="width: 10%"><b>Sr No</b></td>
 						   		    <td style="width: 10%"><b>Item</b></td>
 						   		    <td style="width: 10%"><b>Qty</b></td>
 						   		    <td style="width: 10%"><b>Amount</b></td>
@@ -522,6 +539,8 @@ function removeRow(rowIndex) {
 				                </div>
 				                <form:input path="list" type="hidden" id="list"/>
 				                <div id="col">
+				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${listError}</span>
+				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
 				                	<form:input path="emailid" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
 				                </div>
 				            </div>

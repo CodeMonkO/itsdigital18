@@ -54,21 +54,22 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/signinform", method = RequestMethod.POST)
-	public String signInForm(
+	public ModelAndView signInForm(
 			@ModelAttribute("signinform") @Valid SignIn signinform,
 			BindingResult result) {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
+			return new ModelAndView("signin", "signinform", signinform);
 		} else {
+			Billing billing = new Billing();
 			System.out.println(signinform.getEmail());
+			return new ModelAndView("restroframe", "billingform", billing);
 		}
-		String message = "Sucess";
-		return "forward:restroframe.im";
+		
 	}
 
 	@RequestMapping("/restroframe")
 	public ModelAndView restroFrame(Model model) {
-		String message = "JIT";
 		Billing billing = new Billing();
 		model.addAttribute("billingform", billing);
 		return new ModelAndView("restroframe");
@@ -81,10 +82,9 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
-			System.out.println(billingform.getList().get(0));
+			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
-		String message = "Sucess";
 		return new ModelAndView("restroframe");
 	}
 

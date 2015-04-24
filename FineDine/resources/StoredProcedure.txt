@@ -1,0 +1,21 @@
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `testing`.`Adder` $$
+CREATE PROCEDURE `testing`.`Adder` (IN empid INT)
+
+BEGIN
+
+DECLARE Sal INT DEFAULT 0;
+select Salary INTO Sal from Emp where SrNo = empid LOCK IN SHARE MODE;
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+START TRANSACTION;
+update Emp SET Salary = Sal+10 where SrNo = empid;
+COMMIT;
+END $$
+
+DELIMITER ;
+
+
+CALL Adder(1);
+
+select * from Emp;

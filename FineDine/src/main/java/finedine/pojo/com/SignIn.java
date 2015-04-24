@@ -13,10 +13,12 @@ public class SignIn implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -6033985014383858939L;
-	
-	@Email(message="Improper Email") @NotEmpty
+
+	@Email(message = "Email Not Valid")
+	@NotEmpty(message = "Email cannot be empty")
 	private String email;
-	@NotEmpty @NotNull @Min(6) 
+	@NotEmpty(message = "Password cannot be empty")
+	@NotNull(message = "Password cannot be null")
 	private String password;
 
 	public String getEmail() {

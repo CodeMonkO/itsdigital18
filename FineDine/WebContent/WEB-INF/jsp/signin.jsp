@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
 <html lang="en" class=" js csstransforms csstransforms3d csstransitions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -286,6 +287,12 @@
                     <div id="popupbox">
 				    	<div id="deviceId">
 				    	<form:form method="POST" action="signinform.im" modelAttribute="signinform">
+					    	<c:set var="emailError">
+										<form:errors  path="email" />
+							</c:set>
+							<c:set var="passwordError">
+										<form:errors  path="password" />
+							</c:set>
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Order Device Form:</span> -->
 				   		    <div id="row" >
 				      			<div id="col">
@@ -294,6 +301,7 @@
 				                    </div>
 				              	</div>
 				            	<div id="col">
+				            		<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
 				                	<form:input path="email" type="text" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
 				                </div>
 				   		 	</div>
@@ -304,6 +312,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
+				                <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${passwordError}</span>
 				                	<form:input path="password" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
 				                </div>
 				             </div>	
