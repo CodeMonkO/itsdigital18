@@ -407,7 +407,7 @@ function removeRow(rowIndex) {
 			        </div>
 			        
 			        <div id="deviceId1">
-				    	<form name="form_device_1" method="post" action="">
+				    	<form:form method="POST" action="bookingform.im" modelAttribute="bookingform" id="bookingform">
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Reservation</span> -->
 				   		    <div id="row" >
 				      			<div id="col">
@@ -446,7 +446,7 @@ function removeRow(rowIndex) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="address" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                	<form:input path="booking" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -456,7 +456,7 @@ function removeRow(rowIndex) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="address" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                	<form:input path="emailid" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -466,7 +466,7 @@ function removeRow(rowIndex) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="address" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                	<form:input path="contactno" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -476,16 +476,13 @@ function removeRow(rowIndex) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="address" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                	<form:input path="event" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
 				                </div>
 				             </div>
 						        <div id="row">
-						        
-		                        	<!--<button type="button" class="navbar-toggle pm-main-menu-btn" id="pm-main-menu-btn" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>-->
-		                            <button type="button" class="pm-rounded-btn animated pm-primary">Book</button>
-		                        
+		                            <button type="submit" class="pm-rounded-btn animated pm-primary">Book</button>
 		 						</div>
-			        	</form>
+			        	</form:form>
 			        </div>
 			        <div id="deviceId2">
 				    	<form:form method="POST" action="billingform.im" modelAttribute="billingform" id="billingform">

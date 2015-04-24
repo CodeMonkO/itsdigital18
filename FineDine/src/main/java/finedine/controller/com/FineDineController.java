@@ -1,11 +1,17 @@
 package main.java.finedine.controller.com;
 
+import java.util.Calendar;
+
 import javax.validation.Valid;
 
+import main.java.finedine.entitypojo.com.UsersEntity;
 import main.java.finedine.pojo.com.Billing;
+import main.java.finedine.pojo.com.Booking;
 import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
+import main.java.finedine.services.com.IM2_Dbservice;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/")
 public class FineDineController {
+	@Autowired
+	IM2_Dbservice consumer;
+	
 	@RequestMapping("/home")
 	public ModelAndView home() {
 		String message = "JIT";
@@ -58,25 +67,30 @@ public class FineDineController {
 			@ModelAttribute("signinform") @Valid SignIn signinform,
 			BindingResult result) {
 		if (result.hasErrors()) {
-			System.out.println(result.getFieldError());
 			return new ModelAndView("signin", "signinform", signinform);
 		} else {
 			Billing billing = new Billing();
-			System.out.println(signinform.getEmail());
-			return new ModelAndView("restroframe", "billingform", billing);
+			Booking booking = new Booking();
+			ModelAndView model = new ModelAndView();
+			model.addObject("bookingform", booking);
+			model.addObject("billingform", billing);
+			model.setViewName("restroframe");
+			return model;
 		}
-		
+
 	}
 
 	@RequestMapping("/restroframe")
 	public ModelAndView restroFrame(Model model) {
 		Billing billing = new Billing();
+		Booking booking = new Booking();
+		model.addAttribute("bookingform", booking);
 		model.addAttribute("billingform", billing);
 		return new ModelAndView("restroframe");
 	}
 
 	@RequestMapping(value = "/billingform", method = RequestMethod.POST)
-	public ModelAndView billingForm(
+	public String billingForm(
 			@ModelAttribute("billingform") @Valid Billing billingform,
 			BindingResult result) {
 		if (result.hasErrors()) {
@@ -85,7 +99,40 @@ public class FineDineController {
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
-		return new ModelAndView("restroframe");
+		//return new ModelAndView("restroframe");
+		 return "redirect:restroframe.im";
 	}
 
+	@RequestMapping(value = "/bookingform", method = RequestMethod.POST)
+	public String bookingform(
+			@ModelAttribute("bookingform") @Valid Booking bookingform,
+			BindingResult result) {
+		if (result.hasErrors()) {
+			System.out.println(result.getFieldError());
+		} else {
+			UsersEntity usersEntity = new UsersEntity();
+			usersEntity.setBdtime(new java.sql.Timestamp(Calendar.getInstance()
+					.getTime().getTime()).toString());
+			usersEntity.setBillamt("0");
+			usersEntity.setBillpayed("N");
+			usersEntity.setRcount("0");
+			usersEntity.setTablenum("N");
+			usersEntity.setTimezone("IST");
+			usersEntity.setVdtime(new java.sql.Timestamp(Calendar.getInstance()
+					.getTime().getTime()).toString());
+			usersEntity.setVisited("Y");
+			usersEntity.setEmailid(bookingform.getEmailid());
+			usersEntity.setContactnum(bookingform.getContactno());
+			usersEntity.setOccasion(bookingform.getEvent());
+			usersEntity.setSeatsbooked(bookingform.getBooking());
+			usersEntity.setUuid("uuid");
+			try {
+				consumer.usersTable(usersEntity);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		 return "redirect:restroframe.im";
+	}
 }

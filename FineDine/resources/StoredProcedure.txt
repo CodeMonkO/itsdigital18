@@ -19,3 +19,32 @@ DELIMITER ;
 CALL Adder(1);
 
 select * from Emp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `finedinedb`.`restaurantProc` $$
+CREATE PROCEDURE `finedinedb`.`restaurantProc`(IN uuidParam VARCHAR(21), IN requestedSeats INTEGER) 
+
+    BEGIN
+	DECLARE Seats INTEGER DEFAULT 0;
+	SELECT CAST(bookedseat AS UNSIGNED) INTO Seats FROM restaurantlive WHERE UUID = uuidParam LOCK IN SHARE MODE;
+	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+	START TRANSACTION;
+	UPDATE restaurantlive SET bookedseat = Seats + requestedSeats WHERE UUID = uuidParam;
+	COMMIT;
+    END$$
+
+DELIMITER ;
+
