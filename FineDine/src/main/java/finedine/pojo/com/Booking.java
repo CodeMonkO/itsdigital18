@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class Booking {
 	@NotEmpty(message = "Enter seats to be booked")
+	private String name;
+	@NotEmpty(message = "Enter seats to be booked")
 	private String booking;
 	@NotEmpty(message = "Field cannot be left blank")
 	@Email(message = "Enter valid email ID")
@@ -44,5 +46,13 @@ public class Booking {
 
 	public void setEvent(String event) {
 		this.event = event;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

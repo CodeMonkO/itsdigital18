@@ -1,49 +1,21 @@
 DELIMITER $$
-
-DROP PROCEDURE IF EXISTS `testing`.`Adder` $$
-CREATE PROCEDURE `testing`.`Adder` (IN empid INT)
-
-BEGIN
-
-DECLARE Sal INT DEFAULT 0;
-select Salary INTO Sal from Emp where SrNo = empid LOCK IN SHARE MODE;
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-START TRANSACTION;
-update Emp SET Salary = Sal+10 where SrNo = empid;
-COMMIT;
-END $$
-
-DELIMITER ;
-
-
-CALL Adder(1);
-
-select * from Emp;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-DELIMITER $$
 DROP PROCEDURE IF EXISTS `finedinedb`.`restaurantProc` $$
 CREATE PROCEDURE `finedinedb`.`restaurantProc`(IN uuidParam VARCHAR(21), IN requestedSeats INTEGER) 
 
     BEGIN
-	DECLARE Seats INTEGER DEFAULT 0;
-	SELECT CAST(bookedseat AS UNSIGNED) INTO Seats FROM restaurantlive WHERE UUID = uuidParam LOCK IN SHARE MODE;
-	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-	START TRANSACTION;
-	UPDATE restaurantlive SET bookedseat = Seats + requestedSeats WHERE UUID = uuidParam;
-	COMMIT;
+	DECLARE BookedSeats, MaxSeats, UpdatedSeats INTEGER DEFAULT 0;
+	SELECT CAST(bookedseat AS UNSIGNED),CAST(maxseat AS UNSIGNED) INTO BookedSeats, MaxSeats FROM restaurantlive WHERE UUID = uuidParam LOCK IN SHARE MODE;
+	SET UpdatedSeats = BookedSeats + requestedSeats;
+	IF requestedSeats <= (MaxSeats - BookedSeats) THEN
+		START TRANSACTION;
+		UPDATE restaurantlive SET bookedseat = UpdatedSeats, statusFlag = '1' WHERE UUID = uuidParam;
+		COMMIT;
+	END IF;
+	IF MaxSeats = UpdatedSeats THEN
+		START TRANSACTION;
+		UPDATE restaurantlive SET statusFlag = '0' WHERE UUID = uuidParam;
+		COMMIT;
+	END IF;
     END$$
 
 DELIMITER ;

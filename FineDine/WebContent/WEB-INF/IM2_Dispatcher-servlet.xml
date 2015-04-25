@@ -22,6 +22,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<bean id="consumer"
 		class="main.java.finedine.services.com.IM2_DbserviceImplemented" />
 	<bean id="im2DAO" class="main.java.finedine.dao.com.IM2_DaoImplemented" />
+	<bean id="restaurantLiveEntity" class="main.java.finedine.entitypojo.com.RestaurantLiveEntity" scope="session"/>
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:messages" />
@@ -43,8 +44,6 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 		<property name="configLocation">
 			<value>classpath:hibernate.cfg.xml</value>
 		</property>
-		<!-- <property name="configurationClass"> <value>org.hibernate.cfg.AnnotationConfiguration</value> 
-			</property> -->
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${jdbc.dialect}</prop>

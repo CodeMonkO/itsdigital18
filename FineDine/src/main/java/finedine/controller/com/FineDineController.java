@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import javax.validation.Valid;
 
+import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
 import main.java.finedine.pojo.com.Billing;
 import main.java.finedine.pojo.com.Booking;
@@ -14,6 +15,7 @@ import main.java.finedine.services.com.IM2_Dbservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class FineDineController {
 	@Autowired
 	IM2_Dbservice consumer;
-	
+
 	@RequestMapping("/home")
 	public ModelAndView home() {
 		String message = "JIT";
@@ -99,18 +101,19 @@ public class FineDineController {
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
-		//return new ModelAndView("restroframe");
-		 return "redirect:restroframe.im";
+		// return new ModelAndView("restroframe");
+		return "redirect:restroframe.im";
 	}
 
 	@RequestMapping(value = "/bookingform", method = RequestMethod.POST)
 	public String bookingform(
 			@ModelAttribute("bookingform") @Valid Booking bookingform,
-			BindingResult result) {
+			BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
 			UsersEntity usersEntity = new UsersEntity();
+			usersEntity.setName(bookingform.getName());
 			usersEntity.setBdtime(new java.sql.Timestamp(Calendar.getInstance()
 					.getTime().getTime()).toString());
 			usersEntity.setBillamt("0");
@@ -127,12 +130,23 @@ public class FineDineController {
 			usersEntity.setSeatsbooked(bookingform.getBooking());
 			usersEntity.setUuid("uuid");
 			try {
-				consumer.usersTable(usersEntity);
+				RestaurantLiveEntity restaurantLiveEntity = consumer
+						.usersTable(usersEntity);
+				System.out.println("hello :"
+						+ restaurantLiveEntity.getBookedseat());
+				int vacantSeats = Integer.parseInt(restaurantLiveEntity
+						.getMaxseat())
+						- Integer
+								.parseInt(restaurantLiveEntity.getBookedseat());
+				model.addAttribute("bookedseats",
+						restaurantLiveEntity.getBookedseat());
+				model.addAttribute("maxseats",
+						restaurantLiveEntity.getMaxseat());
+				model.addAttribute("vacantseats", vacantSeats);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		 return "redirect:restroframe.im";
+		return "forward:restroframe.im";
 	}
 }

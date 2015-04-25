@@ -416,7 +416,7 @@ function removeRow(rowIndex) {
 				                    </div>
 				              	</div>
 				            	<div id="col">
-				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">200</span>
+				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${maxseats}</span>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -426,7 +426,7 @@ function removeRow(rowIndex) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">100</span>
+				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${bookedseats}</span>
 				                </div>
 				             </div>
 				    		 <div id="row"  >
@@ -436,7 +436,7 @@ function removeRow(rowIndex) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">100</span>
+				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${vacantseats}</span>
 				                </div>
 				             </div>
 				      		<div id="row" >
@@ -447,6 +447,16 @@ function removeRow(rowIndex) {
 				                </div>
 				                <div id="col">
 				                	<form:input path="booking" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                </div>
+				             </div>
+				             <div id="row" >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Name
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<form:input path="name" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
 				                </div>
 				             </div>
 				             <div id="row" >

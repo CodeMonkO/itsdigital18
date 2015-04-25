@@ -20,6 +20,8 @@ public class UsersEntity implements Serializable{
     @Column(name="id")
     @GeneratedValue
 	private Integer id;
+	@Column(name = "name")
+	private String name;
 	@Column(name = "emailid")
 	private String emailid;
 	@Column(name = "contactnum")
@@ -109,6 +111,14 @@ public class UsersEntity implements Serializable{
 
 	public void setVisited(String visited) {
 		this.visited = visited;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getTablenum() {
