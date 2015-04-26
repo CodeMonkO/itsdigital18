@@ -8,12 +8,12 @@ CREATE PROCEDURE `finedinedb`.`restaurantProc`(IN uuidParam VARCHAR(21), IN requ
 	SET UpdatedSeats = BookedSeats + requestedSeats;
 	IF requestedSeats <= (MaxSeats - BookedSeats) THEN
 		START TRANSACTION;
-		UPDATE restaurantlive SET bookedseat = UpdatedSeats, statusFlag = '1' WHERE UUID = uuidParam;
+		UPDATE restaurantlive SET bookedseat = UpdatedSeats, statusflag = '1' WHERE UUID = uuidParam;
 		COMMIT;
 	END IF;
 	IF MaxSeats = UpdatedSeats THEN
 		START TRANSACTION;
-		UPDATE restaurantlive SET statusFlag = '0' WHERE UUID = uuidParam;
+		UPDATE restaurantlive SET statusflag = '0' WHERE UUID = uuidParam;
 		COMMIT;
 	END IF;
     END$$

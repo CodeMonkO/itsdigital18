@@ -438,6 +438,9 @@ function removeRow(rowIndex) {
 				                <div id="col">
 				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${vacantseats}</span>
 				                </div>
+				                <div id="col">
+				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${housefull}</span>
+				                </div>
 				             </div>
 				      		<div id="row" >
 				      			<div id="col">

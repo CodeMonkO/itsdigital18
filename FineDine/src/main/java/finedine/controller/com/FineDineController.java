@@ -2,6 +2,8 @@ package main.java.finedine.controller.com;
 
 import java.util.Calendar;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.validation.Valid;
 
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
@@ -11,6 +13,7 @@ import main.java.finedine.pojo.com.Booking;
 import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
 import main.java.finedine.services.com.IM2_Dbservice;
+import main.java.finedine.util.com.Mailer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -94,13 +97,14 @@ public class FineDineController {
 	@RequestMapping(value = "/billingform", method = RequestMethod.POST)
 	public String billingForm(
 			@ModelAttribute("billingform") @Valid Billing billingform,
-			BindingResult result) {
+			BindingResult result) throws AddressException, MessagingException {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
+		Mailer.mailer(billingform.getEmailid());
 		// return new ModelAndView("restroframe");
 		return "redirect:restroframe.im";
 	}
@@ -132,17 +136,39 @@ public class FineDineController {
 			try {
 				RestaurantLiveEntity restaurantLiveEntity = consumer
 						.usersTable(usersEntity);
-				System.out.println("hello :"
-						+ restaurantLiveEntity.getBookedseat());
 				int vacantSeats = Integer.parseInt(restaurantLiveEntity
 						.getMaxseat())
 						- Integer
 								.parseInt(restaurantLiveEntity.getBookedseat());
-				model.addAttribute("bookedseats",
-						restaurantLiveEntity.getBookedseat());
-				model.addAttribute("maxseats",
-						restaurantLiveEntity.getMaxseat());
-				model.addAttribute("vacantseats", vacantSeats);
+				int bookedseats = Integer.parseInt(restaurantLiveEntity
+						.getBookedseat());
+				int maxseats = Integer.parseInt(restaurantLiveEntity
+						.getMaxseat());
+				if (Integer.parseInt(bookingform.getBooking()) <= (maxseats - bookedseats)) {
+					System.out.println("hello :"
+							+ restaurantLiveEntity.getBookedseat());
+					model.addAttribute(
+							"bookedseats",
+							bookedseats
+									+ Integer.parseInt(bookingform.getBooking()));
+					model.addAttribute("maxseats", maxseats);
+					model.addAttribute(
+							"vacantseats",
+							vacantSeats
+									- Integer.parseInt(bookingform.getBooking()));
+				} else {
+
+					System.out.println("hello :"
+							+ restaurantLiveEntity.getBookedseat());
+					model.addAttribute("bookedseats", bookedseats);
+					model.addAttribute("maxseats", maxseats);
+					model.addAttribute("vacantseats", vacantSeats);
+				}
+				
+				if(maxseats == bookedseats){
+					model.addAttribute("housefull", "All seats booked");
+				}
+				Mailer.mailer(bookingform.getEmailid());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
