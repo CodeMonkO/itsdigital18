@@ -3,6 +3,7 @@ package main.java.finedine.dao.com;
 import java.util.List;
 
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
+import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
 
 import org.hibernate.HibernateException;
@@ -46,5 +47,21 @@ public class IM2_DaoImplemented implements IM2_Dao {
 			System.out.println("ALL FULL");
 		}
 		return restaurantLiveEntity;
+	}
+
+	@Override
+	public List<Object> customerTable(String uuid) {
+		String selectSqlQuery = "from UsersEntity usersEntity  where usersEntity.uuid = :uuid ";
+		Query query = sessionFactory.getCurrentSession().createQuery(
+				selectSqlQuery);
+		query.setParameter("uuid", uuid);
+		List<Object> list = query.list();
+		return list;
+	}
+
+	@Override
+	public boolean signupTable(RestaurantSignUpFormEntity record) {
+		sessionFactory.getCurrentSession().save(record);
+		return true;
 	}
 }

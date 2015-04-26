@@ -1,12 +1,14 @@
 package main.java.finedine.controller.com;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.validation.Valid;
 
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
+import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
 import main.java.finedine.pojo.com.Billing;
 import main.java.finedine.pojo.com.Booking;
@@ -53,7 +55,31 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			System.out.println("Country is null");
 		} else {
+			RestaurantSignUpFormEntity restaurantSignUpFormEntity = new RestaurantSignUpFormEntity();
+			restaurantSignUpFormEntity.setAddress(signupform.getAddress());
+			restaurantSignUpFormEntity.setAltcontact(signupform.getRaltcontact());
+			restaurantSignUpFormEntity.setCity(signupform.getCity());
+			restaurantSignUpFormEntity.setCitycode("");
+			restaurantSignUpFormEntity.setCountry(signupform.getCountry());
+			restaurantSignUpFormEntity.setCountrycode("");
+			restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(Calendar.getInstance()
+					.getTime().getTime()).toString());
+			restaurantSignUpFormEntity.setMaxseat(signupform.getRmaxseats());
+			restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(Calendar.getInstance()
+					.getTime().getTime()).toString());
+			restaurantSignUpFormEntity.setRating(signupform.getRrating());
+			restaurantSignUpFormEntity.setRcontact(signupform.getRcontact());
+			restaurantSignUpFormEntity.setRmail(signupform.getRmailid());
+			restaurantSignUpFormEntity.setRname(signupform.getRname());
+			restaurantSignUpFormEntity.setRtype(signupform.getRtype());
+			restaurantSignUpFormEntity.setState(signupform.getState());
+			restaurantSignUpFormEntity.setStatecode("");
+			restaurantSignUpFormEntity.setStatus(signupform.getStatus());
+			restaurantSignUpFormEntity.setSubtype(signupform.getRsubtype());
+			restaurantSignUpFormEntity.setUuid("");
+			restaurantSignUpFormEntity.setZipcode(signupform.getZipcode());
 			System.out.println(signupform.getCountry());
+			consumer.signupTable(restaurantSignUpFormEntity);
 		}
 		String message = "Sucess";
 		return new ModelAndView("signin", "message", message);
@@ -89,8 +115,10 @@ public class FineDineController {
 	public ModelAndView restroFrame(Model model) {
 		Billing billing = new Billing();
 		Booking booking = new Booking();
+		UsersEntity usersEntity = new UsersEntity();
 		model.addAttribute("bookingform", booking);
 		model.addAttribute("billingform", billing);
+		model.addAttribute("customerform", usersEntity);
 		return new ModelAndView("restroframe");
 	}
 
@@ -164,8 +192,8 @@ public class FineDineController {
 					model.addAttribute("maxseats", maxseats);
 					model.addAttribute("vacantseats", vacantSeats);
 				}
-				
-				if(maxseats == bookedseats){
+
+				if (maxseats == bookedseats) {
 					model.addAttribute("housefull", "All seats booked");
 				}
 				Mailer.mailer(bookingform.getEmailid());
@@ -173,6 +201,14 @@ public class FineDineController {
 				e.printStackTrace();
 			}
 		}
+		return "forward:restroframe.im";
+	}
+
+	@RequestMapping(value = "/customerform", method = RequestMethod.POST)
+	public String customerForm(ModelMap modelMap) throws AddressException,
+			MessagingException {
+		List<Object> usersEntity = consumer.customerTable("uuid");
+		modelMap.addAttribute("usersEntity", usersEntity);
 		return "forward:restroframe.im";
 	}
 }
