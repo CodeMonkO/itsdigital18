@@ -578,7 +578,7 @@ function removeRow(rowIndex) {
 					   		    </tr>
 					   		    <tr></tr>
 					   		    <tr>
-						   		    <td><b>Customer ID</b></td>
+						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity}</span></td>
 						   		    <td><b>Customer Name</b></td>
 						   		    <td><b>Order ID</b></td>
 						   		    <td><b>Booking Src</b></td>

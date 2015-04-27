@@ -302,7 +302,7 @@
 				              	</div>
 				            	<div id="col">
 				            		<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
-				                	<form:input path="email" type="text" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
+				                	<form:input path="email" type="text" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="20"/>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -313,7 +313,7 @@
 				                </div>
 				                <div id="col">
 				                <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${passwordError}</span>
-				                	<form:input path="password" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="password" type="password" id="password" size="20" onkeyup="autoTab(this, document.form_device.contact)"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >

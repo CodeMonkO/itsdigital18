@@ -36,6 +36,8 @@ public class RestaurantSignUpFormEntity {
 	private String rname;
 	@Column(name = "rmail")
 	private String rmail;
+	@Column(name = "password")
+	private String password;
 	@Column(name = "rcontact")
 	private String rcontact;
 	@Column(name = "altcontact")
@@ -221,6 +223,14 @@ public class RestaurantSignUpFormEntity {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

@@ -31,6 +31,7 @@ public class SignUp implements Serializable {
 	private String cpassword;
 	@NotEmpty
 	private String rcontact;
+	@NotEmpty
 	private String raltcontact;
 	@NotEmpty
 	private String rtype;
