@@ -561,6 +561,9 @@ function removeRow(rowIndex) {
 			        </div>
 			        <div id="deviceId3">
 				    	<form:form method="POST" action="customerform.im" modelAttribute="customerform" id="customerform">
+				    		<div id="row">
+								<button type="submit">Refresh</button>		                        
+		 					</div>
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Customer</span> -->
 				   		    <div id="row" >
 				   		    <table style="width:100%">

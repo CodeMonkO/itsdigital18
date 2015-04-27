@@ -12,6 +12,8 @@ import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
 import main.java.finedine.pojo.com.Billing;
 import main.java.finedine.pojo.com.Booking;
+import main.java.finedine.pojo.com.ForgotPassword;
+import main.java.finedine.pojo.com.ResetPassword;
 import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
 import main.java.finedine.services.com.IM2_Dbservice;
@@ -35,13 +37,43 @@ public class FineDineController {
 
 	@RequestMapping("/home")
 	public ModelAndView home() {
-		String message = "JIT";
-		return new ModelAndView("home", "message", message);
+		return new ModelAndView("home");
+	}
+
+	@RequestMapping("/forgotpassword")
+	public ModelAndView forgotPassword(Model model) {
+		ForgotPassword forgotPassword = new ForgotPassword();
+		model.addAttribute("forgotpasswordform", forgotPassword);
+		return new ModelAndView("forgotpassword");
+	}
+
+	@RequestMapping(value = "/forgotpasswordform", method = RequestMethod.POST)
+	public ModelAndView forgotPasswordForm(
+			@ModelAttribute("forgotpasswordform") @Valid ForgotPassword forgotPassword,
+			BindingResult result, Model model) {
+		System.out.println(forgotPassword.getEmail());
+		ResetPassword resetPassword = new ResetPassword();
+		model.addAttribute("resetpasswordform", resetPassword);
+		return new ModelAndView("resetpassword");
+	}
+
+	@RequestMapping("/resetpassword")
+	public ModelAndView resetPassword(Model model) {
+		return new ModelAndView("resetpassword");
+	}
+
+	@RequestMapping(value = "/resetpasswordform", method = RequestMethod.POST)
+	public ModelAndView resetpasswordform(
+			@ModelAttribute("resetpasswordform") @Valid ResetPassword resetPassword,
+			BindingResult result, Model model) {
+		System.out.println(resetPassword.getVcode());
+		SignIn signIn = new SignIn();
+		model.addAttribute("signinform", signIn);
+		return new ModelAndView("signin");
 	}
 
 	@RequestMapping("/signup")
 	public ModelAndView signUp(Model model) {
-		// clear everything from fields
 		String message = "JIT";
 		SignUp signupform = new SignUp();
 		model.addAttribute("signupform", signupform);
@@ -57,16 +89,17 @@ public class FineDineController {
 		} else {
 			RestaurantSignUpFormEntity restaurantSignUpFormEntity = new RestaurantSignUpFormEntity();
 			restaurantSignUpFormEntity.setAddress(signupform.getAddress());
-			restaurantSignUpFormEntity.setAltcontact(signupform.getRaltcontact());
+			restaurantSignUpFormEntity.setAltcontact(signupform
+					.getRaltcontact());
 			restaurantSignUpFormEntity.setCity(signupform.getCity());
 			restaurantSignUpFormEntity.setCitycode("");
 			restaurantSignUpFormEntity.setCountry(signupform.getCountry());
 			restaurantSignUpFormEntity.setCountrycode("");
-			restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(Calendar.getInstance()
-					.getTime().getTime()).toString());
+			restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(Calendar
+					.getInstance().getTime().getTime()).toString());
 			restaurantSignUpFormEntity.setMaxseat(signupform.getRmaxseats());
-			restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(Calendar.getInstance()
-					.getTime().getTime()).toString());
+			restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(Calendar
+					.getInstance().getTime().getTime()).toString());
 			restaurantSignUpFormEntity.setRating(signupform.getRrating());
 			restaurantSignUpFormEntity.setRcontact(signupform.getRcontact());
 			restaurantSignUpFormEntity.setRmail(signupform.getRmailid());
@@ -87,10 +120,9 @@ public class FineDineController {
 
 	@RequestMapping("/signin")
 	public ModelAndView signIn(Model model) {
-		String message = "JIT";
 		SignIn signIn = new SignIn();
 		model.addAttribute("signinform", signIn);
-		return new ModelAndView("signin", "message", message);
+		return new ModelAndView("signin");
 	}
 
 	@RequestMapping(value = "/signinform", method = RequestMethod.POST)
@@ -100,15 +132,22 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			return new ModelAndView("signin", "signinform", signinform);
 		} else {
-			Billing billing = new Billing();
-			Booking booking = new Booking();
-			ModelAndView model = new ModelAndView();
-			model.addObject("bookingform", booking);
-			model.addObject("billingform", billing);
-			model.setViewName("restroframe");
-			return model;
+			System.out.println(signinform.getEmail() + " : "
+					+ signinform.getPassword());
+			ModelAndView model = new ModelAndView("restroframe");
+			if (consumer.signInTable(signinform)) {
+				Billing billing = new Billing();
+				Booking booking = new Booking();
+				UsersEntity usersEntity = new UsersEntity();
+				model.addObject("bookingform", booking);
+				model.addObject("billingform", billing);
+				model.addObject("customerform", usersEntity);
+				model.setViewName("restroframe");
+				return model;
+			} else {
+				return new ModelAndView("signin", "signinform", signinform);
+			}
 		}
-
 	}
 
 	@RequestMapping("/restroframe")
@@ -132,7 +171,7 @@ public class FineDineController {
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
-		Mailer.mailer(billingform.getEmailid());
+		// Mailer.mailer(billingform.getEmailid());
 		// return new ModelAndView("restroframe");
 		return "redirect:restroframe.im";
 	}
@@ -196,7 +235,7 @@ public class FineDineController {
 				if (maxseats == bookedseats) {
 					model.addAttribute("housefull", "All seats booked");
 				}
-				Mailer.mailer(bookingform.getEmailid());
+				// Mailer.mailer(bookingform.getEmailid());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -205,8 +244,8 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/customerform", method = RequestMethod.POST)
-	public String customerForm(ModelMap modelMap) throws AddressException,
-			MessagingException {
+	public String customerForm(@ModelAttribute("bookingform") ModelMap modelMap)
+			throws AddressException, MessagingException {
 		List<Object> usersEntity = consumer.customerTable("uuid");
 		modelMap.addAttribute("usersEntity", usersEntity);
 		return "forward:restroframe.im";

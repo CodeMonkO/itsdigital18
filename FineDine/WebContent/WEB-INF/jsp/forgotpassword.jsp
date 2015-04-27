@@ -286,12 +286,9 @@
                     <div id="bind">
                     <div id="popupbox">
 				    	<div id="deviceId">
-				    	<form:form method="POST" action="signinform.im" modelAttribute="signinform">
+				    	<form:form method="POST" action="forgotpasswordform.im" modelAttribute="forgotpasswordform">
 					    	<c:set var="emailError">
 										<form:errors  path="email" />
-							</c:set>
-							<c:set var="passwordError">
-										<form:errors  path="password" />
 							</c:set>
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Order Device Form:</span> -->
 				   		    <div id="row" >
@@ -305,21 +302,9 @@
 				                	<form:input path="email" type="text" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
 				                </div>
 				   		 	</div>
-				   			<div id="row"  >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Password
-				                    </div>
-				                </div>
-				                <div id="col">
-				                <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${passwordError}</span>
-				                	<form:input path="password" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
-				                </div>
-				             </div>	
 				             <div id="row"  >
 				                <button type="submit" class="pm-rounded-btn animated pm-primary">Submit</button>
-				                <a href="forgotpassword.im">Forgot Password</a>
-				             </div>	
+				             </div>							
 			        	</form:form>
 			        </div>
             </div>

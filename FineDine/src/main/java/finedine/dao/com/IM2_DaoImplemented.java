@@ -5,6 +5,7 @@ import java.util.List;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
+import main.java.finedine.pojo.com.SignIn;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -63,5 +64,21 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	public boolean signupTable(RestaurantSignUpFormEntity record) {
 		sessionFactory.getCurrentSession().save(record);
 		return true;
+	}
+
+	@Override
+	public boolean signInTable(SignIn record) {
+		String rmail = record.getEmail();
+		String password = record.getPassword();
+		String selectSqlQuery = "from RestaurantSignUpFormEntity restaurantSignUpFormEntity  where restaurantSignUpFormEntity.rmail = :rmail and restaurantSignUpFormEntity.password =:password ";
+		Query query = sessionFactory.getCurrentSession().createQuery(
+				selectSqlQuery);
+		query.setParameter("rmail", rmail);
+		query.setParameter("password", password);
+		List<Object> list = query.list();
+		if (list.size() > 0)
+			return true;
+		else
+			return false;
 	}
 }

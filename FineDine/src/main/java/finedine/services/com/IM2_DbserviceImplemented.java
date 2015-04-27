@@ -6,6 +6,7 @@ import main.java.finedine.dao.com.IM2_Dao;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
+import main.java.finedine.pojo.com.SignIn;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,10 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	@Transactional
 	public boolean signupTable(RestaurantSignUpFormEntity record) {
 		return im2DAO.signupTable(record);
+	}
+	
+	@Transactional
+	public boolean signInTable(SignIn record){
+		return im2DAO.signInTable(record);
 	}
 }
