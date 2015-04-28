@@ -81,4 +81,21 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		else
 			return false;
 	}
+
+	public boolean resetPasswordTable(String email, String password) {
+
+		String procSqlQuery = "CALL passwordProc(:password,:email)";
+		Query query = null;
+		try {
+			query = sessionFactory.getCurrentSession().createSQLQuery(
+					procSqlQuery);
+			query.setParameter("email", email);
+			query.setParameter("password", password);
+			query.executeUpdate();
+			return true;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

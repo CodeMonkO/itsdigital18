@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import main.java.finedine.pojo.com.ForgotPassword;
 import main.java.finedine.pojo.com.SignIn;
 
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -50,7 +51,15 @@ public class UserCheckInterceptor implements HandlerInterceptor {
 				return false;
 			}
 		}
+
+		if (uri.endsWith("forgotpassword.im")) {
+			ForgotPassword forgetPassword = (ForgotPassword) httpServletRequest
+					.getSession().getAttribute("VERIFICATION_CODE");
+			if (forgetPassword == null) {
+				httpResponse.sendRedirect("forgotpassword.im");
+				return false;
+			}
+		}
 		return true;
 	}
-
 }

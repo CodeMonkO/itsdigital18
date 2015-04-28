@@ -12,4 +12,5 @@ public interface IM2_Dao {
 	public List<Object> customerTable(String uuid);
 	public boolean signupTable(RestaurantSignUpFormEntity record);
 	public boolean signInTable(SignIn record);
+	public boolean resetPasswordTable(String email, String password);
 }

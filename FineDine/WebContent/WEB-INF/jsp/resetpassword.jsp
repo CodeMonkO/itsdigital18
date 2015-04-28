@@ -298,8 +298,8 @@
 				                    </div>
 				              	</div>
 				            	<div id="col">
-				            		<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
-				                	<form:input path="vcode" type="text" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
+				            		<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"></span>
+				                	<form:input path="vcode" type="text" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="20"/>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -310,7 +310,7 @@
 				                </div>
 				                <div id="col">
 				                <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${passwordError}</span>
-				                	<form:input path="password" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="password" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)"  maxlength="20"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -321,7 +321,7 @@
 				                </div>
 				                <div id="col">
 				                <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${passwordError}</span>
-				                	<form:input path="cpassword" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="cpassword" type="password" id="cpassword" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
 				                </div>
 				             </div>
 				             <div id="row"  >

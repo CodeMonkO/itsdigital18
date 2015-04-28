@@ -19,6 +19,7 @@ import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
 import main.java.finedine.services.com.IM2_Dbservice;
 import main.java.finedine.util.com.JPassGenerator;
+import main.java.finedine.util.com.Mailer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,13 +56,17 @@ public class FineDineController {
 			@ModelAttribute("forgotpasswordform") @Valid ForgotPassword forgotPassword,
 			BindingResult result, Model model) {
 		if (!result.hasErrors()) {
-			System.out.println(forgotPassword.getEmail());
-			JPassGenerator.getInstance().verificationCodeGenerator(10);
+			String vcode = JPassGenerator.getInstance()
+					.verificationCodeGenerator(10);
+			System.out.println(vcode);
+			// Mailer.mailer("");
+			session.setAttribute("VERIFICATION_CODE", vcode);
+			session.setAttribute("EMAIL", forgotPassword.getEmail());
 			ResetPassword resetPassword = new ResetPassword();
 			model.addAttribute("resetpasswordform", resetPassword);
 			return new ModelAndView("resetpassword");
 		} else {
-			return new ModelAndView("forgotpassword");
+			return new ModelAndView("forgotpassword");// 8899306363
 		}
 	}
 
@@ -75,6 +80,17 @@ public class FineDineController {
 			@ModelAttribute("resetpasswordform") @Valid ResetPassword resetPassword,
 			BindingResult result, Model model) {
 		System.out.println(resetPassword.getVcode());
+		if (null != session.getAttribute("VERIFICATION_CODE")
+				&& (Calendar.getInstance().getTimeInMillis() - session
+						.getCreationTime()) <= 300000) {
+			if (session.getAttribute("VERIFICATION_CODE").equals(
+					resetPassword.getVcode())) {
+				System.out.println("code matched" + session.getCreationTime());
+				consumer.resetPasswordTable(session.getAttribute("EMAIL")
+						.toString(), resetPassword.getPassword());
+				session.invalidate();
+			}
+		}
 		SignIn signIn = new SignIn();
 		model.addAttribute("signinform", signIn);
 		return new ModelAndView("signin");
@@ -151,9 +167,8 @@ public class FineDineController {
 			System.out.println(signinform.getEmail() + " : "
 					+ signinform.getPassword());
 			ModelAndView model = new ModelAndView("restroframe");
-			if(signinform.getEmail().equalsIgnoreCase("a@a.a"))
-			//if (consumer.signInTable(signinform))
-			{
+			// if(signinform.getEmail().equalsIgnoreCase("a@a.a"))
+			if (consumer.signInTable(signinform)) {
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();

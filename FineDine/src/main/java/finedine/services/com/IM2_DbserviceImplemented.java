@@ -37,4 +37,10 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	public boolean signInTable(SignIn record){
 		return im2DAO.signInTable(record);
 	}
+
+	@Transactional
+	public boolean resetPasswordTable(String email, String password) {
+		return im2DAO.resetPasswordTable(email, password);
+		
+	}
 }
