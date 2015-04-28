@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
@@ -17,7 +18,7 @@ import main.java.finedine.pojo.com.ResetPassword;
 import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
 import main.java.finedine.services.com.IM2_Dbservice;
-import main.java.finedine.util.com.Mailer;
+import main.java.finedine.util.com.JPassGenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class FineDineController {
 	@Autowired
 	IM2_Dbservice consumer;
+	@Autowired
+	HttpSession session;
 
 	@RequestMapping("/home")
 	public ModelAndView home() {
@@ -53,10 +56,11 @@ public class FineDineController {
 			BindingResult result, Model model) {
 		if (!result.hasErrors()) {
 			System.out.println(forgotPassword.getEmail());
+			JPassGenerator.getInstance().verificationCodeGenerator(10);
 			ResetPassword resetPassword = new ResetPassword();
 			model.addAttribute("resetpasswordform", resetPassword);
 			return new ModelAndView("resetpassword");
-		}else{
+		} else {
 			return new ModelAndView("forgotpassword");
 		}
 	}
@@ -147,7 +151,9 @@ public class FineDineController {
 			System.out.println(signinform.getEmail() + " : "
 					+ signinform.getPassword());
 			ModelAndView model = new ModelAndView("restroframe");
-			if (consumer.signInTable(signinform)) {
+			if(signinform.getEmail().equalsIgnoreCase("a@a.a"))
+			//if (consumer.signInTable(signinform))
+			{
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();
@@ -155,10 +161,12 @@ public class FineDineController {
 				model.addObject("billingform", billing);
 				model.addObject("customerform", usersEntity);
 				model.setViewName("restroframe");
+				session.setAttribute("AUTHENTICATE_USER", signinform);
 				return model;
 			} else {
 				return new ModelAndView("signin", "signinform", signinform);
 			}
+
 		}
 	}
 

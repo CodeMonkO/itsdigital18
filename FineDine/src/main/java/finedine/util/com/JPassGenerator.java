@@ -4,7 +4,20 @@ public class JPassGenerator {
 
 	private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_+-&&||!(){}[]./^\"~*?:\\abcdefghijklmnopqrstuvwxyz";
 
-	public static String randomAlphaNumeric(int count) {
+	private static JPassGenerator jPassGenerator = null;
+
+	public static JPassGenerator getInstance() {
+		synchronized (jPassGenerator) {
+			if (jPassGenerator == null) {
+				synchronized (jPassGenerator) {
+					jPassGenerator = new JPassGenerator();
+				}
+			}
+		}
+		return jPassGenerator;
+	}
+
+	public String verificationCodeGenerator(int count) {
 		StringBuilder builder = new StringBuilder();
 		while (count-- != 0) {
 			int character = (int) (Math.random() * ALPHA_NUMERIC_STRING
@@ -12,9 +25,5 @@ public class JPassGenerator {
 			builder.append(ALPHA_NUMERIC_STRING.charAt(character));
 		}
 		return builder.toString();
-	}
-
-	public static void main(String[] args) {
-		System.out.println(randomAlphaNumeric(10));
 	}
 }

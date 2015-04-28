@@ -362,7 +362,7 @@ function removeRow(rowIndex) {
                     <div id="popupbox">
 				    	<div id="deviceId">
 				    	<form name="form_device_1" method="post" action="">
-				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Order Device Form:</span> -->
+				        <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${userauthentication}</span>
 				   		    <div id="row" >
 				      			<div id="col">
 				                	<div id="text_setting">
