@@ -37,7 +37,8 @@ public class UserCheckInterceptor implements HandlerInterceptor {
 		HttpSession session = httpServletRequest.getSession();
 
 		if (session == null || session.isNew()) {
-			httpResponse.sendRedirect("signin.im");
+			if (!httpResponse.isCommitted())
+				httpResponse.sendRedirect("signin.im");
 		}
 		session.setMaxInactiveInterval(60);
 		String uri = httpServletRequest.getRequestURI();
