@@ -18,12 +18,12 @@ import javax.mail.internet.MimeMultipart;
 
 public class Mailer {
 
-	public static void mailer(String mailid) throws AddressException, MessagingException {
+	public static void mailer(String mailid, String content) throws AddressException, MessagingException {
 
 		String host = "smtp.gmail.com";// host name
-		final String from = "";// sender id
+		final String from = "itsdigital18@gmail.com";// sender id
 		String to = mailid;// reciever id
-		final String pass = "";// sender's password
+		final String pass = "87544281448939702102";// sender's password
 		String fileAttachment = "null";// file name for attachment
 		// system properties
 
@@ -44,22 +44,8 @@ public class Mailer {
 	    MimeMessage message = new MimeMessage(session);
 	    message.setFrom(new InternetAddress(from));
 	    message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
-	    message.setSubject("System Security and Spying");
-	    /*message.setContent("html format");*/
-	    // create the message part 
-	    MimeBodyPart messageBodyPart = new MimeBodyPart();
-	    //message body
-	    messageBodyPart.setText("test mail");
-	    Multipart multipart = new MimeMultipart();
-	    multipart.addBodyPart(messageBodyPart);
-	    //attachment	
-	   /* messageBodyPart = new MimeBodyPart();
-	    DataSource source = new FileDataSource(fileAttachment);
-	    messageBodyPart.setDataHandler(new DataHandler(source));
-	    messageBodyPart.setFileName(fileAttachment);
-	    multipart.addBodyPart(messageBodyPart);*/
-	    message.setContent(multipart);
-	    //send message to reciever
+	    message.setSubject("Welcome Again");
+	    message.setContent(content,"text/html");
 	    Transport transport = session.getTransport("smtp");
 	    transport.connect(host, from, pass);
 	    transport.sendMessage(message, message.getAllRecipients());

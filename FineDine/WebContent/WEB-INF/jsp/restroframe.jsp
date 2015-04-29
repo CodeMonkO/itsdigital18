@@ -87,7 +87,7 @@ var array = new Array();
 function addToList(){
 	var qty = document.getElementById('qty');
 	var item = document.getElementById('item');
-	array.push(document.getElementById('qty').value);
+	array.push(item.value+","+qty.value);
 	addRow();
 }
 function addRow() {
@@ -156,6 +156,59 @@ function removeRow(rowIndex) {
 	}
 }
 
+
+function renameRows() {  
+	var rows = document.getElementById('datatable').rows		
+	var row, tdNode, j, tdNodes;
+	var tabNode = document.getElementById('datatable');
+
+	for(var i = 0; i < rows.length; i++) {	
+		if(i == 0){
+			continue;
+		}
+		row = tabNode.getElementsByTagName('tr')[i];			
+		row.id = "rowID_"+i;
+
+		tdNode = row.getElementsByTagName("td");
+
+		tdNode = trNode.insertCell(0);
+		tdNode.width = '10%';		
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = rowIndex;	
+		
+		tdNode = trNode.insertCell(1);
+		tdNode.width = '10%';		
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = document.getElementById('item').value;	
+		
+		tdNode = trNode.insertCell(2);		
+		tdNode.width = '10%';	
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = document.getElementById('qty').value	
+		
+		tdNode = trNode.insertCell(3);		
+		tdNode.width = '10%';	
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = document.getElementById('qty').value	
+		
+		tdNode = trNode.insertCell(4);		
+		tdNode.width = '10%';		
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = document.getElementById('qty').value	
+
+		tdNode = trNode.insertCell(5);		
+		tdNode.width = '10%';		
+		tdNode.className = "script_data";
+		tdNode.style.color = "0033FF";
+		tdNode.innerHTML = "<img src=\"./images/red.gif\" align=\"absmiddle\" border=\"0\" width=\"15\" height=\"15\" onclick=\"javascript:removeRow("+rowIndex+")\"/>";			
+	
+	}
+}
 </script>
   </head>
 

@@ -21,6 +21,8 @@ import main.java.finedine.pojo.com.SignUp;
 import main.java.finedine.services.com.IM2_Dbservice;
 import main.java.finedine.util.com.AESencrp;
 import main.java.finedine.util.com.JPassGenerator;
+import main.java.finedine.util.com.Mailer;
+import main.java.finedine.util.com.MailTemplateReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +43,7 @@ public class FineDineController {
 	HttpSession session;
 	@Autowired
 	public Properties messages;
+
 	@RequestMapping("/home")
 	public ModelAndView home() {
 		return new ModelAndView("home");
@@ -187,14 +190,19 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			return new ModelAndView("signin", "signinform", signinform);
 		} else {
-			System.out.println(signinform.getEmail() + " : "
-					+ AESencrp.getInstance().getEncryptedPassword(signinform.getPassword()));
-			
+			System.out.println(signinform.getEmail()
+					+ " : "
+					+ AESencrp.getInstance().getEncryptedPassword(
+							signinform.getPassword()));
+
 			System.out.println(messages.getProperty("login"));
+			if (null != signinform.getPassword()) {
+				signinform.setPassword(AESencrp.getInstance()
+						.getEncryptedPassword(signinform.getPassword()));
+			}
 			ModelAndView model = new ModelAndView("restroframe");
-			if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
-			// if (consumer.signInTable(signinform))
-			{
+			// if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
+			if (consumer.signInTable(signinform)) {
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();
@@ -232,7 +240,8 @@ public class FineDineController {
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
-		// Mailer.mailer(billingform.getEmailid());
+		new MailTemplateReader();
+		Mailer.mailer(billingform.getEmailid(),MailTemplateReader.readfile());
 		// return new ModelAndView("restroframe");
 		return "redirect:restroframe.im";
 	}
