@@ -2,6 +2,7 @@ package main.java.finedine.controller.com;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Properties;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -18,8 +19,8 @@ import main.java.finedine.pojo.com.ResetPassword;
 import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
 import main.java.finedine.services.com.IM2_Dbservice;
+import main.java.finedine.util.com.AESencrp;
 import main.java.finedine.util.com.JPassGenerator;
-import main.java.finedine.util.com.Mailer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,8 @@ public class FineDineController {
 	IM2_Dbservice consumer;
 	@Autowired
 	HttpSession session;
-
+	@Autowired
+	public Properties messages;
 	@RequestMapping("/home")
 	public ModelAndView home() {
 		return new ModelAndView("home");
@@ -86,8 +88,13 @@ public class FineDineController {
 			if (session.getAttribute("VERIFICATION_CODE").equals(
 					resetPassword.getVcode())) {
 				System.out.println("code matched" + session.getCreationTime());
-				consumer.resetPasswordTable(session.getAttribute("EMAIL")
-						.toString(), resetPassword.getPassword());
+				try {
+					consumer.resetPasswordTable(session.getAttribute("EMAIL")
+							.toString(), AESencrp.getInstance()
+							.getEncryptedPassword(resetPassword.getPassword()));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				session.invalidate();
 			}
 		}
@@ -112,36 +119,52 @@ public class FineDineController {
 			System.out.println("Country is null");
 		} else {
 			if (signupform.getPassword().equals(signupform.getCpassword())) {
-				RestaurantSignUpFormEntity restaurantSignUpFormEntity = new RestaurantSignUpFormEntity();
-				restaurantSignUpFormEntity.setAddress(signupform.getAddress());
-				restaurantSignUpFormEntity.setAltcontact(signupform
-						.getRaltcontact());
-				restaurantSignUpFormEntity.setCity(signupform.getCity());
-				restaurantSignUpFormEntity.setCitycode("");
-				restaurantSignUpFormEntity.setCountry(signupform.getCountry());
-				restaurantSignUpFormEntity.setCountrycode("");
-				restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(
-						Calendar.getInstance().getTime().getTime()).toString());
-				restaurantSignUpFormEntity
-						.setMaxseat(signupform.getRmaxseats());
-				restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(
-						Calendar.getInstance().getTime().getTime()).toString());
-				restaurantSignUpFormEntity.setRating(signupform.getRrating());
-				restaurantSignUpFormEntity
-						.setRcontact(signupform.getRcontact());
-				restaurantSignUpFormEntity.setRmail(signupform.getRmailid());
-				restaurantSignUpFormEntity
-						.setPassword(signupform.getPassword());
-				restaurantSignUpFormEntity.setRname(signupform.getRname());
-				restaurantSignUpFormEntity.setRtype(signupform.getRtype());
-				restaurantSignUpFormEntity.setState(signupform.getState());
-				restaurantSignUpFormEntity.setStatecode("");
-				restaurantSignUpFormEntity.setStatus(signupform.getStatus());
-				restaurantSignUpFormEntity.setSubtype(signupform.getRsubtype());
-				restaurantSignUpFormEntity.setUuid("");
-				restaurantSignUpFormEntity.setZipcode(signupform.getZipcode());
-				System.out.println(signupform.getCountry());
-				consumer.signupTable(restaurantSignUpFormEntity);
+				try {
+					RestaurantSignUpFormEntity restaurantSignUpFormEntity = new RestaurantSignUpFormEntity();
+					restaurantSignUpFormEntity.setAddress(signupform
+							.getAddress());
+					restaurantSignUpFormEntity.setAltcontact(signupform
+							.getRaltcontact());
+					restaurantSignUpFormEntity.setCity(signupform.getCity());
+					restaurantSignUpFormEntity.setCitycode("");
+					restaurantSignUpFormEntity.setCountry(signupform
+							.getCountry());
+					restaurantSignUpFormEntity.setCountrycode("");
+					restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(
+							Calendar.getInstance().getTime().getTime())
+							.toString());
+					restaurantSignUpFormEntity.setMaxseat(signupform
+							.getRmaxseats());
+					restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(
+							Calendar.getInstance().getTime().getTime())
+							.toString());
+					restaurantSignUpFormEntity.setRating(signupform
+							.getRrating());
+					restaurantSignUpFormEntity.setRcontact(signupform
+							.getRcontact());
+					restaurantSignUpFormEntity
+							.setRmail(signupform.getRmailid());
+
+					restaurantSignUpFormEntity.setPassword(AESencrp
+							.getInstance().getEncryptedPassword(
+									signupform.getPassword()));
+
+					restaurantSignUpFormEntity.setRname(signupform.getRname());
+					restaurantSignUpFormEntity.setRtype(signupform.getRtype());
+					restaurantSignUpFormEntity.setState(signupform.getState());
+					restaurantSignUpFormEntity.setStatecode("");
+					restaurantSignUpFormEntity
+							.setStatus(signupform.getStatus());
+					restaurantSignUpFormEntity.setSubtype(signupform
+							.getRsubtype());
+					restaurantSignUpFormEntity.setUuid("");
+					restaurantSignUpFormEntity.setZipcode(signupform
+							.getZipcode());
+					System.out.println(signupform.getCountry());
+					consumer.signupTable(restaurantSignUpFormEntity);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				SignIn signIn = new SignIn();
 				model.addAttribute("signinform", signIn);
 				return new ModelAndView("signin");
@@ -160,15 +183,18 @@ public class FineDineController {
 	@RequestMapping(value = "/signinform", method = RequestMethod.POST)
 	public ModelAndView signInForm(
 			@ModelAttribute("signinform") @Valid SignIn signinform,
-			BindingResult result) {
+			BindingResult result) throws Exception {
 		if (result.hasErrors()) {
 			return new ModelAndView("signin", "signinform", signinform);
 		} else {
 			System.out.println(signinform.getEmail() + " : "
-					+ signinform.getPassword());
+					+ AESencrp.getInstance().getEncryptedPassword(signinform.getPassword()));
+			
+			System.out.println(messages.getProperty("login"));
 			ModelAndView model = new ModelAndView("restroframe");
-			// if(signinform.getEmail().equalsIgnoreCase("a@a.a"))
-			if (consumer.signInTable(signinform)) {
+			if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
+			// if (consumer.signInTable(signinform))
+			{
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();
