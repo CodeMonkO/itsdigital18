@@ -241,7 +241,7 @@ public class FineDineController {
 		}
 		billingform.getList().clear();
 		new MailTemplateReader();
-		Mailer.mailer(billingform.getEmailid(),MailTemplateReader.readfile());
+		/*Mailer.mailer(billingform.getEmailid(),MailTemplateReader.readfile());*/
 		// return new ModelAndView("restroframe");
 		return "redirect:restroframe.im";
 	}
