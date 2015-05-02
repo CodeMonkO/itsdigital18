@@ -331,7 +331,7 @@
                 <ul class="pm-slides-container" id="pm_slides_container" style="width: 300%; position: relative;">
                     
                     <!-- FULL WIDTH slides -->
-                    <li data-thumb="img/slider/1a.jpg" class="pmslide_0" style="height: 800px; width: 33.3333333333333%; display: block; background-image: url(http://projects.pulsarmedia.ca/vienna/img/slider/slide1.jpg); background-position: 50% 50%;">
+                    <li data-thumb="img/slider/1a.jpg" class="pmslide_0" style="height: 800px; width: 33.3333333333333%; display: block; background-image: url(./images/skins/2.jpg); background-position: 50% 50%;">
                     
                         <div class="pm-holder">
                             <div class="pm-caption">

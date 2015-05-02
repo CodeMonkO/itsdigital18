@@ -1,5 +1,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 
 <html lang="en" class=" js csstransforms csstransforms3d csstransitions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,13 +15,14 @@
 
     <title>FINE DINE :: Growing Majestic</title>
     
-    <link href="http://projects.pulsarmedia.ca/vienna/bootstrap3/css/bootstrap.css" rel="stylesheet">
+    <link href="./css/bootstrap.css" rel="stylesheet">
 
     <!-- main css --> 
+    <link href="./css/bootstrap-fileupload.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
     <link href="./css/form.css" rel="stylesheet">
     <!-- mobile css -->
-    <link href="http://projects.pulsarmedia.ca/vienna/css/responsive.css" rel="stylesheet">
+    <link href="./css/responsive.css" rel="stylesheet">
     
     <!-- FontAwesome Support -->
     <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
@@ -346,7 +351,7 @@
                 <ul class="pm-slides-container" id="pm_slides_container" style="width: 300%; position: relative;">
                     
                     <!-- FULL WIDTH slides -->
-                    <li data-thumb="img/slider/1a.jpg" class="pmslide_0" style="height: 800px; width: 33.3333333333333%; display: block; background-image: url(http://projects.pulsarmedia.ca/vienna/img/slider/slide1.jpg); background-position: 50% 50%;">
+                    <li data-thumb="img/slider/1a.jpg" class="pmslide_0" style="height: 800px; width: 33.3333333333333%; display: block; background-image: url(./images/skins/2.jpg); background-position: 50% 50%;">
                     
                         <div class="pm-holder">
                             <div class="pm-caption">

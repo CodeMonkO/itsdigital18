@@ -20,3 +20,17 @@ CREATE PROCEDURE `finedinedb`.`restaurantProc`(IN uuidParam VARCHAR(21), IN requ
 
 DELIMITER ;
 
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `finedinedb`.`passwordProc` $$
+CREATE PROCEDURE `finedinedb`.`passwordProc`(IN newPassword VARCHAR(100), email VARCHAR(100) ) 
+
+    BEGIN
+	START TRANSACTION;
+	UPDATE restaurantdetails SET PASSWORD = newPassword WHERE rmail = email;
+	COMMIT;
+    END$$
+
+DELIMITER ;
+

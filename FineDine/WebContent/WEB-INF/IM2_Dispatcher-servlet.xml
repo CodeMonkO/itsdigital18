@@ -12,6 +12,8 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<mvc:annotation-driven />
 	<bean id="myBeansValidator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	<bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -73,7 +75,6 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	</mvc:interceptors>
 	<bean id="messages"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		<property name="location"
-			value="classpath:messages.properties" />
+		<property name="location" value="classpath:messages.properties" />
 	</bean>
 </beans>

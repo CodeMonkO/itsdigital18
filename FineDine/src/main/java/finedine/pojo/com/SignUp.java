@@ -1,9 +1,10 @@
 package main.java.finedine.pojo.com;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
+import org.springframework.web.multipart.MultipartFile;
 
 public class SignUp implements Serializable {
 
@@ -11,7 +12,7 @@ public class SignUp implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3870526690538161342L;
-	@NotEmpty(message="Error")
+	@NotEmpty(message = "Error")
 	private String country;
 	@NotEmpty
 	private String state;
@@ -47,8 +48,8 @@ public class SignUp implements Serializable {
 	private String rrating;
 	@NotEmpty
 	private String status;
-	@NotEmpty
-	private String menulocation;
+	
+	private List<MultipartFile> files;
 
 	public String getCountry() {
 		return country;
@@ -194,11 +195,12 @@ public class SignUp implements Serializable {
 		this.status = status;
 	}
 
-	public String getMenulocation() {
-		return menulocation;
+	public List<MultipartFile> getFiles() {
+		return files;
 	}
 
-	public void setMenulocation(String menulocation) {
-		this.menulocation = menulocation;
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
 	}
+
 }

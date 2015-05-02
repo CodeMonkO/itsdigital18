@@ -56,6 +56,8 @@ public class RestaurantSignUpFormEntity {
 	private String rating;
 	@Column(name = "status")
 	private String status;
+	@Column(name = "menufilelocation")
+	private String menufilelocation;
 
 	public Integer getId() {
 		return id;
@@ -231,6 +233,14 @@ public class RestaurantSignUpFormEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getMenufilelocation() {
+		return menufilelocation;
+	}
+
+	public void setMenufilelocation(String menufilelocation) {
+		this.menufilelocation = menufilelocation;
 	}
 
 }

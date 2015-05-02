@@ -1,5 +1,6 @@
 package main.java.finedine.controller.com;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
+import main.java.finedine.pojo.com.Bill;
 import main.java.finedine.pojo.com.Billing;
 import main.java.finedine.pojo.com.Booking;
 import main.java.finedine.pojo.com.ForgotPassword;
@@ -20,9 +22,10 @@ import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
 import main.java.finedine.services.com.IM2_Dbservice;
 import main.java.finedine.util.com.AESencrp;
+import main.java.finedine.util.com.GenerateInvoice;
 import main.java.finedine.util.com.JPassGenerator;
-import main.java.finedine.util.com.Mailer;
-import main.java.finedine.util.com.MailTemplateReader;
+import main.java.finedine.util.com.ReadMenuFile;
+import main.java.finedine.util.com.UploadFilesOnToServer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -117,7 +121,7 @@ public class FineDineController {
 	@RequestMapping(value = "/signupform", method = RequestMethod.POST)
 	public ModelAndView signUpForm(
 			@ModelAttribute("signupform") @Valid SignUp signupform,
-			BindingResult result, ModelMap model) {
+			BindingResult result, ModelMap model) throws IOException {
 		if (result.hasErrors()) {
 			System.out.println("Country is null");
 		} else {
@@ -163,6 +167,13 @@ public class FineDineController {
 					restaurantSignUpFormEntity.setUuid("");
 					restaurantSignUpFormEntity.setZipcode(signupform
 							.getZipcode());
+					MultipartFile multipartFile = signupform.getFiles().get(0);
+					if (new UploadFilesOnToServer().fileWriting(multipartFile,
+							multipartFile.getOriginalFilename(), "/IM2")) {
+						restaurantSignUpFormEntity
+								.setMenufilelocation(multipartFile
+										.getOriginalFilename());
+					}
 					System.out.println(signupform.getCountry());
 					consumer.signupTable(restaurantSignUpFormEntity);
 				} catch (Exception e) {
@@ -206,9 +217,15 @@ public class FineDineController {
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();
+				ReadMenuFile readMenuFile = new ReadMenuFile();
+				List<Bill> billList = readMenuFile
+						.getListOfMenuItems("C:/FineDine/FineDine/resources/products.csv");
+				List<String> itemsList = readMenuFile.getListOfItems(billList);
 				model.addObject("bookingform", booking);
 				model.addObject("billingform", billing);
 				model.addObject("customerform", usersEntity);
+				model.addObject("menu", billList);
+				model.addObject("items", itemsList);
 				model.setViewName("restroframe");
 				session.setAttribute("AUTHENTICATE_USER", signinform);
 				return model;
@@ -224,9 +241,15 @@ public class FineDineController {
 		Billing billing = new Billing();
 		Booking booking = new Booking();
 		UsersEntity usersEntity = new UsersEntity();
+		ReadMenuFile readMenuFile = new ReadMenuFile();
+		List<Bill> billList = readMenuFile
+				.getListOfMenuItems("C:/FineDine/FineDine/resources/products.csv");
+		List<String> itemsList = readMenuFile.getListOfItems(billList);
 		model.addAttribute("bookingform", booking);
 		model.addAttribute("billingform", billing);
 		model.addAttribute("customerform", usersEntity);
+		((ModelAndView) model).addObject("menu", billList);
+		((ModelAndView) model).addObject("items", itemsList);
 		return new ModelAndView("restroframe");
 	}
 
@@ -237,11 +260,14 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
+			GenerateInvoice.Generate(billingform.getList());
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
-		new MailTemplateReader();
-		/*Mailer.mailer(billingform.getEmailid(),MailTemplateReader.readfile());*/
+
+		/*
+		 * Mailer.mailer(billingform.getEmailid(),MailTemplateReader.readfile());
+		 */
 		// return new ModelAndView("restroframe");
 		return "redirect:restroframe.im";
 	}
