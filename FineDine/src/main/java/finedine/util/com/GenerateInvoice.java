@@ -21,22 +21,22 @@ public class GenerateInvoice {
 	private static List<String> billList = null;
 
 	// public static void main(String[] args)
-	public static void Generate(List<String> objectList) {
+	public static void Generate(List<String> objectList,String filePath) {
 		billList = objectList;
 		String pdfFilename = "OutPut.pdf";
 		GenerateInvoice generateInvoice = new GenerateInvoice();
-		generateInvoice.createPDF(pdfFilename);
+		generateInvoice.createPDF(pdfFilename,filePath);
 
 	}
 
-	private void createPDF(String pdfFilename) {
+	private void createPDF(String pdfFilename, String filePath) {
 
 		Document doc = new Document();
 		PdfWriter docWriter = null;
 		initializeFonts();
 
 		try {
-			String path = "D:/" + pdfFilename;
+			String path = filePath + pdfFilename;
 			docWriter = PdfWriter.getInstance(doc, new FileOutputStream(path));
 			doc.addAuthor("Inceded Minded Machines");
 			doc.addCreationDate();
@@ -68,6 +68,8 @@ public class GenerateInvoice {
 					beginPage = true;
 				}
 			}
+			
+			generateDetail(doc, cb, y, "Total Payable Amount", "","", "500");
 			printPageNumber(cb);
 
 		} catch (DocumentException dex) {
@@ -117,14 +119,15 @@ public class GenerateInvoice {
 			cb.lineTo(430, 650);
 			cb.moveTo(500, 50);
 			cb.lineTo(500, 650);
+			cb.rectangle(20, 50, 550, 20);
 			cb.stroke();
 
 			// Invoice Detail box Text Headings
 			createHeadings(cb, 22, 633, "Sr No");
-			createHeadings(cb, 52, 633, "Item Number");
-			createHeadings(cb, 152, 633, "Item Description");
-			createHeadings(cb, 432, 633, "Price");
-			createHeadings(cb, 502, 633, "Quantity");
+			createHeadings(cb, 52, 633, "Item Description");
+			createHeadings(cb, 152, 633, "Quantity");
+			createHeadings(cb, 432, 633, "Amount");
+			createHeadings(cb, 502, 633, "Discount");
 
 			// add the images
 			Image companyLogo = Image

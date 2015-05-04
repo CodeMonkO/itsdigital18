@@ -89,13 +89,18 @@
 }</style>
 <script type="text/javascript">
 var array = new Array();
+var array_str = new Array();
 function addToList(){
 	var qty = document.getElementById('qty');
 	var item = document.getElementById('item');
-	array.push(item.value+","+qty.value+","+item.value+","+qty.value);
-	addRow();
+	var array_str = item.value.split('|');
+	array.push(array_str[0]+","+qty.value+","+array_str[1]+","+array_str[2]);
+	var item = array_str[0];
+	var amount = array_str[1].toString();
+	var discount = array_str[2].toString();
+	addRow(item,qty.value,amount,discount);
 }
-function addRow() {
+function addRow(item,qty,amount,discount) {
 		var tabNode = document.getElementById("datatable");
 		var tBody = tabNode.getElementsByTagName("tbody")[0];
 		var rows = tBody.getElementsByTagName("tr");  	
@@ -113,25 +118,25 @@ function addRow() {
 		tdNode.width = '10%';		
 		tdNode.className = "script_data";
 		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('item').value;	
+		tdNode.innerHTML = item;	
 		
 		tdNode = trNode.insertCell(2);		
 		tdNode.width = '10%';	
 		tdNode.className = "script_data";
 		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('qty').value	
+		tdNode.innerHTML = qty;	
 		
 		tdNode = trNode.insertCell(3);		
 		tdNode.width = '10%';	
 		tdNode.className = "script_data";
 		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('qty').value	
+		tdNode.innerHTML = amount;	
 		
 		tdNode = trNode.insertCell(4);		
 		tdNode.width = '10%';		
 		tdNode.className = "script_data";
 		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('qty').value	
+		tdNode.innerHTML = discount;
 
 		tdNode = trNode.insertCell(5);		
 		tdNode.width = '10%';		
@@ -146,13 +151,11 @@ function addRow() {
 
 function removeRow(rowIndex) {		
 	array.splice(rowIndex-1,1);
-	alert(array);
 	document.getElementById('list').value=array;
 	var table = document.getElementById("datatable");
 	var tBody = table.getElementsByTagName("tbody")[0];
 	var rows = tBody.getElementsByTagName("tr");  
 	var row = rows[rowIndex];
-	alert(rowIndex-1);
 	if(rows.length > 1) {
 		tBody.removeChild(row);
 		renameRows(tBody);

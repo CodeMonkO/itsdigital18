@@ -47,7 +47,8 @@ public class UserCheckInterceptor implements HandlerInterceptor {
 			SignIn signin = (SignIn) httpServletRequest.getSession()
 					.getAttribute("AUTHENTICATE_USER");
 			if (signin == null) {
-				httpResponse.sendRedirect("signin.im");
+				if (!httpResponse.isCommitted())
+					httpResponse.sendRedirect("signin.im");
 				return false;
 			}
 		}

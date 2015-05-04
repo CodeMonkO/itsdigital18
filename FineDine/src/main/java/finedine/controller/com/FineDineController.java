@@ -211,9 +211,9 @@ public class FineDineController {
 				signinform.setPassword(AESencrp.getInstance()
 						.getEncryptedPassword(signinform.getPassword()));
 			}
-			ModelAndView model = new ModelAndView("restroframe");
 			// if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
 			if (consumer.signInTable(signinform)) {
+				ModelAndView model = new ModelAndView();
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();
@@ -237,7 +237,7 @@ public class FineDineController {
 	}
 
 	@RequestMapping("/restroframe")
-	public ModelAndView restroFrame(Model model) {
+	public ModelAndView restroFrame(ModelAndView model) {
 		Billing billing = new Billing();
 		Booking booking = new Booking();
 		UsersEntity usersEntity = new UsersEntity();
@@ -245,12 +245,13 @@ public class FineDineController {
 		List<Bill> billList = readMenuFile
 				.getListOfMenuItems("C:/FineDine/FineDine/resources/products.csv");
 		List<String> itemsList = readMenuFile.getListOfItems(billList);
-		model.addAttribute("bookingform", booking);
-		model.addAttribute("billingform", billing);
-		model.addAttribute("customerform", usersEntity);
-		((ModelAndView) model).addObject("menu", billList);
-		((ModelAndView) model).addObject("items", itemsList);
-		return new ModelAndView("restroframe");
+		model = new ModelAndView("restroframe");
+		model.addObject("bookingform", booking);
+		model.addObject("billingform", billing);
+		model.addObject("customerform", usersEntity);
+		model.addObject("menu", billList);
+		model.addObject("items", itemsList);
+		return model;
 	}
 
 	@RequestMapping(value = "/billingform", method = RequestMethod.POST)
@@ -260,7 +261,7 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
-			GenerateInvoice.Generate(billingform.getList());
+			GenerateInvoice.Generate(billingform.getList(),"/IM2/");
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();

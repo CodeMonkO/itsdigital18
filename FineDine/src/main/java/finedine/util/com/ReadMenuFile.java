@@ -42,7 +42,7 @@ public class ReadMenuFile {
 	public List<String> getListOfItems(List<Bill> billList) {
 		List<String> items = new ArrayList<String>();
 		for (Bill bill : billList) {
-			items.add(bill.getItem());
+			items.add(bill.getItem()+"|"+bill.getAmount()+"|"+bill.getDiscount());
 		}
 		return items;
 	}
