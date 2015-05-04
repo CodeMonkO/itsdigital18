@@ -21,9 +21,9 @@ public class Mailer {
 	public static void mailer(String mailid, String content) throws AddressException, MessagingException {
 
 		String host = "smtp.gmail.com";// host name
-		final String from = "itsdigital18@gmail.com";// sender id
+		final String from = "";// sender id
 		String to = mailid;// reciever id
-		final String pass = "87544281448939702102";// sender's password
+		final String pass = "";// sender's password
 		String fileAttachment = "null";// file name for attachment
 		// system properties
 
