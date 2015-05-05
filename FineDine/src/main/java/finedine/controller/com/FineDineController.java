@@ -10,6 +10,7 @@ import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import main.java.finedine.cache.com.MostRecentlyLoggedInUsers;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
@@ -211,8 +212,33 @@ public class FineDineController {
 				signinform.setPassword(AESencrp.getInstance()
 						.getEncryptedPassword(signinform.getPassword()));
 			}
+			MostRecentlyLoggedInUsers mostRecentlyLoggedInUsers = MostRecentlyLoggedInUsers.getInstance();
 			// if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
-			if (consumer.signInTable(signinform)) {
+			if (mostRecentlyLoggedInUsers.getLoggedInUsers().size() > 0
+					&& MostRecentlyLoggedInUsers.getLoggedInUsers()
+							.containsKey(signinform.getEmail())
+					&& MostRecentlyLoggedInUsers.getLoggedInUsers()
+							.get(signinform.getEmail())
+							.equalsIgnoreCase(signinform.getPassword())) {
+				ModelAndView model = new ModelAndView();
+				Billing billing = new Billing();
+				Booking booking = new Booking();
+				UsersEntity usersEntity = new UsersEntity();
+				ReadMenuFile readMenuFile = new ReadMenuFile();
+				List<Bill> billList = readMenuFile
+						.getListOfMenuItems("C:/FineDine/FineDine/resources/products.csv");
+				List<String> itemsList = readMenuFile.getListOfItems(billList);
+				model.addObject("bookingform", booking);
+				model.addObject("billingform", billing);
+				model.addObject("customerform", usersEntity);
+				model.addObject("menu", billList);
+				model.addObject("items", itemsList);
+				model.setViewName("restroframe");
+				session.setAttribute("AUTHENTICATE_USER", signinform);
+				return model;
+			} else if (consumer.signInTable(signinform)) {
+				MostRecentlyLoggedInUsers.getLoggedInUsers().put(
+						signinform.getEmail(), signinform.getPassword());
 				ModelAndView model = new ModelAndView();
 				Billing billing = new Billing();
 				Booking booking = new Booking();
@@ -232,7 +258,6 @@ public class FineDineController {
 			} else {
 				return new ModelAndView("signin", "signinform", signinform);
 			}
-
 		}
 	}
 
@@ -261,7 +286,7 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
-			GenerateInvoice.Generate(billingform.getList(),"/IM2/");
+			GenerateInvoice.Generate(billingform.getList(), "/IM2/");
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
