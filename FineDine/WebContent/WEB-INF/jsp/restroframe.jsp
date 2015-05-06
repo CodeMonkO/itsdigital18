@@ -625,7 +625,7 @@ function renameRows(tBody) {
 				   		</form:form>
 			        </div>
 			        <div id="deviceId3">
-				    	<form:form method="POST" action="customerform.im" modelAttribute="customerform" id="customerform">
+				    	<form:form action="customerform.im" modelAttribute="customerform" id="customerform">
 				    		<div id="row">
 								<button type="submit">Refresh</button>		                        
 		 					</div>
@@ -635,7 +635,6 @@ function renameRows(tBody) {
 					   		    <tr>
 						   		    <td><b>Customer ID</b></td>
 						   		    <td><b>Customer Name</b></td>
-						   		    <td><b>Order ID</b></td>
 						   		    <td><b>Booking Src</b></td>
 						   		    <td><b>Event</b></td>
 						   		    <td><b>Billing Status</b></td>
@@ -643,13 +642,12 @@ function renameRows(tBody) {
 					   		    </tr>
 					   		    <tr></tr>
 					   		    <tr>
-						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity}</span></td>
-						   		    <td><b>Customer Name</b></td>
-						   		    <td><b>Order ID</b></td>
-						   		    <td><b>Booking Src</b></td>
-						   		    <td><b>Event</b></td>
-						   		    <td><b>Billing Status</b></td>
-						   		    <td><b>Payment Status</b></td>
+						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.emailid}</span></td>
+						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></td>
+						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">W</span></td>
+						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.occasion}</span></td>
+						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
+						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
 					   		    </tr>
 				   		    </table>
 				   		    </div>

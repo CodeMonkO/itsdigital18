@@ -212,9 +212,15 @@ public class FineDineController {
 				signinform.setPassword(AESencrp.getInstance()
 						.getEncryptedPassword(signinform.getPassword()));
 			}
-			MostRecentlyLoggedInUsers mostRecentlyLoggedInUsers = MostRecentlyLoggedInUsers.getInstance();
+			MostRecentlyLoggedInUsers.getInstance();
+
 			// if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
-			if (mostRecentlyLoggedInUsers.getLoggedInUsers().size() > 0
+
+			if (MostRecentlyLoggedInUsers.getCacheDuration().size() > 0
+					&& System.currentTimeMillis()
+							- MostRecentlyLoggedInUsers.getCacheDuration().get(
+									signinform.getEmail()) <= 86400000
+					&& MostRecentlyLoggedInUsers.getLoggedInUsers().size() > 0
 					&& MostRecentlyLoggedInUsers.getLoggedInUsers()
 							.containsKey(signinform.getEmail())
 					&& MostRecentlyLoggedInUsers.getLoggedInUsers()
@@ -239,6 +245,8 @@ public class FineDineController {
 			} else if (consumer.signInTable(signinform)) {
 				MostRecentlyLoggedInUsers.getLoggedInUsers().put(
 						signinform.getEmail(), signinform.getPassword());
+				MostRecentlyLoggedInUsers.getCacheDuration().put(
+						signinform.getEmail(), System.currentTimeMillis());
 				ModelAndView model = new ModelAndView();
 				Billing billing = new Billing();
 				Booking booking = new Booking();
@@ -371,7 +379,14 @@ public class FineDineController {
 		List<Object> usersEntity = consumer.customerTable("uuid");
 		UsersEntity usersEntity2 = (UsersEntity) usersEntity.get(0);
 		System.out.println(usersEntity2.getEmailid());
-		model.addAttribute("usersEntity", usersEntity2.getEmailid());
+		session.setAttribute("usersEntity",usersEntity2);
+		return "forward:restroframe.im";
+	}
+	
+	@RequestMapping(value = "/customerform", method = RequestMethod.GET)
+	public String customerFormGet(@ModelAttribute("customerform") ModelMap model)
+			throws AddressException, MessagingException {
+		model.addAttribute("usersEntity", session.getAttribute("usersEntity"));
 		return "forward:restroframe.im";
 	}
 }
