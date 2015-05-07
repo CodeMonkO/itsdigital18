@@ -24,7 +24,7 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	}
 
 	@Transactional
-	public List<Object> customerTable(String uuid) {
+	public List<UsersEntity> customerTable(String uuid) {
 		return im2DAO.customerTable(uuid);
 	}
 	

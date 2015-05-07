@@ -51,12 +51,12 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	}
 
 	@Override
-	public List<Object> customerTable(String uuid) {
+	public List<UsersEntity> customerTable(String uuid) {
 		String selectSqlQuery = "from UsersEntity usersEntity  where usersEntity.uuid = :uuid ";
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				selectSqlQuery);
 		query.setParameter("uuid", uuid);
-		List<Object> list = query.list();
+		List<UsersEntity> list = query.list();
 		return list;
 	}
 

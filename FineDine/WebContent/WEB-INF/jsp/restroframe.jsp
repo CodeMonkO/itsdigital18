@@ -86,7 +86,21 @@
 	font-family: arial;
 	visibility: hidden;
 	overflow: scroll;
-}</style>
+}
+</style>
+<script type="text/javascript"
+    src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script>
+    $(document).ready(
+            function() {
+                setInterval(function() {
+                    var randomnumber = Math.floor(Math.random() * 100);
+                    $('#deviceId3').text(
+                            'I am getting refreshed every 3 seconds..! Random Number ==> '
+                                    + randomnumber);
+                }, 3000);
+            });
+</script>
 <script type="text/javascript">
 var array = new Array();
 var array_str = new Array();
@@ -575,10 +589,10 @@ function renameRows(tBody) {
 				              	</div>
 				            	<div id="col">
 				                	<!-- <input name="item" type="text" id="item" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/> -->
-				                	<form:select path="item"  items="${items}"/>
-									<%-- <form:select path="item">
-									    <form:options items="${billing.list}" />
-									</form:select> --%>
+									<form:select path="item"  multiple="false">
+										<form:option value="" label="Select" />
+									    <form:options items="${items}" />
+									</form:select>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -625,6 +639,7 @@ function renameRows(tBody) {
 				   		</form:form>
 			        </div>
 			        <div id="deviceId3">
+			        	<!-- <div id="show"></div> -->
 				    	<form:form action="customerform.im" modelAttribute="customerform" id="customerform">
 				    		<div id="row">
 								<button type="submit">Refresh</button>		                        
@@ -641,14 +656,27 @@ function renameRows(tBody) {
 						   		    <td><b>Payment Status</b></td>
 					   		    </tr>
 					   		    <tr></tr>
-					   		    <tr>
-						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.emailid}</span></td>
-						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></td>
-						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">W</span></td>
-						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.occasion}</span></td>
-						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
-						   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
-					   		    </tr>
+					   		    <c:if test="${not empty usersEntity}">
+					   		    	<ul>
+										<c:forEach var="usersEntity" items="${usersEntity}">
+											<li>${listValue}</li>
+											<li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.emailid}</span></li>
+											<li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></li>
+								   		    <li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">W</span></li>
+								   		    <li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.occasion}</span></li>
+								   		    <li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></li>
+								   		    <li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></li>
+										</c:forEach>
+									</ul>
+						   		    <%-- <tr>
+							   		    <td></td>
+							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></td>
+							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">W</span></td>
+							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.occasion}</span></td>
+							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
+							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
+						   		    </tr> --%>
+					   		    </c:if>
 				   		    </table>
 				   		    </div>
 			        	</form:form>

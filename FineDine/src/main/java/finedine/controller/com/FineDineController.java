@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import main.java.finedine.cache.com.MostRecentlyLoggedInUsers;
+import main.java.finedine.constants.com.Constants.Constant;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
@@ -38,6 +39,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.mysql.jdbc.Constants;
 
 @Controller
 @RequestMapping("/")
@@ -70,8 +73,8 @@ public class FineDineController {
 					.verificationCodeGenerator(10);
 			System.out.println(vcode);
 			// Mailer.mailer("");
-			session.setAttribute("VERIFICATION_CODE", vcode);
-			session.setAttribute("EMAIL", forgotPassword.getEmail());
+			session.setAttribute(Constant.VERIFICATIONCODE.getConstantValue(), vcode);
+			session.setAttribute(Constant.EMAIL.getConstantValue(), forgotPassword.getEmail());
 			ResetPassword resetPassword = new ResetPassword();
 			model.addAttribute("resetpasswordform", resetPassword);
 			return new ModelAndView("resetpassword");
@@ -90,14 +93,14 @@ public class FineDineController {
 			@ModelAttribute("resetpasswordform") @Valid ResetPassword resetPassword,
 			BindingResult result, Model model) {
 		System.out.println(resetPassword.getVcode());
-		if (null != session.getAttribute("VERIFICATION_CODE")
+		if (null != session.getAttribute(Constant.VERIFICATIONCODE.getConstantValue())
 				&& (Calendar.getInstance().getTimeInMillis() - session
 						.getCreationTime()) <= 300000) {
-			if (session.getAttribute("VERIFICATION_CODE").equals(
+			if (session.getAttribute(Constant.VERIFICATIONCODE.getConstantValue()).equals(
 					resetPassword.getVcode())) {
 				System.out.println("code matched" + session.getCreationTime());
 				try {
-					consumer.resetPasswordTable(session.getAttribute("EMAIL")
+					consumer.resetPasswordTable(session.getAttribute(Constant.EMAIL.getConstantValue())
 							.toString(), AESencrp.getInstance()
 							.getEncryptedPassword(resetPassword.getPassword()));
 				} catch (Exception e) {
@@ -113,10 +116,9 @@ public class FineDineController {
 
 	@RequestMapping("/signup")
 	public ModelAndView signUp(Model model) {
-		String message = "JIT";
 		SignUp signupform = new SignUp();
 		model.addAttribute("signupform", signupform);
-		return new ModelAndView("signup", "message", message);
+		return new ModelAndView("signup");
 	}
 
 	@RequestMapping(value = "/signupform", method = RequestMethod.POST)
@@ -214,8 +216,6 @@ public class FineDineController {
 			}
 			MostRecentlyLoggedInUsers.getInstance();
 
-			// if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
-
 			if (MostRecentlyLoggedInUsers.getCacheDuration().size() > 0
 					&& System.currentTimeMillis()
 							- MostRecentlyLoggedInUsers.getCacheDuration().get(
@@ -232,7 +232,7 @@ public class FineDineController {
 				UsersEntity usersEntity = new UsersEntity();
 				ReadMenuFile readMenuFile = new ReadMenuFile();
 				List<Bill> billList = readMenuFile
-						.getListOfMenuItems("C:/FineDine/FineDine/resources/products.csv");
+						.getListOfMenuItems("D:/Workspaces/Algorithmic Problems/Algorithmic Problems/FineDine/resources/products.csv");
 				List<String> itemsList = readMenuFile.getListOfItems(billList);
 				model.addObject("bookingform", booking);
 				model.addObject("billingform", billing);
@@ -240,9 +240,12 @@ public class FineDineController {
 				model.addObject("menu", billList);
 				model.addObject("items", itemsList);
 				model.setViewName("restroframe");
-				session.setAttribute("AUTHENTICATE_USER", signinform);
+				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
 				return model;
-			} else if (consumer.signInTable(signinform)) {
+			} else 
+				//if (consumer.signInTable(signinform))
+				if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
+				{
 				MostRecentlyLoggedInUsers.getLoggedInUsers().put(
 						signinform.getEmail(), signinform.getPassword());
 				MostRecentlyLoggedInUsers.getCacheDuration().put(
@@ -253,7 +256,7 @@ public class FineDineController {
 				UsersEntity usersEntity = new UsersEntity();
 				ReadMenuFile readMenuFile = new ReadMenuFile();
 				List<Bill> billList = readMenuFile
-						.getListOfMenuItems("C:/FineDine/FineDine/resources/products.csv");
+						.getListOfMenuItems("D:/Workspaces/Algorithmic Problems/Algorithmic Problems/FineDine/resources/products.csv");
 				List<String> itemsList = readMenuFile.getListOfItems(billList);
 				model.addObject("bookingform", booking);
 				model.addObject("billingform", billing);
@@ -261,7 +264,7 @@ public class FineDineController {
 				model.addObject("menu", billList);
 				model.addObject("items", itemsList);
 				model.setViewName("restroframe");
-				session.setAttribute("AUTHENTICATE_USER", signinform);
+				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
 				return model;
 			} else {
 				return new ModelAndView("signin", "signinform", signinform);
@@ -376,10 +379,10 @@ public class FineDineController {
 	@RequestMapping(value = "/customerform", method = RequestMethod.POST)
 	public String customerForm(@ModelAttribute("customerform") ModelMap model)
 			throws AddressException, MessagingException {
-		List<Object> usersEntity = consumer.customerTable("uuid");
-		UsersEntity usersEntity2 = (UsersEntity) usersEntity.get(0);
-		System.out.println(usersEntity2.getEmailid());
-		session.setAttribute("usersEntity",usersEntity2);
+		List<UsersEntity> usersEntity = consumer.customerTable("uuid");// Object replaced by Class Name
+		/*UsersEntity usersEntity2 = (UsersEntity) usersEntity.get(0);
+		System.out.println(usersEntity2.getEmailid());*/
+		session.setAttribute("usersEntity",usersEntity);
 		return "forward:restroframe.im";
 	}
 	
