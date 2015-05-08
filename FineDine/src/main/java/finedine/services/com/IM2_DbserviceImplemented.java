@@ -34,7 +34,7 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	}
 	
 	@Transactional
-	public String signInTable(SignIn record){
+	public RestaurantSignUpFormEntity signInTable(SignIn record){
 		return im2DAO.signInTable(record);
 	}
 

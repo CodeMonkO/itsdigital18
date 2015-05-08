@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import main.java.finedine.constants.com.Constants.Constant;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
@@ -21,9 +23,11 @@ public class GenerateInvoice {
 	private static List<String> billList = null;
 
 	// public static void main(String[] args)
-	public static void Generate(List<String> objectList,String filePath) {
+	public static void Generate(List<String> objectList,String filePath, String fileName) {
 		billList = objectList;
-		String pdfFilename = "OutPut.pdf";
+		StringBuffer stringBuffer = new StringBuffer(fileName);
+		stringBuffer.append(Constant.BILLPDFEXTENSTION.getConstantValue());
+		String pdfFilename = stringBuffer.toString();
 		GenerateInvoice generateInvoice = new GenerateInvoice();
 		generateInvoice.createPDF(pdfFilename,filePath);
 
@@ -36,7 +40,9 @@ public class GenerateInvoice {
 		initializeFonts();
 
 		try {
-			String path = filePath + pdfFilename;
+			StringBuffer stringBuffer = new StringBuffer(filePath);
+			stringBuffer.append(pdfFilename);
+			String path = stringBuffer.toString();
 			docWriter = PdfWriter.getInstance(doc, new FileOutputStream(path));
 			doc.addAuthor("Inceded Minded Machines");
 			doc.addCreationDate();

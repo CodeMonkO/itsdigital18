@@ -42,8 +42,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 			procSqlQuery = "CALL restaurantProc(:uuid,:bookedseat) ";
 			query = null;
 			try {
-				query = sessionFactory.getCurrentSession().createSQLQuery(
-						procSqlQuery);
+				query = sessionFactory.getCurrentSession().createSQLQuery(procSqlQuery);
 				query.setParameter("uuid", uuid);
 				query.setParameter("bookedseat", record.getSeatsbooked());
 				query.executeUpdate();
@@ -59,8 +58,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	@Override
 	public List<UsersEntity> customerTable(String uuid) {
 		String selectSqlQuery = "from UsersEntity usersEntity  where usersEntity.uuid = :uuid AND usersEntity.billpayed = :billpayed";
-		Query query = sessionFactory.getCurrentSession().createQuery(
-				selectSqlQuery);
+		Query query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
 		query.setParameter("uuid", uuid);
 		query.setParameter("billpayed", "N");
 		List<UsersEntity> list = query.list();
@@ -70,26 +68,24 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	@Override
 	public boolean signupTable(RestaurantSignUpFormEntity record) {
 		sessionFactory.getCurrentSession().save(record);
-		//proc to update enter in live table
+		// proc to update enter in live table
 		return true;
 	}
 
 	@Override
-	public String signInTable(SignIn record) {
+	public RestaurantSignUpFormEntity signInTable(SignIn record) {
 		String rmail = record.getEmail();
 		String password = record.getPassword();
 		String selectSqlQuery = "from RestaurantSignUpFormEntity restaurantSignUpFormEntity  where restaurantSignUpFormEntity.rmail = :rmail and restaurantSignUpFormEntity.password =:password ";
-		Query query = sessionFactory.getCurrentSession().createQuery(
-				selectSqlQuery);
+		Query query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
 		query.setParameter("rmail", rmail);
 		query.setParameter("password", password);
 		List<RestaurantSignUpFormEntity> list = query.list();
 		if (list.size() > 0) {
 			RestaurantSignUpFormEntity restaurantSignUpFormEntity = list.get(0);
-			return restaurantSignUpFormEntity.getUuid();
-		} else {
-			return null;
+			return restaurantSignUpFormEntity;
 		}
+		return null;
 	}
 
 	public boolean resetPasswordTable(String email, String password) {
@@ -97,8 +93,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		String procSqlQuery = "CALL passwordProc(:password,:email)";
 		Query query = null;
 		try {
-			query = sessionFactory.getCurrentSession().createSQLQuery(
-					procSqlQuery);
+			query = sessionFactory.getCurrentSession().createSQLQuery(procSqlQuery);
 			query.setParameter("email", email);
 			query.setParameter("password", password);
 			query.executeUpdate();

@@ -1,6 +1,7 @@
 package main.java.finedine.controller.com;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 
 import main.java.finedine.cache.com.MostRecentlyLoggedInUsers;
 import main.java.finedine.constants.com.Constants.Constant;
+import main.java.finedine.constants.com.Constants.Views;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
@@ -55,34 +57,29 @@ public class FineDineController {
 
 	@RequestMapping("/home")
 	public ModelAndView home() {
-		return new ModelAndView("home");
+		return new ModelAndView(Views.HOME.getViewName());
 	}
 
 	@RequestMapping("/forgotpassword")
 	public ModelAndView forgotPassword(Model model) {
 		ForgotPassword forgotPassword = new ForgotPassword();
 		model.addAttribute("forgotpasswordform", forgotPassword);
-		return new ModelAndView("forgotpassword");
+		return new ModelAndView(Views.FORGOTPASSWORD.getViewName());
 	}
 
 	@RequestMapping(value = "/forgotpasswordform", method = RequestMethod.POST)
-	public ModelAndView forgotPasswordForm(
-			@ModelAttribute("forgotpasswordform") @Valid ForgotPassword forgotPassword,
-			BindingResult result, Model model) {
+	public ModelAndView forgotPasswordForm(@ModelAttribute("forgotpasswordform") @Valid ForgotPassword forgotPassword, BindingResult result, Model model) {
 		if (!result.hasErrors()) {
-			String vcode = JPassGenerator.getInstance()
-					.verificationCodeGenerator(10);
+			String vcode = JPassGenerator.getInstance().verificationCodeGenerator(10);
 			System.out.println(vcode);
 			// Mailer.mailer("");
-			session.setAttribute(Constant.VERIFICATIONCODE.getConstantValue(),
-					vcode);
-			session.setAttribute(Constant.EMAIL.getConstantValue(),
-					forgotPassword.getEmail());
+			session.setAttribute(Constant.VERIFICATIONCODE.getConstantValue(), vcode);
+			session.setAttribute(Constant.EMAIL.getConstantValue(), forgotPassword.getEmail());
 			ResetPassword resetPassword = new ResetPassword();
 			model.addAttribute("resetpasswordform", resetPassword);
-			return new ModelAndView("resetpassword");
+			return new ModelAndView(Views.RESETPASSWORD.getViewName());
 		} else {
-			return new ModelAndView("forgotpassword");// 8899306363
+			return new ModelAndView(Views.FORGOTPASSWORD.getViewName());// 8899306363
 		}
 	}
 
@@ -92,25 +89,13 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/resetpasswordform", method = RequestMethod.POST)
-	public ModelAndView resetpasswordform(
-			@ModelAttribute("resetpasswordform") @Valid ResetPassword resetPassword,
-			BindingResult result, Model model) {
+	public ModelAndView resetpasswordform(@ModelAttribute("resetpasswordform") @Valid ResetPassword resetPassword, BindingResult result, Model model) {
 		System.out.println(resetPassword.getVcode());
-		if (null != session.getAttribute(Constant.VERIFICATIONCODE
-				.getConstantValue())
-				&& (Calendar.getInstance().getTimeInMillis() - session
-						.getCreationTime()) <= 300000) {
-			if (session.getAttribute(
-					Constant.VERIFICATIONCODE.getConstantValue()).equals(
-					resetPassword.getVcode())) {
+		if (null != session.getAttribute(Constant.VERIFICATIONCODE.getConstantValue()) && (Calendar.getInstance().getTimeInMillis() - session.getCreationTime()) <= Integer.parseInt(Constant.SESSIONTIMEOUT.getConstantValue())) {
+			if (session.getAttribute(Constant.VERIFICATIONCODE.getConstantValue()).equals(resetPassword.getVcode())) {
 				System.out.println("code matched" + session.getCreationTime());
 				try {
-					consumer.resetPasswordTable(
-							session.getAttribute(
-									Constant.EMAIL.getConstantValue())
-									.toString(),
-							AESencrp.getInstance().getEncryptedPassword(
-									resetPassword.getPassword()));
+					consumer.resetPasswordTable(session.getAttribute(Constant.EMAIL.getConstantValue()).toString(), AESencrp.getInstance().getEncryptedPassword(resetPassword.getPassword()));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -118,72 +103,49 @@ public class FineDineController {
 			}
 		}
 		SignIn signIn = new SignIn();
-		model.addAttribute("signinform", signIn);
-		return new ModelAndView("signin");
+		model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
+		return new ModelAndView(Views.SIGNIN.getViewName());
 	}
 
 	@RequestMapping("/signup")
 	public ModelAndView signUp(Model model) {
 		SignUp signupform = new SignUp();
 		model.addAttribute("signupform", signupform);
-		return new ModelAndView("signup");
+		return new ModelAndView(Views.SIGNUP.getViewName());
 	}
 
 	@RequestMapping(value = "/signupform", method = RequestMethod.POST)
-	public ModelAndView signUpForm(
-			@ModelAttribute("signupform") @Valid SignUp signupform,
-			BindingResult result, ModelMap model) throws IOException {
+	public ModelAndView signUpForm(@ModelAttribute("signupform") @Valid SignUp signupform, BindingResult result, ModelMap model) throws IOException {
 		if (result.hasErrors()) {
 			System.out.println("Country is null");
 		} else {
 			if (signupform.getPassword().equals(signupform.getCpassword())) {
 				try {
 					RestaurantSignUpFormEntity restaurantSignUpFormEntity = new RestaurantSignUpFormEntity();
-					restaurantSignUpFormEntity.setAddress(signupform
-							.getAddress());
-					restaurantSignUpFormEntity.setAltcontact(signupform
-							.getRaltcontact());
+					restaurantSignUpFormEntity.setAddress(signupform.getAddress());
+					restaurantSignUpFormEntity.setAltcontact(signupform.getRaltcontact());
 					restaurantSignUpFormEntity.setCity(signupform.getCity());
 					restaurantSignUpFormEntity.setCitycode("");
-					restaurantSignUpFormEntity.setCountry(signupform
-							.getCountry());
+					restaurantSignUpFormEntity.setCountry(signupform.getCountry());
 					restaurantSignUpFormEntity.setCountrycode("");
-					restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(
-							Calendar.getInstance().getTime().getTime())
-							.toString());
-					restaurantSignUpFormEntity.setMaxseat(signupform
-							.getRmaxseats());
-					restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(
-							Calendar.getInstance().getTime().getTime())
-							.toString());
-					restaurantSignUpFormEntity.setRating(signupform
-							.getRrating());
-					restaurantSignUpFormEntity.setRcontact(signupform
-							.getRcontact());
-					restaurantSignUpFormEntity
-							.setRmail(signupform.getRmailid());
-
-					restaurantSignUpFormEntity.setPassword(AESencrp
-							.getInstance().getEncryptedPassword(
-									signupform.getPassword()));
-
+					restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
+					restaurantSignUpFormEntity.setMaxseat(signupform.getRmaxseats());
+					restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
+					restaurantSignUpFormEntity.setRating(signupform.getRrating());
+					restaurantSignUpFormEntity.setRcontact(signupform.getRcontact());
+					restaurantSignUpFormEntity.setRmail(signupform.getRmailid());
+					restaurantSignUpFormEntity.setPassword(AESencrp.getInstance().getEncryptedPassword(signupform.getPassword()));
 					restaurantSignUpFormEntity.setRname(signupform.getRname());
 					restaurantSignUpFormEntity.setRtype(signupform.getRtype());
 					restaurantSignUpFormEntity.setState(signupform.getState());
 					restaurantSignUpFormEntity.setStatecode("");
-					restaurantSignUpFormEntity
-							.setStatus(signupform.getStatus());
-					restaurantSignUpFormEntity.setSubtype(signupform
-							.getRsubtype());
+					restaurantSignUpFormEntity.setStatus(signupform.getStatus());
+					restaurantSignUpFormEntity.setSubtype(signupform.getRsubtype());
 					restaurantSignUpFormEntity.setUuid("");
-					restaurantSignUpFormEntity.setZipcode(signupform
-							.getZipcode());
+					restaurantSignUpFormEntity.setZipcode(signupform.getZipcode());
 					MultipartFile multipartFile = signupform.getFiles().get(0);
-					if (new UploadFilesOnToServer().fileWriting(multipartFile,
-							multipartFile.getOriginalFilename(), "/IM2")) {
-						restaurantSignUpFormEntity
-								.setMenufilelocation(multipartFile
-										.getOriginalFilename());
+					if (new UploadFilesOnToServer().fileWriting(multipartFile, multipartFile.getOriginalFilename(), Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()))) {
+						restaurantSignUpFormEntity.setMenufilelocation(Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()) + multipartFile.getOriginalFilename());
 					}
 					System.out.println(signupform.getCountry());
 					consumer.signupTable(restaurantSignUpFormEntity);
@@ -191,111 +153,98 @@ public class FineDineController {
 					e.printStackTrace();
 				}
 				SignIn signIn = new SignIn();
-				model.addAttribute("signinform", signIn);
-				return new ModelAndView("signin");
+				model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
+				return new ModelAndView(Views.SIGNIN.getViewName());
 			}
 		}
-		return new ModelAndView("signup");
+		return new ModelAndView(Views.SIGNUP.getViewName());
 	}
 
 	@RequestMapping("/signin")
 	public ModelAndView signIn(Model model) {
 		SignIn signIn = new SignIn();
-		model.addAttribute("signinform", signIn);
-		return new ModelAndView("signin");
+		model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
+		return new ModelAndView(Views.SIGNIN.getViewName());
 	}
 
 	@RequestMapping(value = "/signinform", method = RequestMethod.POST)
-	public ModelAndView signInForm(
-			@ModelAttribute("signinform") @Valid SignIn signinform,
-			BindingResult result) throws Exception {
+	public ModelAndView signInForm(@ModelAttribute("signinform") @Valid SignIn signinform, BindingResult result) throws Exception {
 		if (result.hasErrors()) {
-			return new ModelAndView("signin", "signinform", signinform);
+			return new ModelAndView(Views.SIGNIN.getViewName(), Constant.SIGNINFORM.getConstantValue(), signinform);
 		} else {
-			System.out.println(signinform.getEmail()
-					+ " : "
-					+ AESencrp.getInstance().getEncryptedPassword(
-							signinform.getPassword()));
+			System.out.println(signinform.getEmail() + " : " + AESencrp.getInstance().getEncryptedPassword(signinform.getPassword()));
 
 			System.out.println(messages.getProperty("login"));
 			if (null != signinform.getPassword()) {
-				signinform.setPassword(AESencrp.getInstance()
-						.getEncryptedPassword(signinform.getPassword()));
+				signinform.setPassword(AESencrp.getInstance().getEncryptedPassword(signinform.getPassword()));
 			}
 			MostRecentlyLoggedInUsers.getInstance();
 			Map<String, Object> cache = null;
-			if (MostRecentlyLoggedInUsers.getLoggedInUsers().size() > 0
-					&& MostRecentlyLoggedInUsers.getLoggedInUsers()
-							.containsKey(signinform.getEmail())) {
-				cache = MostRecentlyLoggedInUsers.getLoggedInUsers().get(
-						signinform.getEmail());
+			if (MostRecentlyLoggedInUsers.getLoggedInUsers().size() > 0 && MostRecentlyLoggedInUsers.getLoggedInUsers().containsKey(signinform.getEmail())) {
+				cache = MostRecentlyLoggedInUsers.getLoggedInUsers().get(signinform.getEmail());
 			}
 
-			String restaurantUUID = null;
+			RestaurantSignUpFormEntity restaurantSignUpFormEntity = null;
 
-			if (null != cache
-					&& cache.size() > 0
-					&& System.currentTimeMillis()
-							- Long.parseLong(cache.get("activetime").toString()) <= 86400000
-					&& (cache.get("password").toString())
-							.equalsIgnoreCase(signinform.getPassword())) {
+			if (null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) <= Integer.parseInt(Constant.CACHETIMEOUT.getConstantValue())
+					&& (cache.get(Constant.PASSWORD.getConstantValue()).toString()).equalsIgnoreCase(signinform.getPassword())) {
 				ModelAndView model = new ModelAndView();
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();
-				ReadMenuFile readMenuFile = new ReadMenuFile();
-				List<Bill> billList = readMenuFile
-						.getListOfMenuItems("C:/FineDine/FineDine/resources/products.csv");
-				List<String> itemsList = readMenuFile.getListOfItems(billList);
-				RestaurantLiveEntity restaurantLiveEntity = consumer
-						.getFromBookingTable("uuid").get(0);
+				List<Bill> billList = new ArrayList<Bill>();
+				List<String> itemsList = new ArrayList<String>();
+				Object objectMenu = cache.get(Constant.MENU.getConstantValue());
+				Object objectItemsList = cache.get(Constant.ITEMSLIST.getConstantValue());
+				if (objectMenu instanceof List && objectItemsList instanceof List) {
+					billList = (List<Bill>) objectMenu;
+					itemsList = (List<String>) objectItemsList;
+				}
+				RestaurantLiveEntity restaurantLiveEntity = consumer.getFromBookingTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString()).get(0);
 				SeatsCalculation seatsCalculation = new SeatsCalculation();
 				model = seatsCalculation.getSeats(restaurantLiveEntity, model);
-				model.addObject("bookingform", booking);
-				model.addObject("billingform", billing);
-				model.addObject("customerform", usersEntity);
-				model.addObject("menu", billList);
-				model.addObject("items", itemsList);
-				model.setViewName("restroframe");
-				session.setAttribute(
-						Constant.AUTHENTICATEUSER.getConstantValue(),
-						signinform);
-				session.setAttribute("cache", cache);
+				model.addObject(Constant.BOOKINGFORM.getConstantValue(), booking);
+				model.addObject(Constant.BILLINGFORM.getConstantValue(), billing);
+				model.addObject(Constant.CUSTOMERFORM.getConstantValue(), usersEntity);
+				model.addObject(Constant.MENU.getConstantValue(), billList);
+				model.addObject(Constant.ITEMSLIST.getConstantValue(), itemsList);
+				model.setViewName(Views.RESTROFRAME.getViewName());
+				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
+				session.setAttribute(Constant.CACHE.getConstantValue(), cache);
 				return model;
-			} else if ((restaurantUUID = consumer.signInTable(signinform)) != null)
+			} else if ((restaurantSignUpFormEntity = consumer.signInTable(signinform)) != null)
 			// if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
 			{
-				cache = new HashMap<String, Object>();
-				cache.put("password", signinform.getPassword());
-				cache.put("activetime", System.currentTimeMillis());
-				cache.put("restaurantUUID", restaurantUUID);
-				MostRecentlyLoggedInUsers.getLoggedInUsers().put(
-						signinform.getEmail(), cache);
-				session.setAttribute("cache", cache);
 				ModelAndView model = new ModelAndView();
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();
 				ReadMenuFile readMenuFile = new ReadMenuFile();
-				List<Bill> billList = readMenuFile
-						.getListOfMenuItems("C:/FineDine/FineDine/resources/products.csv");
+				List<Bill> billList = readMenuFile.getListOfMenuItems(restaurantSignUpFormEntity.getMenufilelocation());
+				// List<Bill> billList =
+				// readMenuFile.getListOfMenuItems("D:/Workspaces/Algorithmic Problems/Algorithmic Problems/FineDine/resources/products.csv");
 				List<String> itemsList = readMenuFile.getListOfItems(billList);
-				RestaurantLiveEntity restaurantLiveEntity = consumer
-						.getFromBookingTable("uuid").get(0);
+				RestaurantLiveEntity restaurantLiveEntity = consumer.getFromBookingTable(restaurantSignUpFormEntity.getUuid()).get(0);
 				SeatsCalculation seatsCalculation = new SeatsCalculation();
 				model = seatsCalculation.getSeats(restaurantLiveEntity, model);
-				model.addObject("bookingform", booking);
-				model.addObject("billingform", billing);
-				model.addObject("customerform", usersEntity);
-				model.addObject("menu", billList);
-				model.addObject("items", itemsList);
-				model.setViewName("restroframe");
-				session.setAttribute(
-						Constant.AUTHENTICATEUSER.getConstantValue(),
-						signinform);
+				model.addObject(Constant.BOOKINGFORM.getConstantValue(), booking);
+				model.addObject(Constant.BILLINGFORM.getConstantValue(), billing);
+				model.addObject(Constant.CUSTOMERFORM.getConstantValue(), usersEntity);
+				model.addObject(Constant.MENU.getConstantValue(), billList);
+				model.addObject(Constant.ITEMSLIST.getConstantValue(), itemsList);
+				model.setViewName(Views.RESTROFRAME.getViewName());
+				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
+				cache = new HashMap<String, Object>();
+				cache.put(Constant.PASSWORD.getConstantValue(), signinform.getPassword());
+				cache.put(Constant.CACHEACTIVETIMEMS.getConstantValue(), System.currentTimeMillis());
+				cache.put(Constant.RESTAURANTUUID.getConstantValue(), restaurantSignUpFormEntity.getUuid());
+				cache.put(Constant.ITEMSLIST.getConstantValue(), itemsList);
+				cache.put(Constant.MENU.getConstantValue(), billList);
+				MostRecentlyLoggedInUsers.getLoggedInUsers().put(signinform.getEmail(), cache);
+				session.setAttribute(Constant.CACHE.getConstantValue(), cache);
 				return model;
 			} else {
-				return new ModelAndView("signin", "signinform", signinform);
+				return new ModelAndView(Views.SIGNIN.getViewName(), Constant.SIGNINFORM.getConstantValue(), signinform);
 			}
 		}
 	}
@@ -305,34 +254,36 @@ public class FineDineController {
 		Billing billing = new Billing();
 		Booking booking = new Booking();
 		UsersEntity usersEntity = new UsersEntity();
-		ReadMenuFile readMenuFile = new ReadMenuFile();
-		List<Bill> billList = readMenuFile
-				.getListOfMenuItems("C:/FineDine/FineDine/resources/products.csv");
-		List<String> itemsList = readMenuFile.getListOfItems(billList);
-		model = new ModelAndView("restroframe");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map = (Map<String, Object>) session.getAttribute("cache");
-		RestaurantLiveEntity restaurantLiveEntity = consumer
-				.getFromBookingTable(map.get("restaurantUUID").toString()).get(
-						0);
+		Map<String, Object> cache = new HashMap<String, Object>();
+		cache = (Map<String, Object>) session.getAttribute(Constant.CACHE.getConstantValue());
+		List<Bill> billList = new ArrayList<Bill>();
+		List<String> itemsList = new ArrayList<String>();
+		if (cache.size() > 0) {
+			Object objectMenu = cache.get(Constant.MENU.getConstantValue());
+			Object objectItemsList = cache.get(Constant.ITEMSLIST.getConstantValue());
+			if (objectMenu instanceof List && objectItemsList instanceof List) {
+				billList = (List<Bill>) objectMenu;
+				itemsList = (List<String>) objectItemsList;
+			}
+		}
+		model = new ModelAndView(Views.RESTROFRAME.getViewName());
+		RestaurantLiveEntity restaurantLiveEntity = consumer.getFromBookingTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString()).get(0);
 		SeatsCalculation seatsCalculation = new SeatsCalculation();
 		model = seatsCalculation.getSeats(restaurantLiveEntity, model);
-		model.addObject("bookingform", booking);
-		model.addObject("billingform", billing);
-		model.addObject("customerform", usersEntity);
-		model.addObject("menu", billList);
-		model.addObject("items", itemsList);
+		model.addObject(Constant.BOOKINGFORM.getConstantValue(), booking);
+		model.addObject(Constant.BILLINGFORM.getConstantValue(), billing);
+		model.addObject(Constant.CUSTOMERFORM.getConstantValue(), usersEntity);
+		model.addObject(Constant.MENU.getConstantValue(), billList);
+		model.addObject(Constant.ITEMSLIST.getConstantValue(), itemsList);
 		return model;
 	}
 
 	@RequestMapping(value = "/billingform", method = RequestMethod.POST)
-	public String billingForm(
-			@ModelAttribute("billingform") @Valid Billing billingform,
-			BindingResult result) throws AddressException, MessagingException {
+	public String billingForm(@ModelAttribute("billingform") @Valid Billing billingform, BindingResult result) throws AddressException, MessagingException {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
-			GenerateInvoice.Generate(billingform.getList(), "/IM2/");
+			GenerateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(),billingform.getEmailid().replace(".", "_"));
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
@@ -340,67 +291,61 @@ public class FineDineController {
 		/*
 		 * Mailer.mailer(billingform.getEmailid(),MailTemplateReader.readfile());
 		 */
-		// return new ModelAndView("restroframe");
-		return "redirect:restroframe.im";
+		return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 
 	@RequestMapping(value = "/bookingform", method = RequestMethod.POST)
-	public String bookingform(
-			@ModelAttribute("bookingform") @Valid Booking bookingform,
-			BindingResult result, ModelMap model) {
+	public String bookingform(@ModelAttribute("bookingform") @Valid Booking bookingform, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
 			UsersEntity usersEntity = new UsersEntity();
 			usersEntity.setName(bookingform.getName());
-			usersEntity.setBdtime(new java.sql.Timestamp(Calendar.getInstance()
-					.getTime().getTime()).toString());
+			usersEntity.setBdtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
 			usersEntity.setBillamt("0");
 			usersEntity.setBillpayed("N");
 			usersEntity.setRcount("0");
 			usersEntity.setTablenum("N");
 			usersEntity.setTimezone("IST");
-			usersEntity.setVdtime(new java.sql.Timestamp(Calendar.getInstance()
-					.getTime().getTime()).toString());
+			usersEntity.setVdtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
 			usersEntity.setVisited("Y");
 			usersEntity.setEmailid(bookingform.getEmailid());
 			usersEntity.setContactnum(bookingform.getContactno());
 			usersEntity.setOccasion(bookingform.getEvent());
 			usersEntity.setSeatsbooked(bookingform.getBooking());
-			usersEntity.setUuid("uuid");
+			Map<String, Object> cache = new HashMap<String, Object>();
+			cache = (Map<String, Object>) session.getAttribute(Constant.CACHE.getConstantValue());
+			if (cache.size() > 0) {
+				usersEntity.setUuid(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
+			} else {
+				// log
+			}
 			try {
-				RestaurantLiveEntity restaurantLiveEntity = consumer
-						.usersTable(usersEntity);
+				RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
 				SeatsCalculation seatsCalculation = new SeatsCalculation();
-				model = seatsCalculation.getSeats(restaurantLiveEntity,
-						bookingform, model);
+				model = seatsCalculation.getSeats(restaurantLiveEntity, bookingform, model);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return "forward:restroframe.im";
+		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 
 	@RequestMapping(value = "/customerform", method = RequestMethod.POST)
-	public String customerForm(@ModelAttribute("customerform") ModelMap model)
-			throws AddressException, MessagingException {
-		List<UsersEntity> usersEntity = consumer.customerTable("uuid");// Object
-																		// replaced
-																		// by
-																		// Class
-																		// Name
-		/*
-		 * UsersEntity usersEntity2 = (UsersEntity) usersEntity.get(0);
-		 * System.out.println(usersEntity2.getEmailid());
-		 */
+	public String customerForm(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
+		Map<String, Object> cache = new HashMap<String, Object>();
+		cache = (Map<String, Object>) session.getAttribute(Constant.CACHE.getConstantValue());
+		List<UsersEntity> usersEntity = new ArrayList<UsersEntity>();
+		if (cache.size() > 0) {
+			usersEntity = consumer.customerTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
+		}
 		session.setAttribute("usersEntity", usersEntity);
-		return "forward:restroframe.im";
+		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 
 	@RequestMapping(value = "/customerform", method = RequestMethod.GET)
-	public String customerFormGet(@ModelAttribute("customerform") ModelMap model)
-			throws AddressException, MessagingException {
+	public String customerFormGet(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
 		model.addAttribute("usersEntity", session.getAttribute("usersEntity"));
-		return "forward:restroframe.im";
+		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 }

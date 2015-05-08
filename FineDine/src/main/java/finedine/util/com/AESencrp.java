@@ -7,7 +7,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 public class AESencrp {

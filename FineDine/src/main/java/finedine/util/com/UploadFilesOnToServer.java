@@ -9,8 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UploadFilesOnToServer {
 
-	public Boolean fileWriting(MultipartFile multipartFile, String fileName,
-			String filePath) throws IOException {
+	public Boolean fileWriting(MultipartFile multipartFile, String fileName, String filePath) throws IOException {
 
 		File file = new File(filePath);
 		file.mkdirs();
@@ -23,9 +22,9 @@ public class UploadFilesOnToServer {
 			fos.write(multipartFile.getBytes());
 			return true;
 		} catch (FileNotFoundException e) {
-			//log.info("File not found" + e);
+			// log.info("File not found" + e);
 		} catch (IOException ioe) {
-			//log.info("Exception while writing file " + ioe);
+			// log.info("Exception while writing file " + ioe);
 		} finally {
 			// close the streams using close method
 			try {
@@ -33,7 +32,7 @@ public class UploadFilesOnToServer {
 					fos.close();
 				}
 			} catch (IOException ioe) {
-				//log.info("Error while closing stream: " + ioe);
+				// log.info("Error while closing stream: " + ioe);
 			}
 
 		}

@@ -23,8 +23,7 @@ public class MostRecentlyLoggedInUsers {
 		return loggedInUsers;
 	}
 
-	public static void setLoggedInUsers(
-			Map<String, Map<String, Object>> loggedInUsers) {
+	public static void setLoggedInUsers(Map<String, Map<String, Object>> loggedInUsers) {
 		MostRecentlyLoggedInUsers.loggedInUsers = loggedInUsers;
 	}
 
