@@ -34,7 +34,7 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	}
 	
 	@Transactional
-	public boolean signInTable(SignIn record){
+	public String signInTable(SignIn record){
 		return im2DAO.signInTable(record);
 	}
 
@@ -42,5 +42,10 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	public boolean resetPasswordTable(String email, String password) {
 		return im2DAO.resetPasswordTable(email, password);
 		
+	}
+
+	@Transactional
+	public List<RestaurantLiveEntity> getFromBookingTable(String restaurantUUID) {
+		return im2DAO.getFromBookingTable(restaurantUUID);
 	}
 }

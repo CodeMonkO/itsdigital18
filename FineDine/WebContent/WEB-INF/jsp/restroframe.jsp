@@ -95,7 +95,7 @@
             function() {
                 setInterval(function() {
                     var randomnumber = Math.floor(Math.random() * 100);
-                    $('#deviceId3').text(
+                    $('#deviceId39').text(
                             'I am getting refreshed every 3 seconds..! Random Number ==> '
                                     + randomnumber);
                 }, 3000);
@@ -656,18 +656,21 @@ function renameRows(tBody) {
 						   		    <td><b>Payment Status</b></td>
 					   		    </tr>
 					   		    <tr></tr>
+					   		    
 					   		    <c:if test="${not empty usersEntity}">
-					   		    	<ul>
+					   		    	
 										<c:forEach var="usersEntity" items="${usersEntity}">
-											<li>${listValue}</li>
-											<li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.emailid}</span></li>
-											<li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></li>
-								   		    <li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">W</span></li>
-								   		    <li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.occasion}</span></li>
-								   		    <li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></li>
-								   		    <li><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></li>
+											<%-- <li>${listValue}</li> --%>
+											<tr>
+											<td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.emailid}</span></td>
+											<td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></td>
+								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">W</span></td>
+								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.occasion}</span></td>
+								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
+								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
+											</tr>
 										</c:forEach>
-									</ul>
+									
 						   		    <%-- <tr>
 							   		    <td></td>
 							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></td>
@@ -677,6 +680,7 @@ function renameRows(tBody) {
 							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
 						   		    </tr> --%>
 					   		    </c:if>
+					   		    
 				   		    </table>
 				   		    </div>
 			        	</form:form>

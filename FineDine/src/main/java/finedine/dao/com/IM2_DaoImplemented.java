@@ -19,16 +19,22 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	public RestaurantLiveEntity usersTable(UsersEntity record) {
+	public List<RestaurantLiveEntity> getFromBookingTable(String restaurantUUID) {
 		Query query = null;
-		String selectSqlQuery = null, procSqlQuery = null;
-		String uuid = record.getUuid();
+		String selectSqlQuery = null;
 		selectSqlQuery = "from RestaurantLiveEntity restaurantLiveEntity  where restaurantLiveEntity.uuid = :uuid ";
 		query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
-		query.setParameter("uuid", uuid);
-		List<Object> list = query.list();
+		query.setParameter("uuid", restaurantUUID);
+		List<RestaurantLiveEntity> list = query.list();
+		return list;
+	}
+
+	public RestaurantLiveEntity usersTable(UsersEntity record) {
+		Query query = null;
+		String procSqlQuery = null;
+		String uuid = record.getUuid();
 		RestaurantLiveEntity restaurantLiveEntity = null;
-		for (Object object : list) {
+		for (Object object : getFromBookingTable(uuid)) {
 			restaurantLiveEntity = (RestaurantLiveEntity) object;
 		}
 		if (restaurantLiveEntity.isStatusflag()) {
@@ -52,10 +58,11 @@ public class IM2_DaoImplemented implements IM2_Dao {
 
 	@Override
 	public List<UsersEntity> customerTable(String uuid) {
-		String selectSqlQuery = "from UsersEntity usersEntity  where usersEntity.uuid = :uuid ";
+		String selectSqlQuery = "from UsersEntity usersEntity  where usersEntity.uuid = :uuid AND usersEntity.billpayed = :billpayed";
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				selectSqlQuery);
 		query.setParameter("uuid", uuid);
+		query.setParameter("billpayed", "N");
 		List<UsersEntity> list = query.list();
 		return list;
 	}
@@ -63,11 +70,12 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	@Override
 	public boolean signupTable(RestaurantSignUpFormEntity record) {
 		sessionFactory.getCurrentSession().save(record);
+		//proc to update enter in live table
 		return true;
 	}
 
 	@Override
-	public boolean signInTable(SignIn record) {
+	public String signInTable(SignIn record) {
 		String rmail = record.getEmail();
 		String password = record.getPassword();
 		String selectSqlQuery = "from RestaurantSignUpFormEntity restaurantSignUpFormEntity  where restaurantSignUpFormEntity.rmail = :rmail and restaurantSignUpFormEntity.password =:password ";
@@ -75,11 +83,13 @@ public class IM2_DaoImplemented implements IM2_Dao {
 				selectSqlQuery);
 		query.setParameter("rmail", rmail);
 		query.setParameter("password", password);
-		List<Object> list = query.list();
-		if (list.size() > 0)
-			return true;
-		else
-			return false;
+		List<RestaurantSignUpFormEntity> list = query.list();
+		if (list.size() > 0) {
+			RestaurantSignUpFormEntity restaurantSignUpFormEntity = list.get(0);
+			return restaurantSignUpFormEntity.getUuid();
+		} else {
+			return null;
+		}
 	}
 
 	public boolean resetPasswordTable(String email, String password) {
