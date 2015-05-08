@@ -28,6 +28,7 @@ import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
 import main.java.finedine.services.com.IM2_Dbservice;
 import main.java.finedine.util.com.AESencrp;
+import main.java.finedine.util.com.DropDownMap;
 import main.java.finedine.util.com.GenerateInvoice;
 import main.java.finedine.util.com.JPassGenerator;
 import main.java.finedine.util.com.ReadMenuFile;
@@ -112,6 +113,19 @@ public class FineDineController {
 		SignUp signupform = new SignUp();
 		model.addAttribute("signupform", signupform);
 		return new ModelAndView(Views.SIGNUP.getViewName());
+	}
+
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public ModelAndView signUpGet() {
+		DropDownMap dropDownMap = DropDownMap.getInstance();
+		List<String> countryList = dropDownMap.getDorpDownList(messages.getProperty("Country"));
+		List<String> statesList = dropDownMap.getDorpDownList(messages.getProperty("India"));
+		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
+		SignUp signupform = new SignUp();
+		model.addObject("signupform", signupform);
+		model.addObject("countryList", countryList);
+		model.addObject("statesList", statesList);
+		return model;
 	}
 
 	@RequestMapping(value = "/signupform", method = RequestMethod.POST)
@@ -283,7 +297,7 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
-			GenerateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(),billingform.getEmailid().replace(".", "_"));
+			GenerateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(), billingform.getEmailid().replace(".", "_"));
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();

@@ -298,8 +298,11 @@
 				              	</div>
 				            	<div id="col">
 				            		<form:errors path="country" />
-				                	<form:input path="country" type="text" id="country" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
- 	
+				                	<%-- <form:input path="country" type="text" id="country" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/> --%>
+ 									<form:select path="country"  multiple="false">
+										<form:option value="" label="Select" />
+									    <form:options items="${countryList}" />
+									</form:select>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -309,7 +312,10 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="state" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:select path="state"  multiple="false">
+										<form:option value="" label="Select" />
+									    <form:options items="${statesList}" />
+									</form:select>
 				                </div>
 				             </div>
 				    		 <div id="row"  >
