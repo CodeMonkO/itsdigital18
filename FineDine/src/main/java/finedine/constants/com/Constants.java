@@ -10,8 +10,8 @@ public class Constants {
 		CACHETIMEOUT("86400000"),
 		CACHEACTIVETIMEMS("CACHEACTIVETIMEMS"),
 		PASSWORD("PASSWORD"),
-		MENU("MENU"),
-		ITEMSLIST("ITEMSLIST"),
+		MENU("menu"),
+		ITEMSLIST("items"),
 		RESTAURANTUUID("RESTAURANTUUID"),
 		BOOKINGFORM("bookingform"),
 		BILLINGFORM("billingform"),
@@ -20,7 +20,10 @@ public class Constants {
 		CACHE("CACHE"),
 		UPLOADFILE("/IM2/?/"),
 		BILLPDF("/IM2/Bills/"),
-		BILLPDFEXTENSTION(".pdf");
+		BILLPDFEXTENSTION(".pdf"),
+		COUNTRYCSVPATH("countrylist.path"),
+		COUNTRYNAME("countrylist.CountryName"),
+		COUNTRYCODE("countrylist.CountryCode");
 
 		private String value;
 

@@ -30,8 +30,9 @@ import main.java.finedine.services.com.IM2_Dbservice;
 import main.java.finedine.util.com.AESencrp;
 import main.java.finedine.util.com.DropDownMap;
 import main.java.finedine.util.com.GenerateInvoice;
+import main.java.finedine.util.com.GenerateUUID;
 import main.java.finedine.util.com.JPassGenerator;
-import main.java.finedine.util.com.ReadMenuFile;
+import main.java.finedine.util.com.ReadCSVFile;
 import main.java.finedine.util.com.SeatsCalculation;
 import main.java.finedine.util.com.UploadFilesOnToServer;
 
@@ -118,7 +119,9 @@ public class FineDineController {
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUpGet() {
 		DropDownMap dropDownMap = DropDownMap.getInstance();
-		List<String> countryList = dropDownMap.getDorpDownList(messages.getProperty("Country"));
+		ReadCSVFile readCSVFile = new ReadCSVFile();
+		Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
+		List<String> countryList = readCSVFile.getList(countryMap, "k");
 		List<String> statesList = dropDownMap.getDorpDownList(messages.getProperty("India"));
 		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
 		SignUp signupform = new SignUp();
@@ -135,13 +138,15 @@ public class FineDineController {
 		} else {
 			if (signupform.getPassword().equals(signupform.getCpassword())) {
 				try {
+					ReadCSVFile readCSVFile = new ReadCSVFile();
+					Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
 					RestaurantSignUpFormEntity restaurantSignUpFormEntity = new RestaurantSignUpFormEntity();
 					restaurantSignUpFormEntity.setAddress(signupform.getAddress());
 					restaurantSignUpFormEntity.setAltcontact(signupform.getRaltcontact());
 					restaurantSignUpFormEntity.setCity(signupform.getCity());
-					restaurantSignUpFormEntity.setCitycode("");
+					restaurantSignUpFormEntity.setCitycode(signupform.getZipcode());
 					restaurantSignUpFormEntity.setCountry(signupform.getCountry());
-					restaurantSignUpFormEntity.setCountrycode("");
+					restaurantSignUpFormEntity.setCountrycode(countryMap.get(signupform.getCountry()));
 					restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
 					restaurantSignUpFormEntity.setMaxseat(signupform.getRmaxseats());
 					restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
@@ -152,17 +157,22 @@ public class FineDineController {
 					restaurantSignUpFormEntity.setRname(signupform.getRname());
 					restaurantSignUpFormEntity.setRtype(signupform.getRtype());
 					restaurantSignUpFormEntity.setState(signupform.getState());
-					restaurantSignUpFormEntity.setStatecode("");
+					restaurantSignUpFormEntity.setStatecode("UP");
 					restaurantSignUpFormEntity.setStatus(signupform.getStatus());
 					restaurantSignUpFormEntity.setSubtype(signupform.getRsubtype());
-					restaurantSignUpFormEntity.setUuid("");
+					restaurantSignUpFormEntity.setUuid(new GenerateUUID().getGeneratedUUID(signupform, countryMap));
 					restaurantSignUpFormEntity.setZipcode(signupform.getZipcode());
 					MultipartFile multipartFile = signupform.getFiles().get(0);
 					if (new UploadFilesOnToServer().fileWriting(multipartFile, multipartFile.getOriginalFilename(), Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()))) {
 						restaurantSignUpFormEntity.setMenufilelocation(Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()) + multipartFile.getOriginalFilename());
 					}
 					System.out.println(signupform.getCountry());
-					consumer.signupTable(restaurantSignUpFormEntity);
+					RestaurantLiveEntity restaurantLiveEntity = new RestaurantLiveEntity();
+					restaurantLiveEntity.setMaxseat(signupform.getRmaxseats());
+					restaurantLiveEntity.setBookedseat("0");
+					restaurantLiveEntity.setStatusflag(true);
+					restaurantLiveEntity.setUuid(restaurantSignUpFormEntity.getUuid());
+					consumer.signupTable(restaurantSignUpFormEntity, restaurantLiveEntity);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -233,7 +243,7 @@ public class FineDineController {
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();
-				ReadMenuFile readMenuFile = new ReadMenuFile();
+				ReadCSVFile readMenuFile = new ReadCSVFile();
 				List<Bill> billList = readMenuFile.getListOfMenuItems(restaurantSignUpFormEntity.getMenufilelocation());
 				// List<Bill> billList =
 				// readMenuFile.getListOfMenuItems("D:/Workspaces/Algorithmic Problems/Algorithmic Problems/FineDine/resources/products.csv");

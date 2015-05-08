@@ -29,8 +29,8 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	}
 	
 	@Transactional
-	public boolean signupTable(RestaurantSignUpFormEntity record) {
-		return im2DAO.signupTable(record);
+	public boolean signupTable(RestaurantSignUpFormEntity record, RestaurantLiveEntity restaurantLiveEntity) {
+		return im2DAO.signupTable(record, restaurantLiveEntity);
 	}
 	
 	@Transactional

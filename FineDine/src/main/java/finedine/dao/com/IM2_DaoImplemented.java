@@ -66,9 +66,9 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	}
 
 	@Override
-	public boolean signupTable(RestaurantSignUpFormEntity record) {
+	public boolean signupTable(RestaurantSignUpFormEntity record, RestaurantLiveEntity restaurantLiveEntity) {
 		sessionFactory.getCurrentSession().save(record);
-		// proc to update enter in live table
+		sessionFactory.getCurrentSession().save(restaurantLiveEntity);
 		return true;
 	}
 

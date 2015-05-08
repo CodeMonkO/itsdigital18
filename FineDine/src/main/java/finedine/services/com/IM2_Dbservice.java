@@ -11,7 +11,7 @@ public interface IM2_Dbservice {
 	public List<RestaurantLiveEntity> getFromBookingTable(String restaurantUUID);
 	public RestaurantLiveEntity usersTable(UsersEntity record);
 	public List<UsersEntity> customerTable(String uuid);
-	public boolean signupTable(RestaurantSignUpFormEntity record);
+	public boolean signupTable(RestaurantSignUpFormEntity record, RestaurantLiveEntity restaurantLiveEntity);
 	public RestaurantSignUpFormEntity signInTable(SignIn record);
 	public boolean resetPasswordTable(String email, String password);
 }
