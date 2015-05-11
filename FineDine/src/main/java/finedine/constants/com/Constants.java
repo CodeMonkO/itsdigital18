@@ -17,6 +17,7 @@ public class Constants {
 		BILLINGFORM("billingform"),
 		CUSTOMERFORM("customerform"),
 		SIGNINFORM("signinform"),
+		SIGNUPFORM("signupform"),
 		CACHE("CACHE"),
 		UPLOADFILE("/IM2/?/"),
 		BILLPDF("/IM2/Bills/"),
@@ -53,6 +54,26 @@ public class Constants {
 		}
 
 		public String getViewName() {
+			return value;
+		}
+
+	}
+	
+	public enum SqlQueries {
+
+		RESTAURANTLIVEENTITY("booking.restaurantliveentity"),
+		USERSTABLE("users.update"),
+		CUSTOMERTABLE("customer.usersentity"),
+		SIGNINTABLE("signin.restaurantsignupformentity"),
+		RESETUPDATE("reset.update");
+
+		private String value;
+
+		private SqlQueries(String s) {
+			value = s;
+		}
+
+		public String getSqlQueries() {
 			return value;
 		}
 

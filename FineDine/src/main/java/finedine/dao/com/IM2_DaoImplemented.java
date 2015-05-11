@@ -1,7 +1,12 @@
 package main.java.finedine.dao.com;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
+import main.java.finedine.constants.com.Constants.SqlQueries;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
@@ -18,11 +23,13 @@ public class IM2_DaoImplemented implements IM2_Dao {
 
 	@Autowired
 	SessionFactory sessionFactory;
+	@Autowired
+	public Properties messages;
 
 	public List<RestaurantLiveEntity> getFromBookingTable(String restaurantUUID) {
 		Query query = null;
 		String selectSqlQuery = null;
-		selectSqlQuery = "from RestaurantLiveEntity restaurantLiveEntity  where restaurantLiveEntity.uuid = :uuid ";
+		selectSqlQuery = messages.getProperty(SqlQueries.RESTAURANTLIVEENTITY.getSqlQueries());
 		query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
 		query.setParameter("uuid", restaurantUUID);
 		List<RestaurantLiveEntity> list = query.list();
@@ -39,7 +46,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		}
 		if (restaurantLiveEntity.isStatusflag()) {
 			sessionFactory.getCurrentSession().save(record);
-			procSqlQuery = "CALL restaurantProc(:uuid,:bookedseat) ";
+			procSqlQuery = messages.getProperty(SqlQueries.USERSTABLE.getSqlQueries());
 			query = null;
 			try {
 				query = sessionFactory.getCurrentSession().createSQLQuery(procSqlQuery);
@@ -57,10 +64,15 @@ public class IM2_DaoImplemented implements IM2_Dao {
 
 	@Override
 	public List<UsersEntity> customerTable(String uuid) {
-		String selectSqlQuery = "from UsersEntity usersEntity  where usersEntity.uuid = :uuid AND usersEntity.billpayed = :billpayed";
+		String selectSqlQuery = messages.getProperty(SqlQueries.CUSTOMERTABLE.getSqlQueries());
 		Query query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
+		StringTokenizer stringTokenizer = new StringTokenizer(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString()," ");
+		
+		StringBuilder vdtime = new StringBuilder(stringTokenizer.nextElement().toString());
+		vdtime.append("%");
 		query.setParameter("uuid", uuid);
 		query.setParameter("billpayed", "N");
+		query.setParameter("vdtime", vdtime.toString());
 		List<UsersEntity> list = query.list();
 		return list;
 	}
@@ -76,7 +88,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	public RestaurantSignUpFormEntity signInTable(SignIn record) {
 		String rmail = record.getEmail();
 		String password = record.getPassword();
-		String selectSqlQuery = "from RestaurantSignUpFormEntity restaurantSignUpFormEntity  where restaurantSignUpFormEntity.rmail = :rmail and restaurantSignUpFormEntity.password =:password ";
+		String selectSqlQuery = messages.getProperty(SqlQueries.SIGNINTABLE.getSqlQueries());
 		Query query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
 		query.setParameter("rmail", rmail);
 		query.setParameter("password", password);
@@ -90,7 +102,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 
 	public boolean resetPasswordTable(String email, String password) {
 
-		String procSqlQuery = "CALL passwordProc(:password,:email)";
+		String procSqlQuery = messages.getProperty(SqlQueries.RESETUPDATE.getSqlQueries());
 		Query query = null;
 		try {
 			query = sessionFactory.getCurrentSession().createSQLQuery(procSqlQuery);

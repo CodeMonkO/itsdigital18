@@ -125,7 +125,7 @@ public class FineDineController {
 		List<String> statesList = dropDownMap.getDorpDownList(messages.getProperty("India"));
 		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
 		SignUp signupform = new SignUp();
-		model.addObject("signupform", signupform);
+		model.addObject(Constant.SIGNUPFORM.getConstantValue(), signupform);
 		model.addObject("countryList", countryList);
 		model.addObject("statesList", statesList);
 		return model;
@@ -190,6 +190,13 @@ public class FineDineController {
 		model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
 		return new ModelAndView(Views.SIGNIN.getViewName());
 	}
+	
+	@RequestMapping(value = "/signinform", method = RequestMethod.GET)
+	public ModelAndView signInFormGet(Model model){
+		SignIn signIn = new SignIn();
+		model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
+		return new ModelAndView(Views.SIGNIN.getViewName());
+	}
 
 	@RequestMapping(value = "/signinform", method = RequestMethod.POST)
 	public ModelAndView signInForm(@ModelAttribute("signinform") @Valid SignIn signinform, BindingResult result) throws Exception {
@@ -209,6 +216,11 @@ public class FineDineController {
 			}
 
 			RestaurantSignUpFormEntity restaurantSignUpFormEntity = null;
+			
+			if(null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) > Integer.parseInt(Constant.CACHETIMEOUT.getConstantValue())){
+				MostRecentlyLoggedInUsers.getLoggedInUsers().remove(signinform.getEmail());
+				session.removeAttribute(Constant.CACHE.getConstantValue());
+			}
 
 			if (null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) <= Integer.parseInt(Constant.CACHETIMEOUT.getConstantValue())
 					&& (cache.get(Constant.PASSWORD.getConstantValue()).toString()).equalsIgnoreCase(signinform.getPassword())) {
@@ -302,6 +314,14 @@ public class FineDineController {
 		return model;
 	}
 
+	@RequestMapping(value = "/billingform", method = RequestMethod.GET)
+	public ModelAndView billingFormGet(Model model){
+		Billing billing = new Billing();
+		model.addAttribute(Constant.BILLINGFORM.getConstantValue(), billing);
+		return new ModelAndView(Views.RESTROFRAME.getViewName());
+	}
+
+	
 	@RequestMapping(value = "/billingform", method = RequestMethod.POST)
 	public String billingForm(@ModelAttribute("billingform") @Valid Billing billingform, BindingResult result) throws AddressException, MessagingException {
 		if (result.hasErrors()) {
@@ -318,6 +338,13 @@ public class FineDineController {
 		return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 
+	@RequestMapping(value = "/bookingform", method = RequestMethod.GET)
+	public ModelAndView bookingformGet(Model model){
+		Booking booking = new Booking();
+		model.addAttribute(Constant.BOOKINGFORM.getConstantValue(), booking);
+		return new ModelAndView(Views.RESTROFRAME.getViewName());
+	}
+	
 	@RequestMapping(value = "/bookingform", method = RequestMethod.POST)
 	public String bookingform(@ModelAttribute("bookingform") @Valid Booking bookingform, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
@@ -355,6 +382,12 @@ public class FineDineController {
 		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 
+	@RequestMapping(value = "/customerform", method = RequestMethod.GET)
+	public String customerFormGet(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
+		model.addAttribute("usersEntity", session.getAttribute("usersEntity"));
+		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
+	}
+	
 	@RequestMapping(value = "/customerform", method = RequestMethod.POST)
 	public String customerForm(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
 		Map<String, Object> cache = new HashMap<String, Object>();
@@ -364,12 +397,6 @@ public class FineDineController {
 			usersEntity = consumer.customerTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
 		}
 		session.setAttribute("usersEntity", usersEntity);
-		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
-	}
-
-	@RequestMapping(value = "/customerform", method = RequestMethod.GET)
-	public String customerFormGet(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
-		model.addAttribute("usersEntity", session.getAttribute("usersEntity"));
 		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 }

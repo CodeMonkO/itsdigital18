@@ -484,6 +484,9 @@ function renameRows(tBody) {
 			        <div id="deviceId1">
 				    	<form:form method="POST" action="bookingform.im" modelAttribute="bookingform" id="bookingform">
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Reservation</span> -->
+				   		    <div id="row">
+								<button type="submit">Refresh</button>		                        
+		 					</div>
 				   		    <div id="row" >
 				      			<div id="col">
 				                	<div id="text_setting">

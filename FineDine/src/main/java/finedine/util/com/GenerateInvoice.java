@@ -125,6 +125,8 @@ public class GenerateInvoice {
 			cb.lineTo(430, 650);
 			cb.moveTo(500, 50);
 			cb.lineTo(500, 650);
+			cb.moveTo(500, 50);
+			cb.lineTo(500, 650);
 			cb.rectangle(20, 50, 550, 20);
 			cb.stroke();
 
@@ -178,26 +180,27 @@ public class GenerateInvoice {
 	int index = 0;
 
 	private void generateDetail(Document doc, PdfContentByte cb, int y,
-			String itemnum, String itemdesc, String price, String qty) {
+			String itemname, String qty, String price, String discount) {
 		DecimalFormat df = new DecimalFormat("0.00");
 
 		try {
 
 			createContent(cb, 48, y, String.valueOf(index + 1),
 					PdfContentByte.ALIGN_RIGHT);
-			createContent(cb, 52, y, itemnum + String.valueOf(index + 1),
+			createContent(cb, 52, y, itemname + String.valueOf(index + 1),
 					PdfContentByte.ALIGN_LEFT);
-			createContent(cb, 152, y, itemdesc, PdfContentByte.ALIGN_LEFT);
+			createContent(cb, 152, y, qty, PdfContentByte.ALIGN_LEFT);
 
 			/* double price = Double.valueOf(df.format(Math.random() * 10)); */
 			/* double extPrice = price * (index + 1); */
 			/*createContent(cb, 498, y, df.format(price),
 					PdfContentByte.ALIGN_RIGHT);*/
+			
 			createContent(cb, 498, y, price,
 					PdfContentByte.ALIGN_RIGHT);
 			/*createContent(cb, 568, y, df.format(qty),
 					PdfContentByte.ALIGN_RIGHT);*/
-			createContent(cb, 568, y, qty,
+			createContent(cb, 568, y, discount,
 					PdfContentByte.ALIGN_RIGHT);
 			index++;
 		}
