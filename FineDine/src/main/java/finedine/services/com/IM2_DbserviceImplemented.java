@@ -11,12 +11,12 @@ import main.java.finedine.pojo.com.SignIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
- 
+
 @Service
 public class IM2_DbserviceImplemented implements IM2_Dbservice {
- 
-    @Autowired
-    IM2_Dao im2DAO;
+
+	@Autowired
+	IM2_Dao im2DAO;
 
 	@Transactional
 	public RestaurantLiveEntity usersTable(UsersEntity record) {
@@ -27,25 +27,30 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	public List<UsersEntity> customerTable(String uuid) {
 		return im2DAO.customerTable(uuid);
 	}
-	
+
 	@Transactional
 	public boolean signupTable(RestaurantSignUpFormEntity record, RestaurantLiveEntity restaurantLiveEntity) {
 		return im2DAO.signupTable(record, restaurantLiveEntity);
 	}
-	
+
 	@Transactional
-	public RestaurantSignUpFormEntity signInTable(SignIn record){
+	public RestaurantSignUpFormEntity signInTable(SignIn record) {
 		return im2DAO.signInTable(record);
 	}
 
 	@Transactional
 	public boolean resetPasswordTable(String email, String password) {
 		return im2DAO.resetPasswordTable(email, password);
-		
+
 	}
 
 	@Transactional
 	public List<RestaurantLiveEntity> getFromBookingTable(String restaurantUUID) {
 		return im2DAO.getFromBookingTable(restaurantUUID);
+	}
+
+	@Transactional
+	public boolean resetBookingTable(String restaurantUUID) {
+		return im2DAO.resetBookingTable(restaurantUUID);
 	}
 }

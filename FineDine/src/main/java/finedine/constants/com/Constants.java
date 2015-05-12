@@ -65,9 +65,11 @@ public class Constants {
 	public enum SqlQueries {
 
 		RESTAURANTLIVEENTITY("booking.restaurantliveentity"),
+		RESETRESTAURANTLIVEENTITY("reset.booking.restaurantliveentity"),
 		USERSTABLE("users.update"),
 		CUSTOMERTABLE("customer.usersentity"),
 		SIGNINTABLE("signin.restaurantsignupformentity"),
+		SIGNUPTABLE("signup.restaurantsignupformentity"),
 		RESETUPDATE("reset.update");
 
 		private String value;

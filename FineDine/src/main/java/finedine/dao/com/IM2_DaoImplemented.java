@@ -35,6 +35,18 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		List<RestaurantLiveEntity> list = query.list();
 		return list;
 	}
+	
+	public boolean resetBookingTable(String restaurantUUID) {
+		Query query = null;
+		String selectSqlQuery = null;
+		selectSqlQuery = messages.getProperty(SqlQueries.RESETRESTAURANTLIVEENTITY.getSqlQueries());
+		query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
+		query.setParameter("uuid", restaurantUUID);
+		query.setParameter("bookedseat", "0");
+		query.setParameter("statusflag", "1");
+		query.executeUpdate();
+		return true;
+	}
 
 	public RestaurantLiveEntity usersTable(UsersEntity record) {
 		Query query = null;
@@ -66,8 +78,8 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	public List<UsersEntity> customerTable(String uuid) {
 		String selectSqlQuery = messages.getProperty(SqlQueries.CUSTOMERTABLE.getSqlQueries());
 		Query query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
-		StringTokenizer stringTokenizer = new StringTokenizer(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString()," ");
-		
+		StringTokenizer stringTokenizer = new StringTokenizer(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString(), " ");
+
 		StringBuilder vdtime = new StringBuilder(stringTokenizer.nextElement().toString());
 		vdtime.append("%");
 		query.setParameter("uuid", uuid);
@@ -79,9 +91,21 @@ public class IM2_DaoImplemented implements IM2_Dao {
 
 	@Override
 	public boolean signupTable(RestaurantSignUpFormEntity record, RestaurantLiveEntity restaurantLiveEntity) {
-		sessionFactory.getCurrentSession().save(record);
-		sessionFactory.getCurrentSession().save(restaurantLiveEntity);
-		return true;
+		String rmail = record.getRmail();
+		String selectSqlQuery = messages.getProperty(SqlQueries.SIGNUPTABLE.getSqlQueries());
+		try {
+			Query query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
+			query.setParameter("rmail", rmail);
+			List<RestaurantSignUpFormEntity> list = query.list();
+			if (list.size() == 0) {
+				sessionFactory.getCurrentSession().save(record);
+				sessionFactory.getCurrentSession().save(restaurantLiveEntity);
+				return true;
+			}
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override

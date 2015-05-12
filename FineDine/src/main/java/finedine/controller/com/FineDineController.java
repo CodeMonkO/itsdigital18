@@ -63,7 +63,9 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/signout", method = RequestMethod.GET)
-	public ModelAndView SignOut() throws AddressException, MessagingException {
+	public ModelAndView SignOut(Model model) throws AddressException, MessagingException {
+		SignIn signIn = new SignIn();
+		model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
 		return new ModelAndView(Views.SIGNIN.getViewName());
 	}
 
@@ -117,7 +119,7 @@ public class FineDineController {
 	@RequestMapping("/signup")
 	public ModelAndView signUp(Model model) {
 		SignUp signupform = new SignUp();
-		model.addAttribute("signupform", signupform);
+		model.addAttribute(Constant.SIGNUPFORM.getConstantValue(), signupform);
 		return new ModelAndView(Views.SIGNUP.getViewName());
 	}
 
@@ -136,7 +138,24 @@ public class FineDineController {
 		model.addObject("statesList", statesList);
 		return model;
 	}
-
+	
+	
+	@RequestMapping(value = "/signupform", method = RequestMethod.GET)
+	public ModelAndView signUpFormGet() {
+		DropDownMap dropDownMap = DropDownMap.getInstance();
+		ReadCSVFile readCSVFile = new ReadCSVFile();
+		Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
+		List<String> countryList = readCSVFile.getList(countryMap, "k");
+		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
+		List<String> statesList = readCSVFile.getList(stateMap, "k");
+		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
+		SignUp signupform = new SignUp();
+		model.addObject(Constant.SIGNUPFORM.getConstantValue(), signupform);
+		model.addObject("countryList", countryList);
+		model.addObject("statesList", statesList);
+		return model;
+	}
+	
 	@RequestMapping(value = "/signupform", method = RequestMethod.POST)
 	public ModelAndView signUpForm(@ModelAttribute("signupform") @Valid SignUp signupform, BindingResult result, ModelMap model) throws IOException {
 		if (result.hasErrors()) {
@@ -153,7 +172,7 @@ public class FineDineController {
 					restaurantSignUpFormEntity.setCity(signupform.getCity());
 					restaurantSignUpFormEntity.setCitycode(signupform.getZipcode());
 					restaurantSignUpFormEntity.setCountry(signupform.getCountry());
-					restaurantSignUpFormEntity.setCountrycode(countryMap.get(signupform.getCountry()));
+					restaurantSignUpFormEntity.setCountrycode(countryMap.get(signupform.getCountry()).toUpperCase());
 					restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
 					restaurantSignUpFormEntity.setMaxseat(signupform.getRmaxseats());
 					restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
@@ -179,7 +198,9 @@ public class FineDineController {
 					restaurantLiveEntity.setBookedseat("0");
 					restaurantLiveEntity.setStatusflag(true);
 					restaurantLiveEntity.setUuid(restaurantSignUpFormEntity.getUuid());
-					consumer.signupTable(restaurantSignUpFormEntity, restaurantLiveEntity);
+					if (!consumer.signupTable(restaurantSignUpFormEntity, restaurantLiveEntity)) {
+						return new ModelAndView(Views.SIGNUP.getViewName());
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -252,10 +273,9 @@ public class FineDineController {
 				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
 				session.setAttribute(Constant.CACHE.getConstantValue(), cache);
 				return model;
-			} else
-			// if ((restaurantSignUpFormEntity =
-			// consumer.signInTable(signinform)) != null)
-			if (signinform.getEmail().equalsIgnoreCase("a@a.a")) {
+			} else if ((restaurantSignUpFormEntity = consumer.signInTable(signinform)) != null)
+			// if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
+			{
 				ModelAndView model = new ModelAndView();
 				Billing billing = new Billing();
 				Booking booking = new Booking();
@@ -297,13 +317,16 @@ public class FineDineController {
 		cache = (Map<String, Object>) session.getAttribute(Constant.CACHE.getConstantValue());
 		List<Bill> billList = new ArrayList<Bill>();
 		List<String> itemsList = new ArrayList<String>();
-		if (cache.size() > 0) {
+		if (cache != null && cache.size() > 0) {
 			Object objectMenu = cache.get(Constant.MENU.getConstantValue());
 			Object objectItemsList = cache.get(Constant.ITEMSLIST.getConstantValue());
 			if (objectMenu instanceof List && objectItemsList instanceof List) {
 				billList = (List<Bill>) objectMenu;
 				itemsList = (List<String>) objectItemsList;
 			}
+		} else {
+			model = new ModelAndView(Views.SIGNIN.getViewName());
+			return model;
 		}
 		model = new ModelAndView(Views.RESTROFRAME.getViewName());
 		RestaurantLiveEntity restaurantLiveEntity = consumer.getFromBookingTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString()).get(0);
@@ -357,7 +380,7 @@ public class FineDineController {
 			usersEntity.setBdtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
 			usersEntity.setBillamt("0");
 			usersEntity.setBillpayed("N");
-			usersEntity.setRcount("0");
+			usersEntity.setRcount("W");
 			usersEntity.setTablenum("N");
 			usersEntity.setTimezone("IST");
 			usersEntity.setVdtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
@@ -368,10 +391,11 @@ public class FineDineController {
 			usersEntity.setSeatsbooked(bookingform.getBooking());
 			Map<String, Object> cache = new HashMap<String, Object>();
 			cache = (Map<String, Object>) session.getAttribute(Constant.CACHE.getConstantValue());
-			if (cache.size() > 0) {
+			if (cache != null && cache.size() > 0) {
 				usersEntity.setUuid(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
 			} else {
 				// log
+				return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 			}
 			try {
 				RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
@@ -395,8 +419,10 @@ public class FineDineController {
 		Map<String, Object> cache = new HashMap<String, Object>();
 		cache = (Map<String, Object>) session.getAttribute(Constant.CACHE.getConstantValue());
 		List<UsersEntity> usersEntity = new ArrayList<UsersEntity>();
-		if (cache.size() > 0) {
+		if (cache != null && cache.size() > 0) {
 			usersEntity = consumer.customerTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
+		} else {
+			return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 		}
 		session.setAttribute("usersEntity", usersEntity);
 		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";

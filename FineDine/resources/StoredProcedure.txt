@@ -1,8 +1,9 @@
 DELIMITER $$
-DROP PROCEDURE IF EXISTS `finedinedb`.`restaurantProc` $$
-CREATE PROCEDURE `finedinedb`.`restaurantProc`(IN uuidParam VARCHAR(21), IN requestedSeats INTEGER) 
 
-    BEGIN
+DROP PROCEDURE IF EXISTS `finedinedb`.`restaurantProc`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `restaurantProc`(IN uuidParam VARCHAR(40), IN requestedSeats INTEGER)
+BEGIN
 	DECLARE BookedSeats, MaxSeats, UpdatedSeats INTEGER DEFAULT 0;
 	SELECT CAST(bookedseat AS UNSIGNED),CAST(maxseat AS UNSIGNED) INTO BookedSeats, MaxSeats FROM restaurantlive WHERE UUID = uuidParam LOCK IN SHARE MODE;
 	SET UpdatedSeats = BookedSeats + requestedSeats;
