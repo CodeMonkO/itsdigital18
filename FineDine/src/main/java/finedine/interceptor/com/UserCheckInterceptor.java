@@ -61,6 +61,10 @@ public class UserCheckInterceptor implements HandlerInterceptor {
 				return false;
 			}
 		}
+		
+		if (uri.endsWith("signout.im")) {
+			session.invalidate();
+		}
 		return true;
 	}
 }

@@ -3,9 +3,9 @@ package main.java.finedine.util.com;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import main.java.finedine.pojo.com.Bill;
 
@@ -54,7 +54,7 @@ public class ReadCSVFile {
 		try {
 
 			CsvReader csvReader = new CsvReader(path);
-			map = new HashMap<String, String>();
+			map = new TreeMap<String, String>();
 			csvReader.readHeaders();
 			boolean skipHeader = true;
 			while (csvReader.readRecord()) {

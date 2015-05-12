@@ -24,7 +24,9 @@ public class Constants {
 		BILLPDFEXTENSTION(".pdf"),
 		COUNTRYCSVPATH("countrylist.path"),
 		COUNTRYNAME("countrylist.CountryName"),
-		COUNTRYCODE("countrylist.CountryCode");
+		COUNTRYCODE("countrylist.CountryCode"),
+		STATECSVPATH("statelist.path"),
+		STATENAME("statelist.StateName");
 
 		private String value;
 

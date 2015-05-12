@@ -62,6 +62,11 @@ public class FineDineController {
 		return new ModelAndView(Views.HOME.getViewName());
 	}
 
+	@RequestMapping(value = "/signout", method = RequestMethod.GET)
+	public ModelAndView SignOut() throws AddressException, MessagingException {
+		return new ModelAndView(Views.SIGNIN.getViewName());
+	}
+
 	@RequestMapping("/forgotpassword")
 	public ModelAndView forgotPassword(Model model) {
 		ForgotPassword forgotPassword = new ForgotPassword();
@@ -122,7 +127,8 @@ public class FineDineController {
 		ReadCSVFile readCSVFile = new ReadCSVFile();
 		Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
 		List<String> countryList = readCSVFile.getList(countryMap, "k");
-		List<String> statesList = dropDownMap.getDorpDownList(messages.getProperty("India"));
+		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()));
+		List<String> statesList = readCSVFile.getList(stateMap, "k");
 		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
 		SignUp signupform = new SignUp();
 		model.addObject(Constant.SIGNUPFORM.getConstantValue(), signupform);
@@ -184,15 +190,15 @@ public class FineDineController {
 		return new ModelAndView(Views.SIGNUP.getViewName());
 	}
 
-	@RequestMapping("/signin")
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView signIn(Model model) {
 		SignIn signIn = new SignIn();
 		model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
 		return new ModelAndView(Views.SIGNIN.getViewName());
 	}
-	
+
 	@RequestMapping(value = "/signinform", method = RequestMethod.GET)
-	public ModelAndView signInFormGet(Model model){
+	public ModelAndView signInFormGet(Model model) {
 		SignIn signIn = new SignIn();
 		model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
 		return new ModelAndView(Views.SIGNIN.getViewName());
@@ -203,9 +209,6 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			return new ModelAndView(Views.SIGNIN.getViewName(), Constant.SIGNINFORM.getConstantValue(), signinform);
 		} else {
-			System.out.println(signinform.getEmail() + " : " + AESencrp.getInstance().getEncryptedPassword(signinform.getPassword()));
-
-			System.out.println(messages.getProperty("login"));
 			if (null != signinform.getPassword()) {
 				signinform.setPassword(AESencrp.getInstance().getEncryptedPassword(signinform.getPassword()));
 			}
@@ -215,12 +218,12 @@ public class FineDineController {
 				cache = MostRecentlyLoggedInUsers.getLoggedInUsers().get(signinform.getEmail());
 			}
 
-			RestaurantSignUpFormEntity restaurantSignUpFormEntity = null;
-			
-			if(null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) > Integer.parseInt(Constant.CACHETIMEOUT.getConstantValue())){
+			if (null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) > Integer.parseInt(Constant.CACHETIMEOUT.getConstantValue())) {
 				MostRecentlyLoggedInUsers.getLoggedInUsers().remove(signinform.getEmail());
 				session.removeAttribute(Constant.CACHE.getConstantValue());
+				session.removeAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 			}
+			RestaurantSignUpFormEntity restaurantSignUpFormEntity = null;
 
 			if (null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) <= Integer.parseInt(Constant.CACHETIMEOUT.getConstantValue())
 					&& (cache.get(Constant.PASSWORD.getConstantValue()).toString()).equalsIgnoreCase(signinform.getPassword())) {
@@ -248,17 +251,16 @@ public class FineDineController {
 				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
 				session.setAttribute(Constant.CACHE.getConstantValue(), cache);
 				return model;
-			} else if ((restaurantSignUpFormEntity = consumer.signInTable(signinform)) != null)
-			// if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
-			{
+			} else
+			// if ((restaurantSignUpFormEntity =
+			// consumer.signInTable(signinform)) != null)
+			if (signinform.getEmail().equalsIgnoreCase("a@a.a")) {
 				ModelAndView model = new ModelAndView();
 				Billing billing = new Billing();
 				Booking booking = new Booking();
 				UsersEntity usersEntity = new UsersEntity();
 				ReadCSVFile readMenuFile = new ReadCSVFile();
 				List<Bill> billList = readMenuFile.getListOfMenuItems(restaurantSignUpFormEntity.getMenufilelocation());
-				// List<Bill> billList =
-				// readMenuFile.getListOfMenuItems("D:/Workspaces/Algorithmic Problems/Algorithmic Problems/FineDine/resources/products.csv");
 				List<String> itemsList = readMenuFile.getListOfItems(billList);
 				RestaurantLiveEntity restaurantLiveEntity = consumer.getFromBookingTable(restaurantSignUpFormEntity.getUuid()).get(0);
 				SeatsCalculation seatsCalculation = new SeatsCalculation();
@@ -269,7 +271,6 @@ public class FineDineController {
 				model.addObject(Constant.MENU.getConstantValue(), billList);
 				model.addObject(Constant.ITEMSLIST.getConstantValue(), itemsList);
 				model.setViewName(Views.RESTROFRAME.getViewName());
-				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
 				cache = new HashMap<String, Object>();
 				cache.put(Constant.PASSWORD.getConstantValue(), signinform.getPassword());
 				cache.put(Constant.CACHEACTIVETIMEMS.getConstantValue(), System.currentTimeMillis());
@@ -277,6 +278,7 @@ public class FineDineController {
 				cache.put(Constant.ITEMSLIST.getConstantValue(), itemsList);
 				cache.put(Constant.MENU.getConstantValue(), billList);
 				MostRecentlyLoggedInUsers.getLoggedInUsers().put(signinform.getEmail(), cache);
+				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
 				session.setAttribute(Constant.CACHE.getConstantValue(), cache);
 				return model;
 			} else {
@@ -315,13 +317,12 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/billingform", method = RequestMethod.GET)
-	public ModelAndView billingFormGet(Model model){
+	public ModelAndView billingFormGet(Model model) {
 		Billing billing = new Billing();
 		model.addAttribute(Constant.BILLINGFORM.getConstantValue(), billing);
 		return new ModelAndView(Views.RESTROFRAME.getViewName());
 	}
 
-	
 	@RequestMapping(value = "/billingform", method = RequestMethod.POST)
 	public String billingForm(@ModelAttribute("billingform") @Valid Billing billingform, BindingResult result) throws AddressException, MessagingException {
 		if (result.hasErrors()) {
@@ -339,12 +340,12 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/bookingform", method = RequestMethod.GET)
-	public ModelAndView bookingformGet(Model model){
+	public ModelAndView bookingformGet(Model model) {
 		Booking booking = new Booking();
 		model.addAttribute(Constant.BOOKINGFORM.getConstantValue(), booking);
 		return new ModelAndView(Views.RESTROFRAME.getViewName());
 	}
-	
+
 	@RequestMapping(value = "/bookingform", method = RequestMethod.POST)
 	public String bookingform(@ModelAttribute("bookingform") @Valid Booking bookingform, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
@@ -387,7 +388,7 @@ public class FineDineController {
 		model.addAttribute("usersEntity", session.getAttribute("usersEntity"));
 		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
-	
+
 	@RequestMapping(value = "/customerform", method = RequestMethod.POST)
 	public String customerForm(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
 		Map<String, Object> cache = new HashMap<String, Object>();

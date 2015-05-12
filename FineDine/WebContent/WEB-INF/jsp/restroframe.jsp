@@ -373,8 +373,7 @@ function renameRows(tBody) {
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="signup.im">Sign&nbsp;In</a></li>
-                            <li><a href="signup.im">Sign&nbsp;Up</a></li>
+                            <li><a href="signout.im">Sign&nbsp;Out</a></li>
                             <!-- <li class="pm-search-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/#" class="pm-search-btn" id="pm-search-btn"><i class="fa fa-search"></i></a></li> -->
                             <!-- <li class="pm-cart-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/cart.html" class="pm-cart-btn"><i class="fa fa-shopping-cart"></i></a></li> -->
                         </ul>

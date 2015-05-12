@@ -1,6 +1,12 @@
 package main.java.finedine.pojo.com;
 
-public class Bill {
+import java.io.Serializable;
+
+public class Bill implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String item;
 	private String amount;
 	private String discount;

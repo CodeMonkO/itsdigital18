@@ -1,6 +1,12 @@
 package main.java.finedine.pojo.com;
 
-public class ResetPassword {
+import java.io.Serializable;
+
+public class ResetPassword implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String vcode;
 	private String password;
 	private String cpassword;

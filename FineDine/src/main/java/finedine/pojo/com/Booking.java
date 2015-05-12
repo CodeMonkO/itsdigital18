@@ -1,9 +1,15 @@
 package main.java.finedine.pojo.com;
 
+import java.io.Serializable;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class Booking {
+public class Booking implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@NotEmpty(message = "Enter seats to be booked")
 	private String name;
 	@NotEmpty(message = "Enter seats to be booked")
