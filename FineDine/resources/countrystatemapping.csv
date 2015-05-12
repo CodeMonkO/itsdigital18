@@ -1,36 +1,36 @@
-StatesName,CountryName
-Andhra Pradesh,India
-Arunachal Pradesh,India
-Assam,India
-Bihar,India
-Chhattisgarh,India
-Goa,India
-Gujarat,India
-Haryana,India
-Himachal Pradesh,India
-Jammu and Kashmir,India
-Jharkhand,India
-Karnataka,India
-Kerala,India
-Madhya Pradesh,India
-Maharashtra,India
-Manipur,India
-Meghalaya,India
-Mizoram,India
-Nagaland,India
-Odisha(Orissa),India
-Punjab,India
-Rajasthan,India
-Sikkim,India
-Tamil Nadu,India
-Tripura,India
-Uttar Pradesh,India
-Uttarakhand,India
-West Bengal,India
-Andaman and Nicobar Islands,India
-Chandigarh,India
-Dadra and Nagar Haveli,India
-Daman and Diu,India
-Lakshadweep,India
-New Delhi,India
-Puducherry (Pondicherry),India
+StateName,StateCode
+Andaman and Nicobar Islands,IN0001
+Andhra Pradesh,IN0002
+Arunachal Pradesh,IN0003
+Assam,IN0004
+Bihar,IN0005
+Chandigarh,IN0006
+Chhattisgarh,IN0007
+Dadra and Nagar Haveli,IN0008
+Daman and Diu,IN0009
+Goa,IN0010
+Gujarat,IN0011
+Haryana,IN0012
+Himachal Pradesh,IN0013
+Jammu and Kashmir,IN0014
+Jharkhand,IN0015
+Karnataka,IN0016
+Kerala,IN0017
+Lakshadweep,IN0018
+Madhya Pradesh,IN0019
+Maharashtra,IN0020
+Manipur,IN0021
+Meghalaya,IN0022
+Mizoram,IN0023
+Nagaland,IN0024
+New Delhi,IN0025
+Odisha(Orissa),IN0026
+Puducherry (Pondicherry),IN0027
+Punjab,IN0028
+Rajasthan,IN0029
+Sikkim,IN0030
+Tamil Nadu,IN0031
+Tripura,IN0032
+Uttar Pradesh,IN0033
+Uttarakhand,IN0034
+West Bengal,IN0035

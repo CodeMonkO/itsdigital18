@@ -26,7 +26,8 @@ public class Constants {
 		COUNTRYNAME("countrylist.CountryName"),
 		COUNTRYCODE("countrylist.CountryCode"),
 		STATECSVPATH("statelist.path"),
-		STATENAME("statelist.StateName");
+		STATENAME("statelist.StateName"),
+		STATECODE("statelist.StateCode");
 
 		private String value;
 

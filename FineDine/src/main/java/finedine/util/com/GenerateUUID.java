@@ -15,10 +15,10 @@ public class GenerateUUID {
 		return formattedDate;
 	}
 
-	public String getGeneratedUUID(SignUp signupform, Map<String, String> countryMap) {
+	public String getGeneratedUUID(SignUp signupform, Map<String, String> countryMap, Map<String, String> stateMap) {
 		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(countryMap.get(signupform.getCountry()).toUpperCase());
-		stringBuffer.append("UP");
+		/*stringBuffer.append(countryMap.get(signupform.getCountry()).toUpperCase());*/
+		stringBuffer.append(stateMap.get(signupform.getState()).toUpperCase());
 		stringBuffer.append(signupform.getZipcode());
 		stringBuffer.append("TS");
 		stringBuffer.append(getTimeStamp());

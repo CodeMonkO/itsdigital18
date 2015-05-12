@@ -127,7 +127,7 @@ public class FineDineController {
 		ReadCSVFile readCSVFile = new ReadCSVFile();
 		Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
 		List<String> countryList = readCSVFile.getList(countryMap, "k");
-		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()));
+		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
 		List<String> statesList = readCSVFile.getList(stateMap, "k");
 		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
 		SignUp signupform = new SignUp();
@@ -146,6 +146,7 @@ public class FineDineController {
 				try {
 					ReadCSVFile readCSVFile = new ReadCSVFile();
 					Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
+					Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
 					RestaurantSignUpFormEntity restaurantSignUpFormEntity = new RestaurantSignUpFormEntity();
 					restaurantSignUpFormEntity.setAddress(signupform.getAddress());
 					restaurantSignUpFormEntity.setAltcontact(signupform.getRaltcontact());
@@ -163,10 +164,10 @@ public class FineDineController {
 					restaurantSignUpFormEntity.setRname(signupform.getRname());
 					restaurantSignUpFormEntity.setRtype(signupform.getRtype());
 					restaurantSignUpFormEntity.setState(signupform.getState());
-					restaurantSignUpFormEntity.setStatecode("UP");
+					restaurantSignUpFormEntity.setStatecode(stateMap.get(signupform.getState()));
 					restaurantSignUpFormEntity.setStatus(signupform.getStatus());
 					restaurantSignUpFormEntity.setSubtype(signupform.getRsubtype());
-					restaurantSignUpFormEntity.setUuid(new GenerateUUID().getGeneratedUUID(signupform, countryMap));
+					restaurantSignUpFormEntity.setUuid(new GenerateUUID().getGeneratedUUID(signupform, countryMap, stateMap));
 					restaurantSignUpFormEntity.setZipcode(signupform.getZipcode());
 					MultipartFile multipartFile = signupform.getFiles().get(0);
 					if (new UploadFilesOnToServer().fileWriting(multipartFile, multipartFile.getOriginalFilename(), Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()))) {
