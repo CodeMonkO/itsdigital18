@@ -1,7 +1,6 @@
 package main.java.finedine.dao.com;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
@@ -36,14 +35,14 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		return list;
 	}
 	
-	public boolean resetBookingTable(String restaurantUUID) {
+	public boolean resetBookingTable(String countrycode) {
 		Query query = null;
 		String selectSqlQuery = null;
 		selectSqlQuery = messages.getProperty(SqlQueries.RESETRESTAURANTLIVEENTITY.getSqlQueries());
 		query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
-		query.setParameter("uuid", restaurantUUID);
+		query.setParameter("countrycode", countrycode);
 		query.setParameter("bookedseat", "0");
-		query.setParameter("statusflag", "1");
+		query.setParameter("statusflag", true);
 		query.executeUpdate();
 		return true;
 	}

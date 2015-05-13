@@ -10,7 +10,7 @@ public class GenerateUUID {
 
 	private String getTimeStamp() {
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("MMddyyyyHHmmssSSS");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		String formattedDate = sdf.format(date);
 		return formattedDate;
 	}
