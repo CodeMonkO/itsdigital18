@@ -48,6 +48,8 @@ public class SignUp implements Serializable {
 	private String rrating;
 	@NotEmpty
 	private String status;
+	@NotEmpty
+	private String timezone;
 	
 	private List<MultipartFile> files;
 
@@ -201,6 +203,14 @@ public class SignUp implements Serializable {
 
 	public void setFiles(List<MultipartFile> files) {
 		this.files = files;
+	}
+
+	public String getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(String timezone) {
+		this.timezone = timezone;
 	}
 
 }

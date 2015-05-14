@@ -87,9 +87,18 @@
 	visibility: visible;
 	overflow: scroll;
 }</style>
+ <script type="text/javascript">
+    function timezones(){  	
+	    var date = new Date();
+	    var offset = date.getTimezoneOffset();
+	    offset = offset/60;
+	    document.getElementById('timezone').value = offset;
+	    alert(document.getElementById('timezone').value);
+	    }
+    </script>
   </head>
 
-  <body>
+  <body onload="timezones()">
   
   <!-- Mobile Menu -->
   <div class="pm-mobile-menu-overlay" id="pm-mobile-menu-overlay"></div>
@@ -501,6 +510,7 @@
 				                </div>
 				             </div>	
 				             <div id="row"  >
+				             	<form:input path="timezone" type="hidden" id="timezone" onkeyup="autoTab(this, document.form_device.address)"/>
 				                <button type="submit" class="pm-rounded-btn animated pm-primary">Submit</button>
 				             </div>							
 			        	</form:form>
@@ -1190,7 +1200,7 @@
     <script src="./js/jquery.PMSlider.js"></script>
     <script src="./js/Show_faded_box.js"></script>
     <p id="back-top" class="visible-lg visible-md visible-sm" style="right: -70px;"> </p>
-    
+   
   
 
 </body></html>

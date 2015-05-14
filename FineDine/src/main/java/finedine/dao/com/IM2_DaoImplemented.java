@@ -35,12 +35,12 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		return list;
 	}
 	
-	public boolean resetBookingTable(String countrycode) {
+	public boolean resetBookingTable(String gmt) {
 		Query query = null;
 		String selectSqlQuery = null;
 		selectSqlQuery = messages.getProperty(SqlQueries.RESETRESTAURANTLIVEENTITY.getSqlQueries());
 		query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
-		query.setParameter("countrycode", countrycode);
+		query.setParameter("countrytimezone", gmt);
 		query.setParameter("bookedseat", "0");
 		query.setParameter("statusflag", true);
 		query.executeUpdate();

@@ -90,17 +90,7 @@
 </style>
 <script type="text/javascript"
     src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script>
-    $(document).ready(
-            function() {
-                setInterval(function() {
-                    var randomnumber = Math.floor(Math.random() * 100);
-                    $('#deviceId39').text(
-                            'I am getting refreshed every 3 seconds..! Random Number ==> '
-                                    + randomnumber);
-                }, 3000);
-            });
-</script>
+
 <script type="text/javascript">
 var array = new Array();
 var array_str = new Array();

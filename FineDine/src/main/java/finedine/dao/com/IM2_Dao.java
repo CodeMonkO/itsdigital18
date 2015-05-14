@@ -9,7 +9,7 @@ import main.java.finedine.pojo.com.SignIn;
 
 public interface IM2_Dao {
 	public List<RestaurantLiveEntity> getFromBookingTable(String restaurantUUID);
-	public boolean resetBookingTable(String restaurantUUID);
+	public boolean resetBookingTable(String gmt);
 	public RestaurantLiveEntity usersTable(UsersEntity record);
 	public List<UsersEntity> customerTable(String uuid);
 	public boolean signupTable(RestaurantSignUpFormEntity record, RestaurantLiveEntity restaurantLiveEntity);

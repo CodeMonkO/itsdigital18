@@ -192,6 +192,7 @@ public class FineDineController {
 					if (new UploadFilesOnToServer().fileWriting(multipartFile, multipartFile.getOriginalFilename(), Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()))) {
 						restaurantSignUpFormEntity.setMenufilelocation(Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()) + multipartFile.getOriginalFilename());
 					}
+					restaurantSignUpFormEntity.setCountrytimezone(signupform.getTimezone());
 					System.out.println(signupform.getCountry());
 					RestaurantLiveEntity restaurantLiveEntity = new RestaurantLiveEntity();
 					restaurantLiveEntity.setMaxseat(signupform.getRmaxseats());

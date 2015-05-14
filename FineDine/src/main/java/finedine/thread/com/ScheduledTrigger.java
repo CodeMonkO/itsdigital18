@@ -27,9 +27,14 @@ public class ScheduledTrigger implements Runnable {
 				Date date = new Date();
 				SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
 				String formattedDate = sdf.format(date);
-				if (formattedDate.equalsIgnoreCase("0042")) {
-					System.out.println("Thread loop ");
-					BackgroundDbOperations.getInstance().dbOperations(consumer);
+				switch(formattedDate){
+				case "0400":
+					BackgroundDbOperations.getInstance().dbOperations(consumer,"GMT+5:30");
+					break;
+				case "0000":
+					BackgroundDbOperations.getInstance().dbOperations(consumer,"GMT+5:30");
+				default:
+					System.out.println("Midnight Trigger Scheduled ");
 				}
 				Thread.sleep(60000); // 1 min
 			} catch (InterruptedException e) {

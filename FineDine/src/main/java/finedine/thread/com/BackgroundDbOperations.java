@@ -17,7 +17,7 @@ public class BackgroundDbOperations {
 		return backgroundDbOperations;
 	}
 
-	public void dbOperations(IM2_Dbservice consumer) {
-		consumer.resetBookingTable("IN");
+	public void dbOperations(IM2_Dbservice consumer, String gmt) {
+		consumer.resetBookingTable(gmt);
 	}
 }

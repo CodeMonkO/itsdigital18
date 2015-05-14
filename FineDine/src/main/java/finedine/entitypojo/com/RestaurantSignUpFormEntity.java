@@ -64,7 +64,8 @@ public class RestaurantSignUpFormEntity implements Serializable {
 	private String status;
 	@Column(name = "menufilelocation")
 	private String menufilelocation;
-
+	@Column(name = "countrytimezone")
+	private String countrytimezone;
 	public Integer getId() {
 		return id;
 	}
@@ -247,6 +248,14 @@ public class RestaurantSignUpFormEntity implements Serializable {
 
 	public void setMenufilelocation(String menufilelocation) {
 		this.menufilelocation = menufilelocation;
+	}
+
+	public String getCountrytimezone() {
+		return countrytimezone;
+	}
+
+	public void setCountrytimezone(String countrytimezone) {
+		this.countrytimezone = countrytimezone;
 	}
 
 }
