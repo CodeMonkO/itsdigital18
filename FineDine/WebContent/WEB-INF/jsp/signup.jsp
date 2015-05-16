@@ -424,17 +424,21 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="rtype" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:select path="rtype"  multiple="false">
+										<form:option value="" label="Select" />
+									    <form:options items="${restroTypeList}" />
+									</form:select>
+				                	<%-- <form:input path="rtype" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/> --%>
 				                </div>
 				             </div>	
 				             <div id="row"  >
-				      			<div id="col">
+				      			<!-- <div id="col">
 				                	<div id="text_setting">
 				         			Restaurant Sub Type
 				                    </div>
-				                </div>
+				                </div> -->
 				                <div id="col">
-				                	<form:input path="rsubtype" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rsubtype" type="hidden" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" value=" . "/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -474,7 +478,17 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="rrating" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<%-- <form:input path="rrating" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/> --%>
+				                	<form:select path="rrating"  multiple="false">
+										<form:option value="" label="Select" />
+									    <form:option value="1" label="1 Star" />
+									    <form:option value="2" label="2 Star" />
+									    <form:option value="3" label="3 Star" />
+									    <form:option value="4" label="4 Star" />
+									    <form:option value="5" label="5 Star" />
+									    <form:option value="6" label="6 Star" />
+									    <form:option value="7" label="7 Star" />
+									</form:select>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -484,7 +498,12 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="status" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<%-- <form:input path="status" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/> --%>
+				                	<form:select path="status"  multiple="false">
+										<form:option value="" label="Select" />
+									    <form:option value="O" label="Currently Active" />
+									    <form:option value="C" label="Currently Shutdown" />
+									</form:select>
 				                </div>
 				             </div>	
 				             <div id="row"  >

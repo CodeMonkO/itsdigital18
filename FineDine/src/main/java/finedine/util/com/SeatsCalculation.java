@@ -16,14 +16,16 @@ public class SeatsCalculation {
 			model.addAttribute("bookedseats", bookedseats + Integer.parseInt(bookingform.getBooking()));
 			model.addAttribute("maxseats", maxseats);
 			model.addAttribute("vacantseats", vacantSeats - Integer.parseInt(bookingform.getBooking()));
+			model.addAttribute("visible", true);
 		} else {
-			System.out.println("hello :" + restaurantLiveEntity.getBookedseat());
 			model.addAttribute("bookedseats", bookedseats);
 			model.addAttribute("maxseats", maxseats);
 			model.addAttribute("vacantseats", vacantSeats);
+			model.addAttribute("visible", true);
 		}
 		if (maxseats == bookedseats) {
 			model.addAttribute("housefull", "All seats booked");
+			model.addAttribute("visible", false);
 		}
 		return model;
 	}
@@ -35,11 +37,12 @@ public class SeatsCalculation {
 
 		if (maxseats == bookedseats) {
 			model.addObject("housefull", "All seats booked");
+			model.addObject("visible", false);
 		} else {
-			System.out.println("hello :" + restaurantLiveEntity.getBookedseat());
 			model.addObject("bookedseats", bookedseats);
 			model.addObject("maxseats", maxseats);
 			model.addObject("vacantseats", vacantSeats);
+			model.addObject("visible", true);
 		}
 		return model;
 	}

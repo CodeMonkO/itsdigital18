@@ -50,7 +50,7 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	}
 
 	@Transactional
-	public boolean resetBookingTable(String gmt) {
-		return im2DAO.resetBookingTable(gmt);
+	public boolean resetBookingTable(List list) {
+		return im2DAO.resetBookingTable(list);
 	}
 }

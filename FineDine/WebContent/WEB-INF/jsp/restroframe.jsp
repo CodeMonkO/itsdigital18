@@ -509,6 +509,7 @@ function renameRows(tBody) {
 				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${housefull}</span>
 				                </div>
 				             </div>
+				            <c:if test="${visible}" >
 				      		<div id="row" >
 				      			<div id="col">
 				                	<div id="text_setting">
@@ -562,6 +563,7 @@ function renameRows(tBody) {
 						        <div id="row">
 		                            <button type="submit" class="pm-rounded-btn animated pm-primary">Book</button>
 		 						</div>
+		 					</c:if>
 			        	</form:form>
 			        </div>
 			        <div id="deviceId2">

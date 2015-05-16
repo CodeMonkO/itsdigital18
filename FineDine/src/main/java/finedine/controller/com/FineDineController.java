@@ -28,7 +28,7 @@ import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
 import main.java.finedine.services.com.IM2_Dbservice;
 import main.java.finedine.util.com.AESencrp;
-import main.java.finedine.util.com.DropDownMap;
+import main.java.finedine.util.com.CustomUtils;
 import main.java.finedine.util.com.GenerateInvoice;
 import main.java.finedine.util.com.GenerateUUID;
 import main.java.finedine.util.com.JPassGenerator;
@@ -125,34 +125,38 @@ public class FineDineController {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUpGet() {
-		DropDownMap dropDownMap = DropDownMap.getInstance();
 		ReadCSVFile readCSVFile = new ReadCSVFile();
 		Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
 		List<String> countryList = readCSVFile.getList(countryMap, "k");
 		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
 		List<String> statesList = readCSVFile.getList(stateMap, "k");
+		CustomUtils customUtils = CustomUtils.getInstance();
+		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("signup.delim"));
 		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
 		SignUp signupform = new SignUp();
 		model.addObject(Constant.SIGNUPFORM.getConstantValue(), signupform);
 		model.addObject("countryList", countryList);
 		model.addObject("statesList", statesList);
+		model.addObject("restroTypeList", restroTypeList);
 		return model;
 	}
 	
 	
 	@RequestMapping(value = "/signupform", method = RequestMethod.GET)
 	public ModelAndView signUpFormGet() {
-		DropDownMap dropDownMap = DropDownMap.getInstance();
 		ReadCSVFile readCSVFile = new ReadCSVFile();
 		Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
 		List<String> countryList = readCSVFile.getList(countryMap, "k");
 		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
 		List<String> statesList = readCSVFile.getList(stateMap, "k");
+		CustomUtils customUtils = CustomUtils.getInstance();
+		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("signup.delim"));
 		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
 		SignUp signupform = new SignUp();
 		model.addObject(Constant.SIGNUPFORM.getConstantValue(), signupform);
 		model.addObject("countryList", countryList);
 		model.addObject("statesList", statesList);
+		model.addObject("restroTypeList", restroTypeList);
 		return model;
 	}
 	

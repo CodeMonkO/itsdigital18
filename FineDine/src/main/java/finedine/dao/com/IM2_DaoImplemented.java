@@ -34,16 +34,23 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		List<RestaurantLiveEntity> list = query.list();
 		return list;
 	}
-	
-	public boolean resetBookingTable(String gmt) {
+
+	public boolean resetBookingTable(List list) {
 		Query query = null;
 		String selectSqlQuery = null;
 		selectSqlQuery = messages.getProperty(SqlQueries.RESETRESTAURANTLIVEENTITY.getSqlQueries());
 		query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
-		query.setParameter("countrytimezone", gmt);
-		query.setParameter("bookedseat", "0");
-		query.setParameter("statusflag", true);
-		query.executeUpdate();
+		for (Object object : list) {
+			String temp = (String)object;
+			if(Integer.parseInt(temp)>=0){
+				temp = "+"+temp;
+			}
+			temp = "%"+temp;		
+			query.setParameter("countrytimezone", temp);
+			query.setParameter("bookedseat", "0");
+			query.setParameter("statusflag", true);
+			query.executeUpdate();
+		}
 		return true;
 	}
 
@@ -55,7 +62,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		for (Object object : getFromBookingTable(uuid)) {
 			restaurantLiveEntity = (RestaurantLiveEntity) object;
 		}
-		if (restaurantLiveEntity.isStatusflag()) {
+		if (Integer.parseInt(record.getSeatsbooked()) <= Integer.parseInt(restaurantLiveEntity.getMaxseat())-Integer.parseInt(restaurantLiveEntity.getBookedseat())) {
 			sessionFactory.getCurrentSession().save(record);
 			procSqlQuery = messages.getProperty(SqlQueries.USERSTABLE.getSqlQueries());
 			query = null;

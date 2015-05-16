@@ -28,15 +28,25 @@ public class ScheduledTrigger implements Runnable {
 				SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
 				String formattedDate = sdf.format(date);
 				switch(formattedDate){
-				case "0400":
-					BackgroundDbOperations.getInstance().dbOperations(consumer,"GMT+5:30");
+				case "0200":
+					BackgroundDbOperations.getInstance().dbOperations(consumer,+5,+8);
 					break;
-				case "0000":
-					BackgroundDbOperations.getInstance().dbOperations(consumer,"GMT+5:30");
+				case "0730":
+					BackgroundDbOperations.getInstance().dbOperations(consumer,+0,+2);
+					break;
+				case "1130":
+					BackgroundDbOperations.getInstance().dbOperations(consumer,-3,-5);
+					break;
+				case "1730":
+					BackgroundDbOperations.getInstance().dbOperations(consumer,-6,-10);
+					break;
+				case "2230":
+					BackgroundDbOperations.getInstance().dbOperations(consumer,+9,+12);
+					break;
 				default:
 					System.out.println("Midnight Trigger Scheduled ");
 				}
-				Thread.sleep(60000); // 1 min
+				Thread.sleep(3600000); // 1 min
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
