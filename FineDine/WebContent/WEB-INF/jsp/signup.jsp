@@ -93,7 +93,6 @@
 	    var offset = date.getTimezoneOffset();
 	    offset = offset/60;
 	    document.getElementById('timezone').value = offset;
-	    alert(document.getElementById('timezone').value);
 	    }
     </script>
   </head>
@@ -458,7 +457,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="opentime" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="opentime" type="time" min="9:00" max="17:00" step="900" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>
 				             <div id="row"  >
@@ -468,7 +467,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="closetime" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="closetime" type="time" min="9:00" max="17:00" step="900" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
