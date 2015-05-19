@@ -129,6 +129,19 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		}
 		return null;
 	}
+	
+	@Override
+	public RestaurantSignUpFormEntity getRestaurantDetailsFromTable(String restaurantUUID) {
+		String selectSqlQuery = messages.getProperty(SqlQueries.GETFROMRESTAURANTTABLE.getSqlQueries());
+		Query query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
+		query.setParameter("uuid", restaurantUUID);
+		List<RestaurantSignUpFormEntity> list = query.list();
+		if (list.size() == 1) {
+			RestaurantSignUpFormEntity restaurantSignUpFormEntity = list.get(0);
+			return restaurantSignUpFormEntity;
+		}
+		return null;
+	}
 
 	public boolean resetPasswordTable(String email, String password) {
 

@@ -53,4 +53,9 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	public boolean resetBookingTable(List list) {
 		return im2DAO.resetBookingTable(list);
 	}
+
+	@Transactional
+	public RestaurantSignUpFormEntity getRestaurantDetailsFromTable(String restaurantUUID) {
+		return im2DAO.getRestaurantDetailsFromTable(restaurantUUID);
+	}
 }

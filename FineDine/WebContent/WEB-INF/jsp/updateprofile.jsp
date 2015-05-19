@@ -84,147 +84,20 @@
 	z-index: 9;
 	opacity:1;
 	font-family: arial;
-	visibility: hidden;
+	visibility: visible;
 	overflow: scroll;
-}
-</style>
-<script type="text/javascript"
-    src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-
-<script type="text/javascript">
-var array = new Array();
-var array_str = new Array();
-function addToList(){
-	var qty = document.getElementById('qty');
-	var item = document.getElementById('item');
-	var array_str = item.value.split('|');
-	array.push(array_str[0]+","+qty.value+","+array_str[1]+","+array_str[2]);
-	var item = array_str[0];
-	var amount = array_str[1].toString();
-	var discount = array_str[2].toString();
-	addRow(item,qty.value,amount,discount);
-}
-function addRow(item,qty,amount,discount) {
-		var tabNode = document.getElementById("datatable");
-		var tBody = tabNode.getElementsByTagName("tbody")[0];
-		var rows = tBody.getElementsByTagName("tr");  	
-		var rowIndex = rows.length;
-		var trNode = tabNode.insertRow(rowIndex);	
-		trNode.id = "rowID_"+rowIndex;
-
-		tdNode = trNode.insertCell(0);
-		tdNode.width = '10%';		
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = rowIndex;	
-		
-		tdNode = trNode.insertCell(1);
-		tdNode.width = '10%';		
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = item;	
-		
-		tdNode = trNode.insertCell(2);		
-		tdNode.width = '10%';	
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = qty;	
-		
-		tdNode = trNode.insertCell(3);		
-		tdNode.width = '10%';	
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = amount;	
-		
-		tdNode = trNode.insertCell(4);		
-		tdNode.width = '10%';		
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = discount;
-
-		tdNode = trNode.insertCell(5);		
-		tdNode.width = '10%';		
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = "<img src=\"./images/red.gif\" align=\"absmiddle\" border=\"0\" width=\"15\" height=\"15\" onclick=\"javascript:removeRow("+rowIndex+")\"/>";			
-		document.getElementById('list').value=array;
-		document.getElementById('item').value="";
-		document.getElementById('qty').value="";
-	
-}
-
-function removeRow(rowIndex) {		
-	array.splice(rowIndex-1,1);
-	document.getElementById('list').value=array;
-	var table = document.getElementById("datatable");
-	var tBody = table.getElementsByTagName("tbody")[0];
-	var rows = tBody.getElementsByTagName("tr");  
-	var row = rows[rowIndex];
-	if(rows.length > 1) {
-		tBody.removeChild(row);
-		renameRows(tBody);
-	} else {
-		alert ("You cannot delete the last remaining row");
-	}
-}
-
-
-function renameRows(tBody) {  
-	var rows = document.getElementById('datatable').rows		
-	var row, tdNode, j, tdNodes;
-	var tabNode = document.getElementById(tBody);
-
-	for(var i = 0; i < rows.length; i++) {	
-		if(i == 0){
-			continue;
-		}
-		row = tabNode.getElementsByTagName('tr')[i];			
-		row.id = "rowID_"+i;
-
-		tdNode = row.getElementsByTagName("td");
-
-		tdNode = trNode.insertCell(0);
-		tdNode.width = '10%';		
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = rowIndex;	
-		
-		tdNode = trNode.insertCell(1);
-		tdNode.width = '10%';		
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('item').value;	
-		
-		tdNode = trNode.insertCell(2);		
-		tdNode.width = '10%';	
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('qty').value	
-		
-		tdNode = trNode.insertCell(3);		
-		tdNode.width = '10%';	
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('qty').value	
-		
-		tdNode = trNode.insertCell(4);		
-		tdNode.width = '10%';		
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = document.getElementById('qty').value	
-
-		tdNode = trNode.insertCell(5);		
-		tdNode.width = '10%';		
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = "<img src=\"./images/red.gif\" align=\"absmiddle\" border=\"0\" width=\"15\" height=\"15\" onclick=\"javascript:removeRow("+rowIndex+")\"/>";			
-	
-	}
-}
-</script>
+}</style>
+ <script type="text/javascript">
+    function timezones(){  	
+	    var date = new Date();
+	    var offset = date.getTimezoneOffset();
+	    offset = offset/60;
+	    document.getElementById('timezone').value = offset;
+	    }
+    </script>
   </head>
 
-  <body>
+  <body onload="timezones()">
   
   <!-- Mobile Menu -->
   <div class="pm-mobile-menu-overlay" id="pm-mobile-menu-overlay"></div>
@@ -308,9 +181,6 @@ function renameRows(tBody) {
             	<div class="row">
                 	
                     <div class="col-lg-10 col-md-10 col-sm-10">
-                    	<!-- <form action="http://projects.pulsarmedia.ca/vienna/#" method="post">
-                        	<input name="pm_search_field" type="text" class="pm-search-field-header" placeholder="Type Keywords...">
-                        </form> -->
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2">
                     	<ul class="pm-search-controls">
@@ -363,8 +233,8 @@ function renameRows(tBody) {
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="updateprofile.im">Update&nbsp;Profile</a></li>
-                            <li><a href="signout.im">Sign&nbsp;Out</a></li>
+                            <li><a href="signin.im">Sign&nbsp;In</a></li>
+                            <li><a href="signup.im">Sign&nbsp;Up</a></li>
                             <!-- <li class="pm-search-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/#" class="pm-search-btn" id="pm-search-btn"><i class="fa fa-search"></i></a></li> -->
                             <!-- <li class="pm-cart-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/cart.html" class="pm-cart-btn"><i class="fa fa-shopping-cart"></i></a></li> -->
                         </ul>
@@ -426,272 +296,170 @@ function renameRows(tBody) {
                     <div id="bind">
                     <div id="popupbox">
 				    	<div id="deviceId">
-				    	<form name="form_device_1" method="post" action="">
-				        <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${userauthentication}</span>
-				   		    <div id="row" >
+				    	<form:form method="POST" action="updateprofileform.im" modelAttribute="updateprofileform" enctype="multipart/form-data">
+				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Order Device Form:</span> -->
+				             <div id="row"  >
 				      			<div id="col">
 				                	<div id="text_setting">
-				              		Total Capacity 
-				                    </div>
-				              	</div>
-				            	<div id="col">
-				                	<input name="pincode" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/>
-				                </div>
-				   		 	</div>
-				   			<div id="row"  >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Reserved Seats
+				         			Restaurant Name
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="name" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="rname" type="text" value="${updateProfile.rname}" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Email-ID
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<form:input path= "rmailid" type="text" value="${updateProfile.rmailid}" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="100"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Password
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<form:input path= "password" type="password" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="20"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Confirm Password
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<form:input path= "cpassword" type="password" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="20"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Contact
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<form:input path="rcontact" type="text" value="${updateProfile.rcontact}" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>
-				    		 <div id="row"  >
+				             <div id="row"  >
 				      			<div id="col">
 				                	<div id="text_setting">
-				         			Vacant Seats
+				         			Restaurant Alternative Contact
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="contact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="raltcontact" type="text" value="${updateProfile.raltcontact}" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
-				             </div>
-				      		<div id="row" >
+				             </div>	
+				             <div id="row"  >
 				      			<div id="col">
 				                	<div id="text_setting">
-				         			Hot Booking
+				         			Restaurant Type
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<textarea name="address" type="text" id="textfield2" cols="46" rows="5" onkeyup="autoTab(this, document.form_device.locality)"></textarea>
-				                </div>
-				             </div>						
-			        	</form>
-			        </div>
-			        
-			        <div id="deviceId1">
-				    	<form:form method="POST" action="bookingform.im" modelAttribute="bookingform" id="bookingform">
-				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Reservation</span> -->
-				   		    <div id="row">
-								<button type="submit">Refresh</button>		                        
-		 					</div>
-				   		    <div id="row" >
-				      			<div id="col">
-				                	<div id="text_setting">
-				              		Total Capacity 
-				                    </div>
-				              	</div>
-				            	<div id="col">
-				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${maxseats}</span>
-				                </div>
-				   		 	</div>
-				   			<div id="row"  >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Reserved Seats
-				                    </div>
-				                </div>
-				                <div id="col">
-				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${bookedseats}</span>
-				                </div>
-				             </div>
-				    		 <div id="row"  >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Vacant Seats
-				                    </div>
-				                </div>
-				                <div id="col">
-				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${vacantseats}</span>
-				                </div>
-				                <div id="col">
-				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${housefull}</span>
-				                </div>
-				             </div>
-				            <c:if test="${visible}" >
-				      		<div id="row" >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Hot Booking
-				                    </div>
-				                </div>
-				                <div id="col">
-				                	<form:input path="booking" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
-				                </div>
-				             </div>
-				             <div id="row" >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Name
-				                    </div>
-				                </div>
-				                <div id="col">
-				                	<form:input path="name" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
-				                </div>
-				             </div>
-				             <div id="row" >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Email-ID
-				                    </div>
-				                </div>
-				                <div id="col">
-				                	<form:input path="emailid" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
-				                </div>
-				             </div>
-				             <div id="row" >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Mobile No
-				                    </div>
-				                </div>
-				                <div id="col">
-				                	<form:input path="contactno" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
-				                </div>
-				             </div>
-				             <div id="row" >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Event
-				                    </div>
-				                </div>
-				                <div id="col">
-				                	<form:input path="event" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
-				                </div>
-				             </div>
-						        <div id="row">
-		                            <button type="submit" class="pm-rounded-btn animated pm-primary">Book</button>
-		 						</div>
-		 					</c:if>
-			        	</form:form>
-			        </div>
-			        <div id="deviceId2">
-				    	<form:form method="POST" action="billingform.im" modelAttribute="billingform" id="billingform">
-					    	<c:set var="emailError">
-								<form:errors  path="emailid" />
-							</c:set>
-							<c:set var="listError">
-								<form:errors  path="list" />
-							</c:set>
-				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Billing</span> -->
-				   		    <div id="row" >
-				      			<div id="col">
-				                	<div id="text_setting">
-				              		Item 
-				                    </div>
-				              	</div>
-				            	<div id="col">
-				                	<!-- <input name="item" type="text" id="item" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/> -->
-									<form:select path="item"  multiple="false">
+				                	<form:select path="rtype"  multiple="false">
 										<form:option value="" label="Select" />
-									    <form:options items="${items}" />
+									    <form:options items="${restroTypeList}" />
+									</form:select>
+				                	<%-- <form:input path="rtype" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/> --%>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<!-- <div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Sub Type
+				                    </div>
+				                </div> -->
+				                <div id="col">
+				                	<form:input path="rsubtype" type="hidden" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" value=" . "/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Max Seating
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<form:input path="rmaxseats" type="text" value="${updateProfile.rmaxseats}" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Open Time
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<form:input path="opentime" type="time" value="${updateProfile.opentime}" min="9:00" max="17:00" step="900" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Close Time
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<form:input path="closetime" type="time" value="${updateProfile.closetime}" min="9:00" max="17:00" step="900" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                </div>
+				             </div>	
+				             <div id="row"  >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Restaurant Rating
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<%-- <form:input path="rrating" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/> --%>
+				                	<form:select path="rrating"  multiple="false">
+										<form:option value="" label="Select" />
+									    <form:option value="1" label="1 Star" />
+									    <form:option value="2" label="2 Star" />
+									    <form:option value="3" label="3 Star" />
+									    <form:option value="4" label="4 Star" />
+									    <form:option value="5" label="5 Star" />
+									    <form:option value="6" label="6 Star" />
+									    <form:option value="7" label="7 Star" />
 									</form:select>
 				                </div>
-				   		 	</div>
-				   			<div id="row"  >
+				             </div>	
+				             <div id="row"  >
 				      			<div id="col">
 				                	<div id="text_setting">
-				         			Qty
+				         			Upload Menu
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="qty" type="text" id="qty" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<%-- <form:input path="files" type="file" id="textfield" onkeyup="autoTab(this, document.form_device.address)"/> --%>
+				                		<div class="fileupload fileupload-new" data-provides="fileupload">
+											<div class="input-append">
+												<div class="uneditable-input span2">
+													<i class="icon-file fileupload-exists"></i> <span
+														class="fileupload-preview"></span>
+												</div>
+												<span class="btn btn-file btn-danger" id="text-button">
+													<span class="fileupload-new">Upload file</span> 
+												       <input name="files[0]" type="file" />
+												</span> 
+											</div>	
+										</div>
 				                </div>
-				            </div>
-				             <div id="row">
-									<button type="button" class="pm-rounded-btn animated pm-primary" onclick="addToList()">Add</button>		                        
-		 					 		<!-- <button type="submit" class="pm-rounded-btn animated pm-primary">submit</button> -->
-		 					  </div>
-			        	<%-- </form:form> --%>
-			        	<table style="width:100%;margin-top:8%;margin-left:2%" id='datatable'>
-					   		    <tr>
-						   		    <td style="width: 10%"><b>Sr No</b></td>
-						   		    <td style="width: 10%"><b>Item</b></td>
-						   		    <td style="width: 10%"><b>Qty</b></td>
-						   		    <td style="width: 10%"><b>Amount</b></td>
-						   		    <td style="width: 10%"><b>Discount</b></td>
-					   		    </tr>
-					   	</table>
-				   		<%-- <form:form method="POST" action="checkoutform.im" modelAttribute="checkoutform" id="checkoutform"> --%>
-				   			<div id="row"  >
-				      			<div id="col">
-				                	<div id="text_setting">
-				         			Email-ID
-				                    </div>
-				                </div>
-				                <form:input path="list" type="hidden" id="list"/>
-				                <div id="col">
-				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${listError}</span>
-				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
-				                	<form:input path="emailid" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
-				                </div>
-				            </div>
-				             <div id="row">
-									<button type="submit" class="pm-rounded-btn animated pm-primary">Check out</button>		                        
-		 					  </div>
-				   		</form:form>
-			        </div>
-			        <div id="deviceId3">
-			        	<!-- <div id="show"></div> -->
-				    	<form:form action="customerform.im" modelAttribute="customerform" id="customerform">
-				    		<div id="row">
-								<button type="submit">Refresh</button>		                        
-		 					</div>
-				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Customer</span> -->
-				   		    <div id="row" >
-				   		    <table style="width:100%">
-					   		    <tr>
-						   		    <td><b>Customer ID</b></td>
-						   		    <td><b>Customer Name</b></td>
-						   		    <td><b>Booking Src</b></td>
-						   		    <td><b>Event</b></td>
-						   		    <td><b>Billing Status</b></td>
-						   		    <td><b>Payment Status</b></td>
-					   		    </tr>
-					   		    <tr></tr>
-					   		    
-					   		    <c:if test="${not empty usersEntity}">
-					   		    	
-										<c:forEach var="usersEntity" items="${usersEntity}">
-											<%-- <li>${listValue}</li> --%>
-											<tr>
-											<td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.emailid}</span></td>
-											<td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></td>
-								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.rcount}</span></td>
-								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.occasion}</span></td>
-								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
-								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
-											</tr>
-										</c:forEach>
-									
-						   		    <%-- <tr>
-							   		    <td></td>
-							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></td>
-							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">W</span></td>
-							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.occasion}</span></td>
-							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
-							   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
-						   		    </tr> --%>
-					   		    </c:if>
-					   		    
-				   		    </table>
-				   		    </div>
+				             </div>	
+				             <div id="row"  >
+				                <button type="submit" class="pm-rounded-btn animated pm-primary">Submit</button>
+				             </div>							
 			        	</form:form>
 			        </div>
             </div>
-			<div id="col">
-			    <div id="lmenu">
-					<div id="storage" style="display:none;"></div>
-						<ul id="menu">
-							<!-- <li><a href="javascript:Show_faded_box('order_device');">Payments Analysis</a></li> -->
-							<li><a href="javascript:Show_faded_box('add_device');">Reservation</a></li>
-							<li><a href="javascript:Show_faded_box('share_ownership');">Billing</a></li>
-			        		<li><a href="javascript:Show_faded_box('history_device');">Customer</a></li>
-						</ul>
-			      </div> 
-			  </div>
               </div>   
               </div>
             
@@ -1376,7 +1144,7 @@ function renameRows(tBody) {
     <script src="./js/jquery.PMSlider.js"></script>
     <script src="./js/Show_faded_box.js"></script>
     <p id="back-top" class="visible-lg visible-md visible-sm" style="right: -70px;"> </p>
-    
+   
   
 
 </body></html>

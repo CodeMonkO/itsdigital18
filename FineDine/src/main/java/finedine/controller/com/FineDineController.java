@@ -26,6 +26,7 @@ import main.java.finedine.pojo.com.ForgotPassword;
 import main.java.finedine.pojo.com.ResetPassword;
 import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.pojo.com.SignUp;
+import main.java.finedine.pojo.com.UpdateProfile;
 import main.java.finedine.services.com.IM2_Dbservice;
 import main.java.finedine.util.com.AESencrp;
 import main.java.finedine.util.com.CustomUtils;
@@ -60,6 +61,34 @@ public class FineDineController {
 	@RequestMapping("/home")
 	public ModelAndView home() {
 		return new ModelAndView(Views.HOME.getViewName());
+	}
+
+	@RequestMapping(value = "/updateprofile", method = RequestMethod.GET)
+	public ModelAndView updateproFileGet() {
+		ReadCSVFile readCSVFile = new ReadCSVFile();
+		Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
+		List<String> countryList = readCSVFile.getList(countryMap, "k");
+		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
+		List<String> statesList = readCSVFile.getList(stateMap, "k");
+		CustomUtils customUtils = CustomUtils.getInstance();
+		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("signup.delim"));
+		ModelAndView model = new ModelAndView(Views.UPDATEPROFILE.getViewName());
+		Map<String, Object> cache = new HashMap<String, Object>();
+		cache = (Map<String, Object>) session.getAttribute(Constant.CACHE.getConstantValue());
+		RestaurantSignUpFormEntity restaurantSignUpFormEntity = consumer.getRestaurantDetailsFromTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
+		UpdateProfile updateProfile = new UpdateProfile();
+		updateProfile.setRmailid(restaurantSignUpFormEntity.getRmail());
+		updateProfile.setRname(restaurantSignUpFormEntity.getRname());
+		updateProfile.setRcontact(restaurantSignUpFormEntity.getRcontact());
+		updateProfile.setRaltcontact(restaurantSignUpFormEntity.getAltcontact());
+		updateProfile.setOpentime(restaurantSignUpFormEntity.getOtime());
+		updateProfile.setClosetime(restaurantSignUpFormEntity.getCtime());
+		updateProfile.setRmaxseats(restaurantSignUpFormEntity.getMaxseat());
+		model.addObject(Constant.UPDATEPROFILEFORM.getConstantValue(), updateProfile);
+		model.addObject("countryList", countryList);
+		model.addObject("statesList", statesList);
+		model.addObject("restroTypeList", restroTypeList);
+		return model;
 	}
 
 	@RequestMapping(value = "/signout", method = RequestMethod.GET)
@@ -140,8 +169,7 @@ public class FineDineController {
 		model.addObject("restroTypeList", restroTypeList);
 		return model;
 	}
-	
-	
+
 	@RequestMapping(value = "/signupform", method = RequestMethod.GET)
 	public ModelAndView signUpFormGet() {
 		ReadCSVFile readCSVFile = new ReadCSVFile();
@@ -159,7 +187,7 @@ public class FineDineController {
 		model.addObject("restroTypeList", restroTypeList);
 		return model;
 	}
-	
+
 	@RequestMapping(value = "/signupform", method = RequestMethod.POST)
 	public ModelAndView signUpForm(@ModelAttribute("signupform") @Valid SignUp signupform, BindingResult result, ModelMap model) throws IOException {
 		if (result.hasErrors()) {

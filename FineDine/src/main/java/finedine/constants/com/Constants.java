@@ -24,6 +24,7 @@ public class Constants {
 		CUSTOMERFORM("customerform"),
 		SIGNINFORM("signinform"),
 		SIGNUPFORM("signupform"),
+		UPDATEPROFILEFORM("updateprofileform"),
 		CACHE("CACHE"),
 		UPLOADFILE("/IM2/?/"),
 		BILLPDF("/IM2/Bills/"),
@@ -53,6 +54,7 @@ public class Constants {
 		RESTROFRAME("restroframe"),
 		SIGNIN("signin"),
 		SIGNUP("signup"),
+		UPDATEPROFILE("updateprofile"),
 		FORGOTPASSWORD("forgotpassword"),
 		RESETPASSWORD("resetpassword");
 
@@ -76,6 +78,7 @@ public class Constants {
 		CUSTOMERTABLE("customer.usersentity"),
 		SIGNINTABLE("signin.restaurantsignupformentity"),
 		SIGNUPTABLE("signup.restaurantsignupformentity"),
+		GETFROMRESTAURANTTABLE("getfrom.restaurantsignupformentity"),
 		RESETUPDATE("reset.update");
 
 		private String value;
