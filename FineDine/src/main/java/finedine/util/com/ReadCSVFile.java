@@ -44,7 +44,7 @@ public class ReadCSVFile {
 	public List<String> getListOfItems(List<Bill> billList) {
 		List<String> items = new ArrayList<String>();
 		for (Bill bill : billList) {
-			items.add(bill.getItem() + "|" + bill.getAmount() + "|" + bill.getDiscount());
+			items.add(bill.getItem() + " | " + bill.getAmount() + " | " + bill.getDiscount());
 		}
 		return items;
 	}

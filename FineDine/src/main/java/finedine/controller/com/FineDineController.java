@@ -301,6 +301,12 @@ public class FineDineController {
 				cache.put(Constant.PASSWORD.getConstantValue(), signinform.getPassword());
 				cache.put(Constant.CACHEACTIVETIMEMS.getConstantValue(), System.currentTimeMillis());
 				cache.put(Constant.RESTAURANTUUID.getConstantValue(), restaurantSignUpFormEntity.getUuid());
+				cache.put(Constant.RESTAURANTNAME.getConstantValue(), restaurantSignUpFormEntity.getRname());
+				cache.put(Constant.RESTAURANTADDRESS.getConstantValue(), restaurantSignUpFormEntity.getAddress());
+				cache.put(Constant.RESTAURANTCITY.getConstantValue(), restaurantSignUpFormEntity.getCity());
+				cache.put(Constant.RESTAURANTSTATE.getConstantValue(), restaurantSignUpFormEntity.getState());
+				cache.put(Constant.RESTAURANTZIPCODE.getConstantValue(), restaurantSignUpFormEntity.getZipcode());
+				cache.put(Constant.RESTAURANTCOUNTRY.getConstantValue(), restaurantSignUpFormEntity.getCountry());
 				cache.put(Constant.ITEMSLIST.getConstantValue(), itemsList);
 				cache.put(Constant.MENU.getConstantValue(), billList);
 				MostRecentlyLoggedInUsers.getLoggedInUsers().put(signinform.getEmail(), cache);
@@ -357,7 +363,8 @@ public class FineDineController {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
-			GenerateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(), billingform.getEmailid().replace(".", "_"));
+			GenerateInvoice generateInvoice = new GenerateInvoice();
+			generateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(), billingform.getEmailid().replace(".", "_"), session.getAttribute(Constant.CACHE.getConstantValue()));
 			System.out.println(billingform.getList());
 		}
 		billingform.getList().clear();
