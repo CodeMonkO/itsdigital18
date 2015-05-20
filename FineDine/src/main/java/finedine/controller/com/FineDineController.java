@@ -18,6 +18,7 @@ import main.java.finedine.constants.com.Constants.Constant;
 import main.java.finedine.constants.com.Constants.Views;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
+import main.java.finedine.entitypojo.com.UpdateProfileFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
 import main.java.finedine.pojo.com.Bill;
 import main.java.finedine.pojo.com.Billing;
@@ -91,6 +92,46 @@ public class FineDineController {
 		return model;
 	}
 
+	@RequestMapping(value = "/updateprofileform", method = RequestMethod.POST)
+	public ModelAndView updateproFilePost(@ModelAttribute("updateprofileform") @Valid UpdateProfile updateProfileform, BindingResult result, ModelMap model) throws IOException {
+		if (result.hasErrors()) {
+			System.out.println("Country is null");
+		} else {
+			if (updateProfileform.getPassword().equals(updateProfileform.getCpassword())) {
+				try {
+					Map<String, Object> cache = new HashMap<String, Object>();
+					cache = (Map<String, Object>) session.getAttribute(Constant.CACHE.getConstantValue());
+					UpdateProfileFormEntity updateProfileFormEntity = new UpdateProfileFormEntity();
+					updateProfileFormEntity.setAltcontact(updateProfileform.getRaltcontact());
+					updateProfileFormEntity.setCtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
+					updateProfileFormEntity.setMaxseat(updateProfileform.getRmaxseats());
+					updateProfileFormEntity.setOtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
+					updateProfileFormEntity.setRating(updateProfileform.getRrating());
+					updateProfileFormEntity.setRcontact(updateProfileform.getRcontact());
+					updateProfileFormEntity.setRmail(updateProfileform.getRmailid());
+					updateProfileFormEntity.setPassword(AESencrp.getInstance().getEncryptedPassword(updateProfileform.getPassword()));
+					updateProfileFormEntity.setRname(updateProfileform.getRname());
+					MultipartFile multipartFile = updateProfileform.getFiles().get(0);
+					if (new UploadFilesOnToServer().fileWriting(multipartFile, multipartFile.getOriginalFilename(), Constant.UPLOADFILE.getConstantValue().replace("?", updateProfileform.getRmailid()))) {
+						updateProfileFormEntity.setMenufilelocation(Constant.UPLOADFILE.getConstantValue().replace("?", updateProfileform.getRmailid()) + multipartFile.getOriginalFilename());
+					}
+					RestaurantLiveEntity restaurantLiveEntity = new RestaurantLiveEntity();
+					restaurantLiveEntity.setMaxseat(updateProfileform.getRmaxseats());
+					restaurantLiveEntity.setStatusflag(true);
+					restaurantLiveEntity.setUuid(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
+					if (!consumer.updateRestaurantDetailsFromTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString())) {
+						model.addAttribute("sucessmsg", "Sucessfully Updated");
+					} else {
+						model.addAttribute("unsucessmsg", "Please try again");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return new ModelAndView(Views.UPDATEPROFILE.getViewName());
+	}
+
 	@RequestMapping(value = "/signout", method = RequestMethod.GET)
 	public ModelAndView SignOut(Model model) throws AddressException, MessagingException {
 		SignIn signIn = new SignIn();
@@ -98,7 +139,7 @@ public class FineDineController {
 		return new ModelAndView(Views.SIGNIN.getViewName());
 	}
 
-	@RequestMapping("/forgotpassword")
+	@RequestMapping(value = "/forgotpassword", method = RequestMethod.GET)
 	public ModelAndView forgotPassword(Model model) {
 		ForgotPassword forgotPassword = new ForgotPassword();
 		model.addAttribute("forgotpasswordform", forgotPassword);
@@ -108,7 +149,7 @@ public class FineDineController {
 	@RequestMapping(value = "/forgotpasswordform", method = RequestMethod.POST)
 	public ModelAndView forgotPasswordForm(@ModelAttribute("forgotpasswordform") @Valid ForgotPassword forgotPassword, BindingResult result, Model model) {
 		if (!result.hasErrors()) {
-			String vcode = JPassGenerator.getInstance().verificationCodeGenerator(10);
+			String vcode = JPassGenerator.getInstance().verificationCodeGenerator();
 			System.out.println(vcode);
 			// Mailer.mailer("");
 			session.setAttribute(Constant.VERIFICATIONCODE.getConstantValue(), vcode);
@@ -121,7 +162,7 @@ public class FineDineController {
 		}
 	}
 
-	@RequestMapping("/resetpassword")
+	@RequestMapping(value = "/resetpasswordform", method = RequestMethod.GET)
 	public ModelAndView resetPassword(Model model) {
 		return new ModelAndView("resetpassword");
 	}
@@ -145,12 +186,12 @@ public class FineDineController {
 		return new ModelAndView(Views.SIGNIN.getViewName());
 	}
 
-	@RequestMapping("/signup")
+	/*@RequestMapping("/signup")
 	public ModelAndView signUp(Model model) {
 		SignUp signupform = new SignUp();
 		model.addAttribute(Constant.SIGNUPFORM.getConstantValue(), signupform);
 		return new ModelAndView(Views.SIGNUP.getViewName());
-	}
+	}*/
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUpGet() {

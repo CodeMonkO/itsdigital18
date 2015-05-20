@@ -2,7 +2,6 @@ package main.java.finedine.thread.com;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import main.java.finedine.services.com.IM2_Dbservice;
 
@@ -33,7 +32,6 @@ public class BackgroundDbOperations {
 		if(lower == upper){
 			list.add(Integer.toString(lower));
 		}
-		System.out.println(list);
 		consumer.resetBookingTable(list);
 	}
 }

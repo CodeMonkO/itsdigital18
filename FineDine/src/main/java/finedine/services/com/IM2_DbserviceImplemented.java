@@ -58,4 +58,9 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	public RestaurantSignUpFormEntity getRestaurantDetailsFromTable(String restaurantUUID) {
 		return im2DAO.getRestaurantDetailsFromTable(restaurantUUID);
 	}
+	
+	@Transactional
+	public boolean updateRestaurantDetailsFromTable(String restaurantUUID) {
+		return im2DAO.updateRestaurantDetailsFromTable(restaurantUUID);
+	}
 }

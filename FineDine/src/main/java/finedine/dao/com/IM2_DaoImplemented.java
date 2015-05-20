@@ -158,4 +158,18 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean updateRestaurantDetailsFromTable(String restaurantUUID) {
+		String procSqlQuery = messages.getProperty(SqlQueries.UPDATERESTAURANTTABLE.getSqlQueries());
+		Query query = null;
+		try {
+			query = sessionFactory.getCurrentSession().createSQLQuery(procSqlQuery);
+			query.setParameter("uuid", restaurantUUID);
+			query.executeUpdate();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

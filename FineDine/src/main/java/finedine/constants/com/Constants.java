@@ -6,6 +6,7 @@ public class Constants {
 		VERIFICATIONCODE("VERIFICATION_CODE"), 
 		EMAIL("EMAIL"), 
 		AUTHENTICATEUSER("AUTHENTICATE_USER"),
+		THREADSLEEPINTERVAL("3600"),
 		SESSIONTIMEOUT("300000"),
 		CACHETIMEOUT("86400000"),
 		CACHEACTIVETIMEMS("CACHEACTIVETIMEMS"),
@@ -34,7 +35,9 @@ public class Constants {
 		COUNTRYCODE("countrylist.CountryCode"),
 		STATECSVPATH("statelist.path"),
 		STATENAME("statelist.StateName"),
-		STATECODE("statelist.StateCode");
+		STATECODE("statelist.StateCode"),
+		JPASS("jpass.alphastring"),
+		JPASSPASSWORDLEN("jpass.password.length");
 
 		private String value;
 
@@ -79,6 +82,7 @@ public class Constants {
 		SIGNINTABLE("signin.restaurantsignupformentity"),
 		SIGNUPTABLE("signup.restaurantsignupformentity"),
 		GETFROMRESTAURANTTABLE("getfrom.restaurantsignupformentity"),
+		UPDATERESTAURANTTABLE("updateprofile.restaurantdetails"),
 		RESETUPDATE("reset.update");
 
 		private String value;
