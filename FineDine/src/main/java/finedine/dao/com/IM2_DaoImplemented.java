@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 import main.java.finedine.constants.com.Constants.SqlQueries;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
+import main.java.finedine.entitypojo.com.UpdateProfileFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
 import main.java.finedine.pojo.com.SignIn;
 
@@ -41,11 +42,11 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		selectSqlQuery = messages.getProperty(SqlQueries.RESETRESTAURANTLIVEENTITY.getSqlQueries());
 		query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
 		for (Object object : list) {
-			String temp = (String)object;
-			if(Integer.parseInt(temp)>=0){
-				temp = "+"+temp;
+			String temp = (String) object;
+			if (Integer.parseInt(temp) >= 0) {
+				temp = "+" + temp;
 			}
-			temp = "%"+temp;		
+			temp = "%" + temp;
 			query.setParameter("countrytimezone", temp);
 			query.setParameter("bookedseat", "0");
 			query.setParameter("statusflag", true);
@@ -62,7 +63,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		for (Object object : getFromBookingTable(uuid)) {
 			restaurantLiveEntity = (RestaurantLiveEntity) object;
 		}
-		if (Integer.parseInt(record.getSeatsbooked()) <= Integer.parseInt(restaurantLiveEntity.getMaxseat())-Integer.parseInt(restaurantLiveEntity.getBookedseat())) {
+		if (Integer.parseInt(record.getSeatsbooked()) <= Integer.parseInt(restaurantLiveEntity.getMaxseat()) - Integer.parseInt(restaurantLiveEntity.getBookedseat())) {
 			sessionFactory.getCurrentSession().save(record);
 			procSqlQuery = messages.getProperty(SqlQueries.USERSTABLE.getSqlQueries());
 			query = null;
@@ -129,7 +130,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public RestaurantSignUpFormEntity getRestaurantDetailsFromTable(String restaurantUUID) {
 		String selectSqlQuery = messages.getProperty(SqlQueries.GETFROMRESTAURANTTABLE.getSqlQueries());
@@ -160,13 +161,25 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	}
 
 	@Override
-	public boolean updateRestaurantDetailsFromTable(String restaurantUUID) {
+	public boolean updateRestaurantDetailsFromTable(UpdateProfileFormEntity updateProfileFormEntity, String restaurantUUID) {
 		String procSqlQuery = messages.getProperty(SqlQueries.UPDATERESTAURANTTABLE.getSqlQueries());
 		Query query = null;
 		try {
 			query = sessionFactory.getCurrentSession().createSQLQuery(procSqlQuery);
 			query.setParameter("uuid", restaurantUUID);
+			query.setParameter("rname", updateProfileFormEntity.getRname());
+			query.setParameter("rmail", updateProfileFormEntity.getRmail());
+			query.setParameter("password", updateProfileFormEntity.getPassword());
+			query.setParameter("rcontact", updateProfileFormEntity.getRcontact());
+			query.setParameter("altcontact", updateProfileFormEntity.getAltcontact());
+			query.setParameter("rtype", updateProfileFormEntity.getRtype());
+			query.setParameter("maxseat", updateProfileFormEntity.getMaxseat());
+			query.setParameter("otime", updateProfileFormEntity.getOtime());
+			query.setParameter("ctime", updateProfileFormEntity.getCtime());
+			query.setParameter("rating", updateProfileFormEntity.getRating());
+			query.setParameter("menufilelocation", updateProfileFormEntity.getMenufilelocation());
 			query.executeUpdate();
+			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}

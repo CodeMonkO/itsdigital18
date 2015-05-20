@@ -399,7 +399,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="opentime" type="time" value="${updateProfile.opentime}" min="9:00" max="17:00" step="900" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="opentime" type="time" value="${updateProfile.opentime}"  id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>
 				             <div id="row"  >
@@ -409,7 +409,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="closetime" type="time" value="${updateProfile.closetime}" min="9:00" max="17:00" step="900" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="closetime" type="time" value="${updateProfile.closetime}"  id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >

@@ -35,3 +35,36 @@ CREATE PROCEDURE `finedinedb`.`passwordProc`(IN newPassword VARCHAR(100), email 
 
 DELIMITER ;
 
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `finedinedb`.`updateprofileProc`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateprofileProc`(IN existuuid VARCHAR(40), newRname VARCHAR(100), newRmail VARCHAR(100), newPassword VARCHAR(100), newRcontact VARCHAR(15), newRaltcontact VARCHAR(15), newRtype VARCHAR(150), newMaxseat VARCHAR(10), newOtime VARCHAR(5), newCtime VARCHAR(5), newRating VARCHAR(1), newMenufilelocation VARCHAR(200))
+BEGIN
+	START TRANSACTION;
+	UPDATE finedinedb.restaurantdetails 
+	SET
+	rname = newRname, 
+	rmail = newRmail , 
+	PASSWORD = newPassword , 
+	rcontact = newRcontact , 
+	altcontact = newRaltcontact , 
+	rtype = newRtype , 
+	maxseat = newMaxseat , 
+	otime = newOtime , 
+	ctime = newCtime, 
+	rating = newRating , 
+	menufilelocation = newMenufilelocation
+	WHERE UUID = existuuid ;
+	
+	UPDATE finedinedb.restaurantlive 
+	SET
+	maxseat = newMaxseat 
+	WHERE UUID = existuuid;
+	COMMIT;
+	
+	
+    END$$
+
+DELIMITER ;

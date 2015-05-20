@@ -103,23 +103,20 @@ public class FineDineController {
 					cache = (Map<String, Object>) session.getAttribute(Constant.CACHE.getConstantValue());
 					UpdateProfileFormEntity updateProfileFormEntity = new UpdateProfileFormEntity();
 					updateProfileFormEntity.setAltcontact(updateProfileform.getRaltcontact());
-					updateProfileFormEntity.setCtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
+					updateProfileFormEntity.setCtime(updateProfileform.getClosetime());
 					updateProfileFormEntity.setMaxseat(updateProfileform.getRmaxseats());
-					updateProfileFormEntity.setOtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
+					updateProfileFormEntity.setOtime(updateProfileform.getOpentime());
 					updateProfileFormEntity.setRating(updateProfileform.getRrating());
 					updateProfileFormEntity.setRcontact(updateProfileform.getRcontact());
 					updateProfileFormEntity.setRmail(updateProfileform.getRmailid());
 					updateProfileFormEntity.setPassword(AESencrp.getInstance().getEncryptedPassword(updateProfileform.getPassword()));
 					updateProfileFormEntity.setRname(updateProfileform.getRname());
+					updateProfileFormEntity.setRtype(updateProfileform.getRtype());
 					MultipartFile multipartFile = updateProfileform.getFiles().get(0);
 					if (new UploadFilesOnToServer().fileWriting(multipartFile, multipartFile.getOriginalFilename(), Constant.UPLOADFILE.getConstantValue().replace("?", updateProfileform.getRmailid()))) {
 						updateProfileFormEntity.setMenufilelocation(Constant.UPLOADFILE.getConstantValue().replace("?", updateProfileform.getRmailid()) + multipartFile.getOriginalFilename());
 					}
-					RestaurantLiveEntity restaurantLiveEntity = new RestaurantLiveEntity();
-					restaurantLiveEntity.setMaxseat(updateProfileform.getRmaxseats());
-					restaurantLiveEntity.setStatusflag(true);
-					restaurantLiveEntity.setUuid(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
-					if (!consumer.updateRestaurantDetailsFromTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString())) {
+					if (consumer.updateRestaurantDetailsFromTable(updateProfileFormEntity, cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString())) {
 						model.addAttribute("sucessmsg", "Sucessfully Updated");
 					} else {
 						model.addAttribute("unsucessmsg", "Please try again");

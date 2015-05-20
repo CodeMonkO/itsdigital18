@@ -5,6 +5,7 @@ import java.util.List;
 import main.java.finedine.dao.com.IM2_Dao;
 import main.java.finedine.entitypojo.com.RestaurantLiveEntity;
 import main.java.finedine.entitypojo.com.RestaurantSignUpFormEntity;
+import main.java.finedine.entitypojo.com.UpdateProfileFormEntity;
 import main.java.finedine.entitypojo.com.UsersEntity;
 import main.java.finedine.pojo.com.SignIn;
 
@@ -58,9 +59,9 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	public RestaurantSignUpFormEntity getRestaurantDetailsFromTable(String restaurantUUID) {
 		return im2DAO.getRestaurantDetailsFromTable(restaurantUUID);
 	}
-	
+
 	@Transactional
-	public boolean updateRestaurantDetailsFromTable(String restaurantUUID) {
-		return im2DAO.updateRestaurantDetailsFromTable(restaurantUUID);
+	public boolean updateRestaurantDetailsFromTable(UpdateProfileFormEntity updateProfileFormEntity, String restaurantUUID) {
+		return im2DAO.updateRestaurantDetailsFromTable(updateProfileFormEntity, restaurantUUID);
 	}
 }
