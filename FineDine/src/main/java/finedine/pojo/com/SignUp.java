@@ -3,6 +3,8 @@ package main.java.finedine.pojo.com;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,7 +14,7 @@ public class SignUp implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3870526690538161342L;
-	@NotEmpty(message = "Error")
+	@NotEmpty
 	private String country;
 	@NotEmpty
 	private String state;
@@ -47,10 +49,8 @@ public class SignUp implements Serializable {
 	@NotEmpty
 	private String rrating;
 	@NotEmpty
-	private String status;
-	@NotEmpty
 	private String timezone;
-	
+	@NotEmpty
 	private List<MultipartFile> files;
 
 	public String getCountry() {
@@ -187,14 +187,6 @@ public class SignUp implements Serializable {
 
 	public void setRrating(String rrating) {
 		this.rrating = rrating;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public List<MultipartFile> getFiles() {

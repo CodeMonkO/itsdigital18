@@ -186,12 +186,12 @@ public class FineDineController {
 		return new ModelAndView(Views.SIGNIN.getViewName());
 	}
 
-	/*@RequestMapping("/signup")
-	public ModelAndView signUp(Model model) {
-		SignUp signupform = new SignUp();
-		model.addAttribute(Constant.SIGNUPFORM.getConstantValue(), signupform);
-		return new ModelAndView(Views.SIGNUP.getViewName());
-	}*/
+	/*
+	 * @RequestMapping("/signup") public ModelAndView signUp(Model model) {
+	 * SignUp signupform = new SignUp();
+	 * model.addAttribute(Constant.SIGNUPFORM.getConstantValue(), signupform);
+	 * return new ModelAndView(Views.SIGNUP.getViewName()); }
+	 */
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUpGet() {
@@ -230,9 +230,21 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/signupform", method = RequestMethod.POST)
-	public ModelAndView signUpForm(@ModelAttribute("signupform") @Valid SignUp signupform, BindingResult result, ModelMap model) throws IOException {
+	public ModelAndView signUpForm(@ModelAttribute("signupform") @Valid SignUp signupform, BindingResult result, ModelAndView model) throws IOException {
 		if (result.hasErrors()) {
 			System.out.println("Country is null");
+			ReadCSVFile readCSVFile = new ReadCSVFile();
+			Map<String, String> countryMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.COUNTRYCSVPATH.getConstantValue()), messages.getProperty(Constant.COUNTRYNAME.getConstantValue()), messages.getProperty(Constant.COUNTRYCODE.getConstantValue()));
+			List<String> countryList = readCSVFile.getList(countryMap, "k");
+			Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
+			List<String> statesList = readCSVFile.getList(stateMap, "k");
+			CustomUtils customUtils = CustomUtils.getInstance();
+			List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("signup.delim"));
+			model = new ModelAndView(Views.SIGNUP.getViewName());
+			model.addObject(Constant.SIGNUPFORM.getConstantValue(), signupform);
+			model.addObject("countryList", countryList);
+			model.addObject("statesList", statesList);
+			model.addObject("restroTypeList", restroTypeList);
 		} else {
 			if (signupform.getPassword().equals(signupform.getCpassword())) {
 				try {
@@ -257,7 +269,7 @@ public class FineDineController {
 					restaurantSignUpFormEntity.setRtype(signupform.getRtype());
 					restaurantSignUpFormEntity.setState(signupform.getState());
 					restaurantSignUpFormEntity.setStatecode(stateMap.get(signupform.getState()));
-					restaurantSignUpFormEntity.setStatus(signupform.getStatus());
+					restaurantSignUpFormEntity.setStatus("A");
 					restaurantSignUpFormEntity.setSubtype(signupform.getRsubtype());
 					restaurantSignUpFormEntity.setUuid(new GenerateUUID().getGeneratedUUID(signupform, countryMap, stateMap));
 					restaurantSignUpFormEntity.setZipcode(signupform.getZipcode());
@@ -273,17 +285,22 @@ public class FineDineController {
 					restaurantLiveEntity.setStatusflag(true);
 					restaurantLiveEntity.setUuid(restaurantSignUpFormEntity.getUuid());
 					if (!consumer.signupTable(restaurantSignUpFormEntity, restaurantLiveEntity)) {
-						return new ModelAndView(Views.SIGNUP.getViewName());
+						model = new ModelAndView(Views.SIGNUP.getViewName());
+						return model;
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				SignIn signIn = new SignIn();
-				model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
-				return new ModelAndView(Views.SIGNIN.getViewName());
+				model = new ModelAndView(Views.SIGNIN.getViewName());
+				model.addObject(Constant.SIGNINFORM.getConstantValue(), signIn);
+			} else {
+				model = new ModelAndView(Views.SIGNUP.getViewName());
+				model.addObject("password_match", "Password & Confirm Password Doesn't match");
+				return model;
 			}
 		}
-		return new ModelAndView(Views.SIGNUP.getViewName());
+		return model;
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)

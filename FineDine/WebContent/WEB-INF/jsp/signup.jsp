@@ -298,16 +298,16 @@
 				    	<div id="deviceId">
 				    	<form:form method="POST" action="signupform.im" modelAttribute="signupform" enctype="multipart/form-data">
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Order Device Form:</span> -->
+				   		   				   		    
 				   		    <div id="row" >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="country" /></span>
 				                	<div id="text_setting">
 				              		Country 
 				                    </div>
 				              	</div>
 				            	<div id="col">
-				            		<form:errors path="country" />
-				                	<%-- <form:input path="country" type="text" id="country" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/> --%>
- 									<form:select path="country"  multiple="false">
+ 									<form:select path="country"  multiple="false" id="text_setting">
 										<form:option value="" label="Select" />
 									    <form:options items="${countryList}" />
 									</form:select>
@@ -315,6 +315,7 @@
 				   		 	</div>
 				   			<div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="state" /></span>
 				                	<div id="text_setting">
 				         			State/Province
 				                    </div>
@@ -328,6 +329,7 @@
 				             </div>
 				    		 <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="city" /></span>
 				                	<div id="text_setting">
 				         			City
 				                    </div>
@@ -338,6 +340,7 @@
 				             </div>
 				      		<div id="row" >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="address" /></span>
 				                	<div id="text_setting">
 				         			Address
 				                    </div>
@@ -348,6 +351,7 @@
 				             </div>	
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="zipcode" /></span>
 				                	<div id="text_setting">
 				         			Zipcode
 				                    </div>
@@ -358,6 +362,7 @@
 				             </div>		
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="rname" /></span>
 				                	<div id="text_setting">
 				         			Restaurant Name
 				                    </div>
@@ -368,6 +373,7 @@
 				             </div>	
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="rmailid" /></span>
 				                	<div id="text_setting">
 				         			Restaurant Email-ID
 				                    </div>
@@ -378,6 +384,8 @@
 				             </div>	
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="password" /></span>
+				                	<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${password_match}</span>
 				                	<div id="text_setting">
 				         			Password
 				                    </div>
@@ -388,6 +396,7 @@
 				             </div>	
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="cpassword" /></span>
 				                	<div id="text_setting">
 				         			Confirm Password
 				                    </div>
@@ -398,6 +407,7 @@
 				             </div>	
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="rcontact" /></span>
 				                	<div id="text_setting">
 				         			Restaurant Contact
 				                    </div>
@@ -408,6 +418,7 @@
 				             </div>
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="raltcontact" /></span>
 				                	<div id="text_setting">
 				         			Restaurant Alternative Contact
 				                    </div>
@@ -418,6 +429,7 @@
 				             </div>	
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="rtype" /></span>
 				                	<div id="text_setting">
 				         			Restaurant Type
 				                    </div>
@@ -442,6 +454,7 @@
 				             </div>	
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="rmaxseats" /></span>
 				                	<div id="text_setting">
 				         			Restaurant Max Seating
 				                    </div>
@@ -452,6 +465,7 @@
 				             </div>	
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="opentime" /></span>
 				                	<div id="text_setting">
 				         			Open Time
 				                    </div>
@@ -462,6 +476,7 @@
 				             </div>
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="closetime" /></span>
 				                	<div id="text_setting">
 				         			Close Time
 				                    </div>
@@ -472,6 +487,7 @@
 				             </div>	
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="rrating" /></span>
 				                	<div id="text_setting">
 				         			Restaurant Rating
 				                    </div>
@@ -490,23 +506,24 @@
 									</form:select>
 				                </div>
 				             </div>	
-				             <div id="row"  >
+				             <%-- <div id="row"  >
 				      			<div id="col">
 				                	<div id="text_setting">
 				         			Status
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<%-- <form:input path="status" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/> --%>
+				                	<form:input path="status" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
 				                	<form:select path="status"  multiple="false">
 										<form:option value="" label="Select" />
 									    <form:option value="O" label="Currently Active" />
 									    <form:option value="C" label="Currently Shutdown" />
 									</form:select>
 				                </div>
-				             </div>	
+				             </div>	 --%>
 				             <div id="row"  >
 				      			<div id="col">
+				      				<span style="font-size:12px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center"><form:errors path="files" /></span>
 				                	<div id="text_setting">
 				         			Upload Menu
 				                    </div>
