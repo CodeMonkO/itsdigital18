@@ -54,7 +54,7 @@ public class ScheduledTrigger implements Runnable {
 
 	public void trigger(IM2_Dbservice consumer) {
 		ScheduledTrigger.consumer = consumer;
-		ExecutorService executor = Executors.newFixedThreadPool(2);
+		ExecutorService executor = Executors.newFixedThreadPool(1);
 		Runnable runnable = new ScheduledTrigger();
 		executor.execute(runnable);
 	}

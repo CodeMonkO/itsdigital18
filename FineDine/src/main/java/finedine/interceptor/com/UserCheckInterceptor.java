@@ -51,6 +51,9 @@ public class UserCheckInterceptor implements HandlerInterceptor {
 					httpResponse.sendRedirect("signin.im");
 				return false;
 			}
+		}else{
+			session.invalidate();
+			System.out.println("session invalidated");
 		}
 
 		if (uri.endsWith("forgotpassword.im")) {
