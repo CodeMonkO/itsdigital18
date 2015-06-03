@@ -13,9 +13,13 @@ public class ScheduledTrigger implements Runnable {
 	private IM2_Dbservice consumer;
 
 	public static ScheduledTrigger getInstance() {
-		if (scheduledTrigger == null) {
-			scheduledTrigger = new ScheduledTrigger();
-		}
+		synchronized (ScheduledTrigger.class) {
+			if (scheduledTrigger == null) {
+				synchronized (ScheduledTrigger.class) {
+					scheduledTrigger = new ScheduledTrigger();
+				}				
+			}
+		}	
 		return scheduledTrigger;
 	}
 
