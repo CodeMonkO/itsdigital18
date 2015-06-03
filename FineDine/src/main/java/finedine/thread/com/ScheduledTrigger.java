@@ -10,7 +10,7 @@ import main.java.finedine.util.com.CustomUtils;
 public class ScheduledTrigger implements Runnable {
 
 	private static ScheduledTrigger scheduledTrigger = null;
-	private static IM2_Dbservice consumer;
+	private IM2_Dbservice consumer;
 
 	public static ScheduledTrigger getInstance() {
 		if (scheduledTrigger == null) {
@@ -53,7 +53,7 @@ public class ScheduledTrigger implements Runnable {
 	}
 
 	public void trigger(IM2_Dbservice consumer) {
-		ScheduledTrigger.consumer = consumer;
+		this.consumer = consumer;
 		ExecutorService executor = Executors.newFixedThreadPool(1);
 		Runnable runnable = new ScheduledTrigger();
 		executor.execute(runnable);

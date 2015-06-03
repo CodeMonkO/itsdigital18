@@ -13,10 +13,14 @@ public class Caching {
 	}
 
 	public static Caching getInstance() {
-		if (null == mostRecentlyLoggedInUsers) {
-			mostRecentlyLoggedInUsers = new Caching();
-			loggedInUsers = new ConcurrentHashMap<String, Map<String, Object>>();
-			updateProfileMap = new ConcurrentHashMap<String, Object>();
+		synchronized (Caching.class) {
+			if (null == mostRecentlyLoggedInUsers) {
+				synchronized (Caching.class) {
+					mostRecentlyLoggedInUsers = new Caching();
+					loggedInUsers = new ConcurrentHashMap<String, Map<String, Object>>();
+					updateProfileMap = new ConcurrentHashMap<String, Object>();
+				}
+			}
 		}
 		return mostRecentlyLoggedInUsers;
 	}

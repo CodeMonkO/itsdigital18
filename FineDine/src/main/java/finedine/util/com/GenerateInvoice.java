@@ -198,7 +198,7 @@ public class GenerateInvoice {
 	int index = 0;
 
 	private void generateDetail(Document doc, PdfContentByte cb, int y, String itemname, String qty, String price, String discount) {
-		DecimalFormat df = new DecimalFormat("0.00");
+		//DecimalFormat df = new DecimalFormat("0.00");
 
 		try {
 
@@ -220,7 +220,7 @@ public class GenerateInvoice {
 	}
 
 	private void generateFooter(Document doc, PdfContentByte cb, int y, String itemname) {
-		DecimalFormat df = new DecimalFormat("0.00");
+		//DecimalFormat df = new DecimalFormat("0.00");
 
 		try {
 			createContent(cb, 52, y, itemname, PdfContentByte.ALIGN_LEFT);

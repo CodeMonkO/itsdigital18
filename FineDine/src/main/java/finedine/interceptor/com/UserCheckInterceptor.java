@@ -13,19 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserCheckInterceptor implements HandlerInterceptor {
 
 	@Override
-	public void afterCompletion(HttpServletRequest arg0,
-			HttpServletResponse arg1, Object arg2, Exception arg3)
-			throws Exception {
+	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3) throws Exception {
 
 	}
 
 	@Override
-	public void postHandle(HttpServletRequest req,
-			HttpServletResponse httpResponse, Object arg2, ModelAndView arg3)
-			throws Exception {
+	public void postHandle(HttpServletRequest req, HttpServletResponse httpResponse, Object arg2, ModelAndView arg3) throws Exception {
 
-		httpResponse.setHeader("Cache-Control",
-				"no-cache, no-store, must-revalidate"); // HTTP//
+		httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP//
 		// 1.1
 		httpResponse.setHeader("Pragma", "no-cache"); // HTTP 1.0
 		httpResponse.setDateHeader("Expires", 0); // Proxies
@@ -33,38 +28,36 @@ public class UserCheckInterceptor implements HandlerInterceptor {
 	}
 
 	@Override
-	public boolean preHandle(HttpServletRequest httpServletRequest,
-			HttpServletResponse httpResponse, Object arg2) throws Exception {
+	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpResponse, Object arg2) throws Exception {
 		HttpSession session = httpServletRequest.getSession();
 
 		if (session == null || session.isNew()) {
 			if (!httpResponse.isCommitted())
 				httpResponse.sendRedirect("signin.im");
+		} else {
+			session.setMaxInactiveInterval(3600);
 		}
-		session.setMaxInactiveInterval(3600);
 		String uri = httpServletRequest.getRequestURI();
 		if (!uri.endsWith("signin.im")) {
-			SignIn signin = (SignIn) httpServletRequest.getSession()
-					.getAttribute("AUTHENTICATE_USER");
+			SignIn signin = (SignIn) httpServletRequest.getSession().getAttribute("AUTHENTICATE_USER");
 			if (signin == null) {
 				if (!httpResponse.isCommitted())
 					httpResponse.sendRedirect("signin.im");
 				return false;
 			}
-		}else{
+		} else {
 			session.invalidate();
 			System.out.println("session invalidated");
 		}
 
 		if (uri.endsWith("forgotpassword.im")) {
-			ForgotPassword forgetPassword = (ForgotPassword) httpServletRequest
-					.getSession().getAttribute("VERIFICATION_CODE");
+			ForgotPassword forgetPassword = (ForgotPassword) httpServletRequest.getSession().getAttribute("VERIFICATION_CODE");
 			if (forgetPassword == null) {
 				httpResponse.sendRedirect("forgotpassword.im");
 				return false;
 			}
 		}
-		
+
 		if (uri.endsWith("signout.im")) {
 			session.invalidate();
 		}

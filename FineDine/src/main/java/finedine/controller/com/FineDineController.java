@@ -79,26 +79,25 @@ public class FineDineController {
 		SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 		String emailId = signinForm.getEmail();
 		RestaurantSignUpFormEntity restaurantSignUpFormEntity = null;
+		UpdateProfile updateProfile = new UpdateProfile();
 		if (emailId != null) {
 			if (cache != null && cache.size() > 0) {
 				Map<String, Object> internalMap = cache.get(emailId);
 				if (internalMap != null && internalMap.size() > 0) {
 					restaurantSignUpFormEntity = consumer.getRestaurantDetailsFromTable(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
-
+					try {
+						updateProfile.setRmailid(restaurantSignUpFormEntity.getRmail());
+						updateProfile.setRname(restaurantSignUpFormEntity.getRname());
+						updateProfile.setRcontact(restaurantSignUpFormEntity.getRcontact());
+						updateProfile.setRaltcontact(restaurantSignUpFormEntity.getAltcontact());
+						updateProfile.setOpentime(restaurantSignUpFormEntity.getOtime());
+						updateProfile.setClosetime(restaurantSignUpFormEntity.getCtime());
+						updateProfile.setRmaxseats(restaurantSignUpFormEntity.getMaxseat());
+					} catch (NullPointerException e) {
+						e.printStackTrace();
+					}
 				}
 			}
-		}
-		UpdateProfile updateProfile = new UpdateProfile();
-		try {
-			updateProfile.setRmailid(restaurantSignUpFormEntity.getRmail());
-			updateProfile.setRname(restaurantSignUpFormEntity.getRname());
-			updateProfile.setRcontact(restaurantSignUpFormEntity.getRcontact());
-			updateProfile.setRaltcontact(restaurantSignUpFormEntity.getAltcontact());
-			updateProfile.setOpentime(restaurantSignUpFormEntity.getOtime());
-			updateProfile.setClosetime(restaurantSignUpFormEntity.getCtime());
-			updateProfile.setRmaxseats(restaurantSignUpFormEntity.getMaxseat());
-		} catch (NullPointerException e) {
-			e.printStackTrace();
 		}
 		model.addObject(Constant.UPDATEPROFILEFORM.getConstantValue(), updateProfile);
 		model.addObject("countryList", countryList);
@@ -558,7 +557,11 @@ public class FineDineController {
 					} else {
 						return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 					}
+				} else {
+					return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 				}
+			} else {
+				return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 			}
 			try {
 				RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
