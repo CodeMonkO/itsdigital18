@@ -1,5 +1,7 @@
 package main.java.finedine.thread.com;
 
+import java.util.Properties;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,13 +19,15 @@ public class FineDineStartUpServlet extends HttpServlet {
 	private WebApplicationContext springContext;
 	@Autowired
 	private IM2_Dbservice consumer;
+	@Autowired
+	public Properties messages;
 	@Override
 	public void init(final ServletConfig config) throws ServletException {
 		super.init(config);
         springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
         final AutowireCapableBeanFactory beanFactory = springContext.getAutowireCapableBeanFactory();
         beanFactory.autowireBean(this);
-		ScheduledTrigger.getInstance().trigger(consumer);
+		ScheduledTrigger.getInstance().trigger(consumer,messages);
 	}
 
 }

@@ -3,7 +3,6 @@ package main.java.finedine.controller.com;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -104,6 +103,11 @@ public class FineDineController {
 		model.addObject("statesList", statesList);
 		model.addObject("restroTypeList", restroTypeList);
 		return model;
+	}
+	
+	@RequestMapping(value = "/updateprofileform", method = RequestMethod.GET)
+	public ModelAndView updateProfileFormGet(){
+		return new ModelAndView(Views.HOME.getViewName());
 	}
 
 	@RequestMapping(value = "/updateprofileform", method = RequestMethod.POST)
@@ -493,7 +497,7 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/billingform", method = RequestMethod.POST)
-	public String billingForm(@ModelAttribute("billingform") @Valid Billing billingform, BindingResult result) throws AddressException, MessagingException {
+	public String billingForm(@ModelAttribute("billingform") @Valid Billing billingform, BindingResult result, ModelMap model) throws AddressException, MessagingException {
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
@@ -563,13 +567,13 @@ public class FineDineController {
 			} else {
 				return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 			}
-			try {
+			/*try {
 				RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
 				SeatsCalculation seatsCalculation = new SeatsCalculation();
 				model = seatsCalculation.getSeats(restaurantLiveEntity, bookingform, model);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
 	}

@@ -2,7 +2,7 @@ package main.java.finedine.constants.com;
 
 public class Constants {
 	public enum Constant {
-
+//360000
 		VERIFICATIONCODE("VERIFICATION_CODE"), 
 		EMAIL("EMAIL"), 
 		AUTHENTICATEUSER("AUTHENTICATE_USER"),
