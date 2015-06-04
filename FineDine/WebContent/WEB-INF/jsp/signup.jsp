@@ -307,7 +307,7 @@
 				                    </div>
 				              	</div>
 				            	<div id="col">
- 									<form:select path="country"  multiple="false" id="text_setting">
+ 									<form:select path="country"  multiple="false" id="text_setting" required="required">
 										<form:option value="" label="Select" />
 									    <form:options items="${countryList}" />
 									</form:select>
@@ -335,7 +335,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="city"  type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="city"  type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" required="required" placeholder="Enter city of Restaurant"/>
 				                </div>
 				             </div>
 				      		<div id="row" >
@@ -346,7 +346,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:textarea path="address" type="text" id="textfield2" cols="46" rows="5" onkeyup="autoTab(this, document.form_device.locality)"></form:textarea>
+				                	<form:textarea path="address" type="text" id="textfield2" cols="46" rows="5" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="Enter Address of Restaurant"></form:textarea>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -357,7 +357,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="zipcode" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="zipcode" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" required="required" placeholder="Enter 6 digit pincode"/>
 				                </div>
 				             </div>		
 				             <div id="row"  >

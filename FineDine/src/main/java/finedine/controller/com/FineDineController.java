@@ -72,7 +72,7 @@ public class FineDineController {
 		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
 		List<String> statesList = readCSVFile.getList(stateMap, "k");
 		CustomUtils customUtils = CustomUtils.getInstance();
-		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("signup.delim"));
+		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("delim"));
 		ModelAndView model = new ModelAndView(Views.UPDATEPROFILE.getViewName());
 		Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
 		SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
@@ -104,9 +104,9 @@ public class FineDineController {
 		model.addObject("restroTypeList", restroTypeList);
 		return model;
 	}
-	
+
 	@RequestMapping(value = "/updateprofileform", method = RequestMethod.GET)
-	public ModelAndView updateProfileFormGet(){
+	public ModelAndView updateProfileFormGet() {
 		return new ModelAndView(Views.HOME.getViewName());
 	}
 
@@ -143,15 +143,6 @@ public class FineDineController {
 								Caching.getInstance();
 								Caching.getUpdateProfileMap().put(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString(), updateProfileFormEntity);
 								model.addAttribute("sucessmsg", "Sucessfully Updated");
-								/*
-								 * if
-								 * (consumer.updateRestaurantDetailsFromTable(
-								 * updateProfileFormEntity, )) {
-								 * model.addAttribute("sucessmsg",
-								 * "Sucessfully Updated"); } else {
-								 * model.addAttribute("unsucessmsg",
-								 * "Please try again"); }
-								 */
 							}
 						}
 					}
@@ -217,13 +208,6 @@ public class FineDineController {
 		return new ModelAndView(Views.SIGNIN.getViewName());
 	}
 
-	/*
-	 * @RequestMapping("/signup") public ModelAndView signUp(Model model) {
-	 * SignUp signupform = new SignUp();
-	 * model.addAttribute(Constant.SIGNUPFORM.getConstantValue(), signupform);
-	 * return new ModelAndView(Views.SIGNUP.getViewName()); }
-	 */
-
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUpGet() {
 		ReadCSVFile readCSVFile = new ReadCSVFile();
@@ -232,7 +216,7 @@ public class FineDineController {
 		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
 		List<String> statesList = readCSVFile.getList(stateMap, "k");
 		CustomUtils customUtils = CustomUtils.getInstance();
-		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("signup.delim"));
+		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("delim"));
 		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
 		SignUp signupform = new SignUp();
 		model.addObject(Constant.SIGNUPFORM.getConstantValue(), signupform);
@@ -250,7 +234,7 @@ public class FineDineController {
 		Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
 		List<String> statesList = readCSVFile.getList(stateMap, "k");
 		CustomUtils customUtils = CustomUtils.getInstance();
-		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("signup.delim"));
+		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("delim"));
 		ModelAndView model = new ModelAndView(Views.SIGNUP.getViewName());
 		SignUp signupform = new SignUp();
 		model.addObject(Constant.SIGNUPFORM.getConstantValue(), signupform);
@@ -270,7 +254,7 @@ public class FineDineController {
 			Map<String, String> stateMap = readCSVFile.getMapOfCSV(messages.getProperty(Constant.STATECSVPATH.getConstantValue()), messages.getProperty(Constant.STATENAME.getConstantValue()), messages.getProperty(Constant.STATECODE.getConstantValue()));
 			List<String> statesList = readCSVFile.getList(stateMap, "k");
 			CustomUtils customUtils = CustomUtils.getInstance();
-			List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("signup.delim"));
+			List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("delim"));
 			model = new ModelAndView(Views.SIGNUP.getViewName());
 			model.addObject(Constant.SIGNUPFORM.getConstantValue(), signupform);
 			model.addObject("countryList", countryList);
@@ -309,7 +293,6 @@ public class FineDineController {
 						restaurantSignUpFormEntity.setMenufilelocation(Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()) + multipartFile.getOriginalFilename());
 					}
 					restaurantSignUpFormEntity.setCountrytimezone(signupform.getTimezone());
-					System.out.println(signupform.getCountry());
 					RestaurantLiveEntity restaurantLiveEntity = new RestaurantLiveEntity();
 					restaurantLiveEntity.setMaxseat(signupform.getRmaxseats());
 					restaurantLiveEntity.setBookedseat("0");
@@ -346,9 +329,6 @@ public class FineDineController {
 
 	@RequestMapping(value = "/signinform", method = RequestMethod.GET)
 	public ModelAndView signInFormGet(Model model) {
-		/*
-		 * if (!session.isNew()) { session.invalidate(); }
-		 */
 		SignIn signIn = new SignIn();
 		model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
 		return new ModelAndView(Views.SIGNIN.getViewName());
@@ -420,8 +400,6 @@ public class FineDineController {
 				model.addObject(Constant.ITEMSLIST.getConstantValue(), itemsList);
 				model.setViewName(Views.RESTROFRAME.getViewName());
 
-				// cache.put(Constant.PASSWORD.getConstantValue(),
-				// signinform.getPassword());
 				cache = new ConcurrentHashMap<String, Object>();
 				cache.put(Constant.CACHEACTIVETIMEMS.getConstantValue(), System.currentTimeMillis());
 				cache.put(Constant.RESTAURANTUUID.getConstantValue(), restaurantSignUpFormEntity.getUuid());
@@ -436,8 +414,7 @@ public class FineDineController {
 				cache.put(Constant.PASSWORD.getConstantValue(), signinform);
 				Caching.getLoggedInUsers().put(signinform.getEmail(), cache);
 				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
-				// session.setAttribute(Constant.CACHE.getConstantValue(),
-				// cache);
+
 				return model;
 			} else {
 				return new ModelAndView(Views.SIGNIN.getViewName(), Constant.SIGNINFORM.getConstantValue(), signinform);
@@ -567,13 +544,6 @@ public class FineDineController {
 			} else {
 				return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 			}
-			/*try {
-				RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
-				SeatsCalculation seatsCalculation = new SeatsCalculation();
-				model = seatsCalculation.getSeats(restaurantLiveEntity, bookingform, model);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}*/
 		}
 		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
@@ -602,12 +572,6 @@ public class FineDineController {
 				}
 			}
 		}
-		/*
-		 * Map<String, Object> cache = new HashMap<String, Object>(); cache =
-		 * (Map<String, Object>)
-		 * session.getAttribute(Constant.CACHE.getConstantValue());
-		 */
-
 		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 }

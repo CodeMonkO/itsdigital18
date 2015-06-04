@@ -304,7 +304,7 @@
 				              	</div>
 				            	<div id="col">
 				            		<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
-				                	<form:input path="email" type="text" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="100"/>
+				                	<form:input path="email" type="text" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="100" required="required" placeholder="eg.abc@example.com"/>
 				                </div>
 				   		 	</div>
 				             <div id="row"  >

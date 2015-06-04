@@ -27,7 +27,7 @@ public class FineDineStartUpServlet extends HttpServlet {
         springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
         final AutowireCapableBeanFactory beanFactory = springContext.getAutowireCapableBeanFactory();
         beanFactory.autowireBean(this);
-		ScheduledTrigger.getInstance().trigger(consumer,messages);
+		ScheduledTrigger.getInstance(consumer,messages).trigger();
 	}
 
 }

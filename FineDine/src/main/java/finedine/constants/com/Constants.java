@@ -96,4 +96,24 @@ public class Constants {
 		}
 
 	}
+	
+	public enum MidnightCycle {
+
+		MNC1("midnightcycle.mnc1"),
+		MNC2("midnightcycle.mnc2"),
+		MNC3("midnightcycle.mnc3"),
+		MNC4("midnightcycle.mnc4"),
+		MNC5("midnightcycle.mnc5");
+
+		private String value;
+
+		private MidnightCycle(String s) {
+			value = s;
+		}
+
+		public String getMidnightCycle() {
+			return value;
+		}
+
+	}
 }

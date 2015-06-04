@@ -307,7 +307,7 @@
 				              	</div>
 				            	<div id="col">
 				            		<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
-				                	<form:input path="email" type="text" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="100"/>
+				                	<form:input path="email" type="email" id="email" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="100" required="required" placeholder="e.g. swapnil@example.com"/>
 				                </div>
 				   		 	</div>
 				   			<div id="row"  >
@@ -318,7 +318,7 @@
 				                </div>
 				                <div id="col">
 				                <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${passwordError}</span>
-				                	<form:input path="password" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)" maxlength="20"/>
+				                	<form:input path="password" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)" maxlength="20" required="required" placeholder="Please enter 20 Char Password"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
