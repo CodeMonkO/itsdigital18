@@ -171,7 +171,7 @@ public class FineDineController {
 	@RequestMapping(value = "/forgotpasswordform", method = RequestMethod.POST)
 	public ModelAndView forgotPasswordForm(@ModelAttribute("forgotpasswordform") @Valid ForgotPassword forgotPassword, BindingResult result, Model model) {
 		if (!result.hasErrors()) {
-			String vcode = JPassGenerator.getInstance().verificationCodeGenerator();
+			String vcode = JPassGenerator.getInstance().verificationCodeGenerator(messages);
 			System.out.println(vcode);
 			// Mailer.mailer("");
 			session.setAttribute(Constant.VERIFICATIONCODE.getConstantValue(), vcode);
@@ -273,9 +273,9 @@ public class FineDineController {
 					restaurantSignUpFormEntity.setCitycode(signupform.getZipcode());
 					restaurantSignUpFormEntity.setCountry(signupform.getCountry());
 					restaurantSignUpFormEntity.setCountrycode(countryMap.get(signupform.getCountry()).toUpperCase());
-					restaurantSignUpFormEntity.setCtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
+					restaurantSignUpFormEntity.setCtime(signupform.getClosetime());
 					restaurantSignUpFormEntity.setMaxseat(signupform.getRmaxseats());
-					restaurantSignUpFormEntity.setOtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
+					restaurantSignUpFormEntity.setOtime(signupform.getOpentime());
 					restaurantSignUpFormEntity.setRating(signupform.getRrating());
 					restaurantSignUpFormEntity.setRcontact(signupform.getRcontact());
 					restaurantSignUpFormEntity.setRmail(signupform.getRmailid());
@@ -535,6 +535,13 @@ public class FineDineController {
 					Map<String, Object> internalMap = cache.get(emailId);
 					if (internalMap != null && internalMap.size() > 0) {
 						usersEntity.setUuid(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
+						try {
+							RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
+							SeatsCalculation seatsCalculation = new SeatsCalculation();
+							model = seatsCalculation.getSeats(restaurantLiveEntity, bookingform, model);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					} else {
 						return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 					}

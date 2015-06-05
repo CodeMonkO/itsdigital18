@@ -474,9 +474,9 @@ function renameRows(tBody) {
 			        <div id="deviceId1">
 				    	<form:form method="POST" action="bookingform.im" modelAttribute="bookingform" id="bookingform">
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Reservation</span> -->
-				   		    <div id="row">
+				   		    <!-- <div id="row">
 								<button type="submit">Refresh</button>		                        
-		 					</div>
+		 					</div> -->
 				   		    <div id="row" >
 				      			<div id="col">
 				                	<div id="text_setting">
@@ -518,7 +518,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="booking" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                	<form:input path="booking" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="Seats to be booked" />
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -528,7 +528,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="name" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                	<form:input path="name" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="Name of customer"/>
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -538,7 +538,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="emailid" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                	<form:input path="emailid" type="email" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="eg.abc@example.com"/>
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -548,7 +548,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="contactno" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                	<form:input path="contactno" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="10 Digit mobile number"/>
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -558,7 +558,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="event" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)"/>
+				                	<form:input path="event" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="eg.birthday, kitty party, treat etc"/>
 				                </div>
 				             </div>
 						        <div id="row">
@@ -597,7 +597,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="qty" type="text" id="qty" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<input name="qty" type="text" id="qty" size="60" onkeyup="autoTab(this, document.form_device.contact)" placeholder="Quantity of item"/>
 				                </div>
 				            </div>
 				             <div id="row">
@@ -625,7 +625,7 @@ function renameRows(tBody) {
 				                <div id="col">
 				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${listError}</span>
 				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
-				                	<form:input path="emailid" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="emailid" type="email" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)" required="required" placeholder="eg. abc@example.com"/>
 				                </div>
 				            </div>
 				             <div id="row">

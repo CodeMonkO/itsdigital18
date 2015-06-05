@@ -307,7 +307,7 @@
 				                    </div>
 				              	</div>
 				            	<div id="col">
- 									<form:select path="country"  multiple="false" id="text_setting" required="required">
+ 									<form:select path="country"  multiple="false" id="text_setting" required="required" title="Please select country of restaurant">
 										<form:option value="" label="Select" />
 									    <form:options items="${countryList}" />
 									</form:select>
@@ -321,7 +321,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:select path="state"  multiple="false">
+				                	<form:select path="state"  multiple="false" id="text_setting" required="required" title="Please select state of restaurant">
 										<form:option value="" label="Select" />
 									    <form:options items="${statesList}" />
 									</form:select>
@@ -335,7 +335,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="city"  type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" required="required" placeholder="Enter city of Restaurant"/>
+				                	<form:input path="city"  type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" required="required" title="Please enter city of restaurant" placeholder="Enter city of Restaurant"/>
 				                </div>
 				             </div>
 				      		<div id="row" >
@@ -346,7 +346,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:textarea path="address" type="text" id="textfield2" cols="46" rows="5" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="Enter Address of Restaurant"></form:textarea>
+				                	<form:textarea path="address" type="text" id="textfield2" cols="46" rows="5" onkeyup="autoTab(this, document.form_device.locality)" required="required" title="Please enter address of restaurant" placeholder="Enter Address of Restaurant"></form:textarea>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -357,7 +357,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="zipcode" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" required="required" placeholder="Enter 6 digit pincode"/>
+				                	<form:input path="zipcode" type="number" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)"  maxlength="6" title="Please enter 6 digit zipcode" required="required" placeholder="Enter 6 digit pincode"/>
 				                </div>
 				             </div>		
 				             <div id="row"  >
@@ -368,7 +368,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="rname" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rname" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" title="Please enter name of restaurant" required="required" placeholder="Name of restaurant"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -379,7 +379,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path= "rmailid" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="100"/>
+				                	<form:input path= "rmailid" type="email" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="100" title="Please enter email-ID of restaurant" required="required" placeholder="eg. abc@swapnil.com"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -391,7 +391,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path= "password" type="password" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="20"/>
+				                	<form:input path= "password" type="password" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" title="Min 8 characters Max 20, one number, one uppercase and one lowercase letter" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*" maxlength="20" required="required"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -402,7 +402,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path= "cpassword" type="password" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="20"/>
+				                	<form:input path= "cpassword" type="password" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" title="Min 8 characters Max 20, one number, one uppercase and one lowercase letter" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*" maxlength="20" required="required"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -413,7 +413,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="rcontact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rcontact" type="tel" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" pattern="\d{10}" title="Please enter contact number of restaurant" required="required" placeholder="Enter 10 Digit mobile number"/>
 				                </div>
 				             </div>
 				             <div id="row"  >
@@ -424,7 +424,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="raltcontact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="raltcontact" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10" pattern="\d{10}"  title="Please enter alternate contact number of restaurant" required="required" placeholder="Enter 10 Digit alternate mobile number"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -435,7 +435,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:select path="rtype"  multiple="false">
+				                	<form:select path="rtype"  multiple="false" id="text_setting" required="required" title="Please select type of restaurant">
 										<form:option value="" label="Select" />
 									    <form:options items="${restroTypeList}" />
 									</form:select>
@@ -460,7 +460,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="rmaxseats" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="rmaxseats" type="number" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" min="5" max="99999999" title="Please enter max vacancy of restaurant" maxlength="10" required="required" placeholder="Enter max vacancy"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -471,7 +471,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="opentime" type="time" min="9:00" max="17:00" step="900" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="opentime" type="time" step="900" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" required="required" title="Please enter open time of restaurant"/>
 				                </div>
 				             </div>
 				             <div id="row"  >
@@ -482,7 +482,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="closetime" type="time" min="9:00" max="17:00" step="900" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/>
+				                	<form:input path="closetime" type="time" step="900" size="60" onkeyup="autoTab(this, document.form_device.address)" id="text_setting" required="required" title="Please enter close time of restaurant"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -494,7 +494,7 @@
 				                </div>
 				                <div id="col">
 				                	<%-- <form:input path="rrating" type="text" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" maxlength="10"/> --%>
-				                	<form:select path="rrating"  multiple="false">
+				                	<form:select path="rrating"  multiple="false" id="text_setting" required="required" title="Please select rating of restaurant">
 										<form:option value="" label="Select" />
 									    <form:option value="1" label="1 Star" />
 									    <form:option value="2" label="2 Star" />
@@ -538,7 +538,7 @@
 												</div>
 												<span class="btn btn-file btn-danger" id="text-button">
 													<span class="fileupload-new">Upload file</span> 
-												       <input name="files[0]" type="file" />
+												       <input name="files[0]" type="file" required id="text_setting" required="required" title="Please upload menu of restaurant"/>
 												</span> 
 											</div>	
 										</div>
