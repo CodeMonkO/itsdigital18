@@ -444,20 +444,29 @@ public class FineDineController {
 						billList = (List<Bill>) objectMenu;
 						itemsList = (List<String>) objectItemsList;
 					}
+				} else {
+					model = new ModelAndView(Views.SIGNIN.getViewName());
+					return model;
 				}
+			} else {
+				model = new ModelAndView(Views.SIGNIN.getViewName());
+				return model;
 			}
 		} else {
 			model = new ModelAndView(Views.SIGNIN.getViewName());
 			return model;
 		}
-		model = new ModelAndView(Views.RESTROFRAME.getViewName());
-		try {
-			RestaurantLiveEntity restaurantLiveEntity = consumer.getFromBookingTable(uuid).get(0);
+		List<RestaurantLiveEntity> listOfRestaurantLiveEntity = (List<RestaurantLiveEntity>) consumer.getFromBookingTable(uuid);
+		if (listOfRestaurantLiveEntity != null && listOfRestaurantLiveEntity.size() > 0) {
+			RestaurantLiveEntity restaurantLiveEntity = listOfRestaurantLiveEntity.get(0);
 			SeatsCalculation seatsCalculation = new SeatsCalculation();
+			model = new ModelAndView(Views.RESTROFRAME.getViewName());
 			model = seatsCalculation.getSeats(restaurantLiveEntity, model);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+		}else {
+			model = new ModelAndView(Views.SIGNIN.getViewName());
+			return model;
 		}
+		
 		model.addObject(Constant.BOOKINGFORM.getConstantValue(), booking);
 		model.addObject(Constant.BILLINGFORM.getConstantValue(), billing);
 		model.addObject(Constant.CUSTOMERFORM.getConstantValue(), usersEntity);
@@ -552,18 +561,17 @@ public class FineDineController {
 				return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 			}
 		}
-		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
+		return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 
 	@RequestMapping(value = "/customerform", method = RequestMethod.GET)
 	public String customerFormGet(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
 		model.addAttribute("usersEntity", session.getAttribute("usersEntity"));
-		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
+		return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 
 	@RequestMapping(value = "/customerform", method = RequestMethod.POST)
 	public String customerForm(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
-
 		SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 		String emailId = signinForm.getEmail();
 		Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
@@ -579,6 +587,6 @@ public class FineDineController {
 				}
 			}
 		}
-		return "forward:" + Views.RESTROFRAME.getViewName() + ".im";
+		return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 }

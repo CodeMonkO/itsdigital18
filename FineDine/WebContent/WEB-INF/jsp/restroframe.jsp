@@ -97,12 +97,16 @@ var array_str = new Array();
 function addToList(){
 	var qty = document.getElementById('qty');
 	var item = document.getElementById('item');
+	if(qty.value!="" && item.value!=""){
 	var array_str = item.value.split('|');
 	array.push(array_str[0]+","+qty.value+","+array_str[1]+","+array_str[2]);
 	var item = array_str[0];
 	var amount = array_str[1].toString();
 	var discount = array_str[2].toString();
 	addRow(item,qty.value,amount,discount);
+	}else{
+		alert("Fields can't be left empty");
+	}
 }
 function addRow(item,qty,amount,discount) {
 		var tabNode = document.getElementById("datatable");
@@ -518,7 +522,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="booking" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="Seats to be booked" />
+				                	<form:input path="booking" type="tel" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" maxlength="2" required="required" placeholder="Seats to be booked" title="Please enter seats to be booked" />
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -528,7 +532,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="name" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="Name of customer"/>
+				                	<form:input path="name" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" maxlength="100" required="required" placeholder="Name of customer" title="Please enter name of customer"/>
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -538,7 +542,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="emailid" type="email" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="eg.abc@example.com"/>
+				                	<form:input path="emailid" type="email" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" maxlength="100" required="required" placeholder="eg.abc@example.com" title="Please enter customer's mail-id" />
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -548,7 +552,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="contactno" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="10 Digit mobile number"/>
+				                	<form:input path="contactno" type="tel" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" maxlength="10" required="required" pattern="\d{10}" placeholder="10 Digit mobile number" title="Please enter 10 digit mobile number"/>
 				                </div>
 				             </div>
 				             <div id="row" >
@@ -558,7 +562,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="event" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" required="required" placeholder="eg.birthday, kitty party, treat etc"/>
+				                	<form:input path="event" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" placeholder="eg.birthday, kitty party, treat etc"/>
 				                </div>
 				             </div>
 						        <div id="row">
@@ -584,7 +588,7 @@ function renameRows(tBody) {
 				              	</div>
 				            	<div id="col">
 				                	<!-- <input name="item" type="text" id="item" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/> -->
-									<form:select path="item"  multiple="false">
+									<form:select path="item"  multiple="false" title="Please select items from menu">
 										<form:option value="" label="Select" />
 									    <form:options items="${items}" />
 									</form:select>
@@ -597,7 +601,7 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<input name="qty" type="text" id="qty" size="60" onkeyup="autoTab(this, document.form_device.contact)" placeholder="Quantity of item"/>
+				                	<input name="qty" type="tel" id="qty" size="60" onkeyup="autoTab(this, document.form_device.contact)" maxlength="3" placeholder="Quantity of item"/>
 				                </div>
 				            </div>
 				             <div id="row">
@@ -625,7 +629,7 @@ function renameRows(tBody) {
 				                <div id="col">
 				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${listError}</span>
 				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
-				                	<form:input path="emailid" type="email" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)" required="required" placeholder="eg. abc@example.com"/>
+				                	<form:input path="emailid" type="email" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)" required="required" placeholder="eg. abc@example.com" title="Please enter email id of customer"/>
 				                </div>
 				            </div>
 				             <div id="row">

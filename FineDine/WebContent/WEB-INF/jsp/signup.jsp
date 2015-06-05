@@ -357,7 +357,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="zipcode" type="number" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)"  maxlength="6" title="Please enter 6 digit zipcode" required="required" placeholder="Enter 6 digit pincode"/>
+				                	<form:input path="zipcode" type="tel" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)"  maxlength="6" pattern="\d{6}" title="Please enter 6 digit zipcode" required="required" placeholder="Enter 6 digit pincode"/>
 				                </div>
 				             </div>		
 				             <div id="row"  >
@@ -460,7 +460,7 @@
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="rmaxseats" type="number" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" min="5" max="99999999" title="Please enter max vacancy of restaurant" maxlength="10" required="required" placeholder="Enter max vacancy"/>
+				                	<form:input path="rmaxseats" type="tel" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.address)" min="5" pattern="\d{8}" title="Please enter max vacancy of restaurant" maxlength="8" required="required" placeholder="Enter max vacancy"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >

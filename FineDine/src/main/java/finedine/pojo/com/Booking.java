@@ -19,7 +19,6 @@ public class Booking implements Serializable {
 	private String emailid;
 	@NotEmpty(message = "Enter contact no")
 	private String contactno;
-	@NotEmpty(message = "Enter event")
 	private String event;
 
 	public String getBooking() {
