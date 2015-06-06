@@ -44,9 +44,11 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		for (Object object : list) {
 			String temp = (String) object;
 			if (Integer.parseInt(temp) >= 0) {
-				temp = "+" + temp;
+				temp = temp.replace("+", "P%");
+			}else{
+				temp = temp.replace("-", "N%");
 			}
-			temp = "%" + temp;
+			
 			query.setParameter("countrytimezone", temp);
 			query.setParameter("bookedseat", "0");
 			query.setParameter("statusflag", true);

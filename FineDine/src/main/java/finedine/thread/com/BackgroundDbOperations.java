@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import main.java.finedine.cache.com.Caching;
+import main.java.finedine.constants.com.Constants.Constant;
 import main.java.finedine.entitypojo.com.UpdateProfileFormEntity;
+import main.java.finedine.pojo.com.SignIn;
 import main.java.finedine.services.com.IM2_Dbservice;
 
 public class BackgroundDbOperations {
@@ -44,6 +46,16 @@ public class BackgroundDbOperations {
 				UpdateProfileFormEntity updateProfileFormEntity = (UpdateProfileFormEntity) mapEntry.getValue();
 				consumer.updateRestaurantDetailsFromTable(updateProfileFormEntity, mapEntry.getKey());
 				Caching.getUpdateProfileMap().remove(mapEntry.getKey());
+				if (Caching.getLoggedInUsers() != null && Caching.getLoggedInUsers().size() > 0) {
+					for (Map.Entry<String, Map<String, Object>> cacheMap : Caching.getLoggedInUsers().entrySet()) {
+						for (Map.Entry<String, Object> internalMap : cacheMap.getValue().entrySet()) {
+							if (internalMap.getValue() != null && internalMap.getValue().toString().equalsIgnoreCase(mapEntry.getKey())) {
+								Caching.getLoggedInUsers().remove(cacheMap.getKey());
+							}
+						}
+					}
+				}
+
 			}
 		}
 	}

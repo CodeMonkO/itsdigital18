@@ -73,7 +73,6 @@ public class FineDineController {
 		List<String> statesList = readCSVFile.getList(stateMap, "k");
 		CustomUtils customUtils = CustomUtils.getInstance();
 		List<String> restroTypeList = customUtils.getListFromString(messages.getProperty("signup.restauranttype"), messages.getProperty("delim"));
-		ModelAndView model = new ModelAndView(Views.UPDATEPROFILE.getViewName());
 		Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
 		SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 		String emailId = signinForm.getEmail();
@@ -84,7 +83,7 @@ public class FineDineController {
 				Map<String, Object> internalMap = cache.get(emailId);
 				if (internalMap != null && internalMap.size() > 0) {
 					restaurantSignUpFormEntity = consumer.getRestaurantDetailsFromTable(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
-					try {
+					if (restaurantSignUpFormEntity != null) {
 						updateProfile.setRmailid(restaurantSignUpFormEntity.getRmail());
 						updateProfile.setRname(restaurantSignUpFormEntity.getRname());
 						updateProfile.setRcontact(restaurantSignUpFormEntity.getRcontact());
@@ -92,12 +91,11 @@ public class FineDineController {
 						updateProfile.setOpentime(restaurantSignUpFormEntity.getOtime());
 						updateProfile.setClosetime(restaurantSignUpFormEntity.getCtime());
 						updateProfile.setRmaxseats(restaurantSignUpFormEntity.getMaxseat());
-					} catch (NullPointerException e) {
-						e.printStackTrace();
 					}
 				}
 			}
 		}
+		ModelAndView model = new ModelAndView(Views.UPDATEPROFILE.getViewName());
 		model.addObject(Constant.UPDATEPROFILEFORM.getConstantValue(), updateProfile);
 		model.addObject("countryList", countryList);
 		model.addObject("statesList", statesList);
@@ -112,12 +110,9 @@ public class FineDineController {
 
 	@RequestMapping(value = "/updateprofileform", method = RequestMethod.POST)
 	public ModelAndView updateproFilePost(@ModelAttribute("updateprofileform") @Valid UpdateProfile updateProfileform, BindingResult result, ModelMap model) throws IOException {
-		if (result.hasErrors()) {
-			System.out.println("Country is null");
-		} else {
+		if (!result.hasErrors()) {
 			if (updateProfileform.getPassword().equals(updateProfileform.getCpassword())) {
 				try {
-
 					Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
 					SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 					String emailId = signinForm.getEmail();
@@ -192,11 +187,12 @@ public class FineDineController {
 	@RequestMapping(value = "/resetpasswordform", method = RequestMethod.POST)
 	public ModelAndView resetpasswordform(@ModelAttribute("resetpasswordform") @Valid ResetPassword resetPassword, BindingResult result, Model model) {
 		System.out.println(resetPassword.getVcode());
-		if (null != session.getAttribute(Constant.VERIFICATIONCODE.getConstantValue()) && (Calendar.getInstance().getTimeInMillis() - session.getCreationTime()) <= Integer.parseInt(Constant.SESSIONTIMEOUT.getConstantValue())) {
+		if (null != session.getAttribute(Constant.VERIFICATIONCODE.getConstantValue()) && (Calendar.getInstance().getTimeInMillis() - session.getCreationTime()) <= Integer.parseInt(messages.getProperty(Constant.SESSIONTIMEOUT.getConstantValue()))) {
 			if (session.getAttribute(Constant.VERIFICATIONCODE.getConstantValue()).equals(resetPassword.getVcode())) {
 				System.out.println("code matched" + session.getCreationTime());
 				try {
 					consumer.resetPasswordTable(session.getAttribute(Constant.EMAIL.getConstantValue()).toString(), AESencrp.getInstance().getEncryptedPassword(resetPassword.getPassword()));
+					Caching.getLoggedInUsers().remove(session.getAttribute(Constant.EMAIL.getConstantValue()).toString());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -292,6 +288,11 @@ public class FineDineController {
 					if (new UploadFilesOnToServer().fileWriting(multipartFile, multipartFile.getOriginalFilename(), Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()))) {
 						restaurantSignUpFormEntity.setMenufilelocation(Constant.UPLOADFILE.getConstantValue().replace("?", signupform.getRmailid()) + multipartFile.getOriginalFilename());
 					}
+					if (signupform.getTimezone().charAt(0) == '-') {
+						signupform.setTimezone(signupform.getTimezone().replaceFirst("-", "N"));
+					} else {
+						signupform.setTimezone("P" + signupform.getTimezone());
+					}
 					restaurantSignUpFormEntity.setCountrytimezone(signupform.getTimezone());
 					RestaurantLiveEntity restaurantLiveEntity = new RestaurantLiveEntity();
 					restaurantLiveEntity.setMaxseat(signupform.getRmaxseats());
@@ -336,9 +337,7 @@ public class FineDineController {
 
 	@RequestMapping(value = "/signinform", method = RequestMethod.POST)
 	public ModelAndView signInForm(@ModelAttribute("signinform") @Valid SignIn signinform, BindingResult result) throws Exception {
-		if (result.hasErrors()) {
-			return new ModelAndView(Views.SIGNIN.getViewName(), Constant.SIGNINFORM.getConstantValue(), signinform);
-		} else {
+		if (!result.hasErrors()) {
 			if (null != signinform.getPassword()) {
 				signinform.setPassword(AESencrp.getInstance().getEncryptedPassword(signinform.getPassword()));
 			}
@@ -348,12 +347,12 @@ public class FineDineController {
 				cache = Caching.getLoggedInUsers().get(signinform.getEmail());
 			}
 
-			if (null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) > Integer.parseInt(Constant.CACHETIMEOUT.getConstantValue())) {
+			if (null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) > Integer.parseInt(messages.getProperty(Constant.CACHETIMEOUT.getConstantValue()))) {
 				Caching.getLoggedInUsers().remove(signinform.getEmail());
 			}
 			RestaurantSignUpFormEntity restaurantSignUpFormEntity = null;
 
-			if (null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) <= Integer.parseInt(Constant.CACHETIMEOUT.getConstantValue())) {
+			if (null != cache && cache.size() > 0 && System.currentTimeMillis() - Long.parseLong(cache.get(Constant.CACHEACTIVETIMEMS.getConstantValue()).toString()) <= Integer.parseInt(messages.getProperty(Constant.CACHETIMEOUT.getConstantValue()))) {
 				SignIn signIn = (SignIn) cache.get(Constant.PASSWORD.getConstantValue());
 				ModelAndView model = new ModelAndView();
 				if (signIn.getEmail().equalsIgnoreCase(signinform.getEmail()) && signIn.getPassword().equals(signinform.getPassword())) {
@@ -378,11 +377,9 @@ public class FineDineController {
 					model.addObject(Constant.ITEMSLIST.getConstantValue(), itemsList);
 					model.setViewName(Views.RESTROFRAME.getViewName());
 					session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
+					return model;
 				}
-				return model;
-			} else if ((restaurantSignUpFormEntity = consumer.signInTable(signinform)) != null)
-			// if (signinform.getEmail().equalsIgnoreCase("a@a.a"))
-			{
+			} else if ((restaurantSignUpFormEntity = consumer.signInTable(signinform)) != null) {
 				ModelAndView model = new ModelAndView();
 				Billing billing = new Billing();
 				Booking booking = new Booking();
@@ -414,12 +411,10 @@ public class FineDineController {
 				cache.put(Constant.PASSWORD.getConstantValue(), signinform);
 				Caching.getLoggedInUsers().put(signinform.getEmail(), cache);
 				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
-
 				return model;
-			} else {
-				return new ModelAndView(Views.SIGNIN.getViewName(), Constant.SIGNINFORM.getConstantValue(), signinform);
 			}
 		}
+		return new ModelAndView(Views.SIGNIN.getViewName(), Constant.SIGNINFORM.getConstantValue(), signinform);
 	}
 
 	@RequestMapping("/restroframe")
@@ -445,15 +440,21 @@ public class FineDineController {
 						itemsList = (List<String>) objectItemsList;
 					}
 				} else {
+					SignIn signIn = new SignIn();
 					model = new ModelAndView(Views.SIGNIN.getViewName());
+					model.addObject(Constant.SIGNINFORM.getConstantValue(), signIn);
 					return model;
 				}
 			} else {
+				SignIn signIn = new SignIn();
 				model = new ModelAndView(Views.SIGNIN.getViewName());
+				model.addObject(Constant.SIGNINFORM.getConstantValue(), signIn);
 				return model;
 			}
 		} else {
+			SignIn signIn = new SignIn();
 			model = new ModelAndView(Views.SIGNIN.getViewName());
+			model.addObject(Constant.SIGNINFORM.getConstantValue(), signIn);
 			return model;
 		}
 		List<RestaurantLiveEntity> listOfRestaurantLiveEntity = (List<RestaurantLiveEntity>) consumer.getFromBookingTable(uuid);
@@ -462,11 +463,13 @@ public class FineDineController {
 			SeatsCalculation seatsCalculation = new SeatsCalculation();
 			model = new ModelAndView(Views.RESTROFRAME.getViewName());
 			model = seatsCalculation.getSeats(restaurantLiveEntity, model);
-		}else {
+		} else {
+			SignIn signIn = new SignIn();
 			model = new ModelAndView(Views.SIGNIN.getViewName());
+			model.addObject(Constant.SIGNINFORM.getConstantValue(), signIn);
 			return model;
 		}
-		
+
 		model.addObject(Constant.BOOKINGFORM.getConstantValue(), booking);
 		model.addObject(Constant.BILLINGFORM.getConstantValue(), billing);
 		model.addObject(Constant.CUSTOMERFORM.getConstantValue(), usersEntity);

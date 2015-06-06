@@ -48,7 +48,7 @@ public class ScheduledTrigger implements Runnable {
 				String uuid = mapEntry.getKey();
 				for (String countryCode : countryCodeList) {
 					if (uuid.contains(countryCode)) {
-						map.put(uuid, mapEntry.getValue());
+						map.put(uuid, mapEntry.getValue()); 
 					}
 				}
 			}
@@ -61,7 +61,7 @@ public class ScheduledTrigger implements Runnable {
 		while (!Thread.interrupted()) {
 
 			try {
-				String formattedDate = CustomUtils.getInstance().currentDate("HHmm");
+				String formattedDate = CustomUtils.getInstance().currentDate(Messages.getProperty(Constant.SCHEDULEDTRIGGERFMT.getConstantValue()));
 
 				if (null != formattedDate && formattedDate.equalsIgnoreCase(Messages.getProperty(MidnightCycle.MNC1.getMidnightCycle()))) {
 					BackgroundDbOperations.getInstance().resetBookingTable(Consumer, +5, +8);
@@ -82,8 +82,8 @@ public class ScheduledTrigger implements Runnable {
 					System.out.println("Midnight Trigger Scheduled ");
 				}
 
-				Thread.sleep(Long.parseLong(Constant.THREADSLEEPINTERVAL.getConstantValue())); // 1
-																								// min
+				Thread.sleep(Long.parseLong(Messages.getProperty(Constant.THREADSLEEPINTERVAL.getConstantValue()))); // 1
+				// min
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (NullPointerException e) {
