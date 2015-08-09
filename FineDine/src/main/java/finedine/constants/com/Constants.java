@@ -79,12 +79,14 @@ public class Constants {
 		RESTAURANTLIVEENTITY("booking.restaurantliveentity"),
 		RESETRESTAURANTLIVEENTITY("reset.booking.restaurantliveentity"),
 		USERSTABLE("users.update"),
+		USERSTABLEBILLAMOUNT("customer.billing"),
 		CUSTOMERTABLE("customer.usersentity"),
 		SIGNINTABLE("signin.restaurantsignupformentity"),
 		SIGNUPTABLE("signup.restaurantsignupformentity"),
 		GETFROMRESTAURANTTABLE("getfrom.restaurantsignupformentity"),
 		UPDATERESTAURANTTABLE("updateprofile.restaurantdetails"),
-		RESETUPDATE("reset.update");
+		RESETUPDATE("reset.update"),
+		GETUSERSENTITY("usersentity.usersMailid");
 
 		private String value;
 

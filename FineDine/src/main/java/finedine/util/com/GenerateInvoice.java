@@ -25,13 +25,14 @@ public class GenerateInvoice {
 	private Map map;
 	private float netTotal = 0;
 
-	public void Generate(List<String> objectList, String filePath, String fileName, Object object) {
+	public float Generate(List<String> objectList, String filePath, String fileName, Object object) {
 		map = (Map) object;
 		billList = objectList;
 		StringBuffer stringBuffer = new StringBuffer(fileName);
 		stringBuffer.append(Constant.BILLPDFEXTENSTION.getConstantValue());
 		String pdfFilename = stringBuffer.toString();
 		createPDF(pdfFilename, filePath);
+		return netTotal;
 
 	}
 

@@ -14,6 +14,10 @@ public interface IM2_Dao {
 	public boolean resetBookingTable(List list);
 
 	public RestaurantLiveEntity usersTable(UsersEntity record);
+	
+	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed);
+	
+	public UsersEntity usersTableBillAmount(String fnumber, String restaurantUUID, String billpayed);
 
 	public List<UsersEntity> customerTable(String uuid);
 

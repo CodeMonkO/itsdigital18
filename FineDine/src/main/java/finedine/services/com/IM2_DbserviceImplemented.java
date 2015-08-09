@@ -25,6 +25,11 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	}
 
 	@Transactional
+	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed) {
+		im2DAO.usersTableBillAmount(uuid, billAmount, emailid, billpayed);
+	}
+
+	@Transactional
 	public List<UsersEntity> customerTable(String uuid) {
 		return im2DAO.customerTable(uuid);
 	}
@@ -63,5 +68,10 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	@Transactional
 	public boolean updateRestaurantDetailsFromTable(UpdateProfileFormEntity updateProfileFormEntity, String restaurantUUID) {
 		return im2DAO.updateRestaurantDetailsFromTable(updateProfileFormEntity, restaurantUUID);
+	}
+
+	@Transactional
+	public UsersEntity usersTableBillAmount(String fnumber, String restaurantUUID, String billpayed) {
+		return im2DAO.usersTableBillAmount(fnumber, restaurantUUID, billpayed);
 	}
 }

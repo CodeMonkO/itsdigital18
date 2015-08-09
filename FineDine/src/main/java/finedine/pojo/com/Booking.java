@@ -20,7 +20,7 @@ public class Booking implements Serializable {
 	@NotEmpty(message = "Enter contact no")
 	private String contactno;
 	private String event;
-
+	private String fnumber;
 	public String getBooking() {
 		return booking;
 	}
@@ -59,5 +59,13 @@ public class Booking implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getFnumber() {
+		return fnumber;
+	}
+
+	public void setFnumber(String fnumber) {
+		this.fnumber = fnumber;
 	}
 }

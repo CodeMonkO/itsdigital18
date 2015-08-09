@@ -45,10 +45,10 @@ public class IM2_DaoImplemented implements IM2_Dao {
 			String temp = (String) object;
 			if (Integer.parseInt(temp) >= 0) {
 				temp = temp.replace("+", "P%");
-			}else{
+			} else {
 				temp = temp.replace("-", "N%");
 			}
-			
+
 			query.setParameter("countrytimezone", temp);
 			query.setParameter("bookedseat", "0");
 			query.setParameter("statusflag", true);
@@ -83,6 +83,23 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		return restaurantLiveEntity;
 	}
 
+	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed) {
+		Query query = null;
+
+		String SqlQuery = messages.getProperty(SqlQueries.USERSTABLEBILLAMOUNT.getSqlQueries());
+		query = null;
+		try {
+			query = sessionFactory.getCurrentSession().createQuery(SqlQuery);
+			query.setParameter("uuid", uuid);
+			query.setParameter("billamt", billAmount);
+			query.setParameter("billpayed", billpayed);
+			query.setParameter("emailid", emailid);
+			query.executeUpdate();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public List<UsersEntity> customerTable(String uuid) {
 		String selectSqlQuery = messages.getProperty(SqlQueries.CUSTOMERTABLE.getSqlQueries());
@@ -93,7 +110,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		vdtime.append("%");
 		query.setParameter("uuid", uuid);
 		query.setParameter("billpayed", "N");
-		query.setParameter("vdtime", vdtime.toString());
+		/* query.setParameter("vdtime", vdtime.toString()); */
 		List<UsersEntity> list = query.list();
 		return list;
 	}
@@ -186,5 +203,20 @@ public class IM2_DaoImplemented implements IM2_Dao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public UsersEntity usersTableBillAmount(String fnumber, String restaurantUUID, String billpayed) {
+		String selectSqlQuery = messages.getProperty(SqlQueries.GETUSERSENTITY.getSqlQueries());
+		Query query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
+		query.setParameter("uuid", restaurantUUID);
+		query.setParameter("fumber", fnumber);
+		query.setParameter("billpayed", billpayed);
+		List<UsersEntity> list = query.list();
+		if (list.size() == 1) {
+			UsersEntity usersEntity = list.get(0);
+			return usersEntity;
+		}
+		return null;
 	}
 }

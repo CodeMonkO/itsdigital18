@@ -562,7 +562,17 @@ function renameRows(tBody) {
 				                    </div>
 				                </div>
 				                <div id="col">
-				                	<form:input path="event" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" placeholder="eg.birthday, kitty party, treat etc"/>
+				                	<form:input path="event" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" maxlength="21" placeholder="eg.birthday, kitty party, treat etc"/>
+				                </div>
+				             </div>
+				             <div id="row" >
+				      			<div id="col">
+				                	<div id="text_setting">
+				         			Flag Number
+				                    </div>
+				                </div>
+				                <div id="col">
+				                	<form:input path="fnumber" type="text" id="textfield2" onkeyup="autoTab(this, document.form_device.locality)" maxlength="21" placeholder="eg.birthday, kitty party, treat etc"/>
 				                </div>
 				             </div>
 						        <div id="row">
@@ -573,9 +583,6 @@ function renameRows(tBody) {
 			        </div>
 			        <div id="deviceId2">
 				    	<form:form method="POST" action="billingform.im" modelAttribute="billingform" id="billingform">
-					    	<c:set var="emailError">
-								<form:errors  path="emailid" />
-							</c:set>
 							<c:set var="listError">
 								<form:errors  path="list" />
 							</c:set>
@@ -622,14 +629,14 @@ function renameRows(tBody) {
 				   			<div id="row"  >
 				      			<div id="col">
 				                	<div id="text_setting">
-				         			Email-ID
+				         			Flag Number
 				                    </div>
 				                </div>
 				                <form:input path="list" type="hidden" id="list"/>
 				                <div id="col">
 				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${listError}</span>
 				                	<span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${emailError}</span>
-				                	<form:input path="emailid" type="email" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)" required="required" placeholder="eg. abc@example.com" title="Please enter email id of customer"/>
+				                	<form:input path="fnumber" id="textfield" size="60" onkeyup="autoTab(this, document.form_device.contact)" required="required" placeholder="Enter flag number" title="Please enter flag number of customer"/>
 				                </div>
 				            </div>
 				             <div id="row">
@@ -645,13 +652,14 @@ function renameRows(tBody) {
 		 					</div>
 				        <!-- <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">Customer</span> -->
 				   		    <div id="row" >
+				   		    <div id="text_setting">
 				   		    <table style="width:100%">
 					   		    <tr>
-						   		    <td><b>Customer ID</b></td>
+						   		    <td><b>Flag Number</b></td>
 						   		    <td><b>Customer Name</b></td>
 						   		    <td><b>Booking Src</b></td>
 						   		    <td><b>Event</b></td>
-						   		    <td><b>Billing Status</b></td>
+						   		    <td><b>Billing Amount</b></td>
 						   		    <td><b>Payment Status</b></td>
 					   		    </tr>
 					   		    <tr></tr>
@@ -661,12 +669,12 @@ function renameRows(tBody) {
 										<c:forEach var="usersEntity" items="${usersEntity}">
 											<%-- <li>${listValue}</li> --%>
 											<tr>
-											<td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.emailid}</span></td>
-											<td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.name}</span></td>
-								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.rcount}</span></td>
-								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.occasion}</span></td>
-								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
-								   		    <td><span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${usersEntity.billpayed}</span></td>
+											<td><span style="color:red; text-align:center">${usersEntity.fnumber}</span></td>
+											<td><span style="color:red; text-align:center">${usersEntity.name}</span></td>
+								   		    <td><span style="color:red; text-align:center">${usersEntity.rcount}</span></td>
+								   		    <td><span style="color:red; text-align:center">${usersEntity.occasion}</span></td>
+								   		    <td><span style="color:red; text-align:center">${usersEntity.billamt}</span></td>
+								   		    <td><span style="color:red; text-align:center">${usersEntity.billpayed}</span></td>
 											</tr>
 										</c:forEach>
 									
@@ -681,6 +689,7 @@ function renameRows(tBody) {
 					   		    </c:if>
 					   		    
 				   		    </table>
+				   		    </div>
 				   		    </div>
 			        	</form:form>
 			        </div>

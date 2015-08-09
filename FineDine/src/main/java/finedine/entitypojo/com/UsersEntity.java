@@ -10,15 +10,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class UsersEntity implements Serializable{
+public class UsersEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7089645434761526654L;
 	@Id
-    @Column(name="id")
-    @GeneratedValue
+	@Column(name = "id")
+	@GeneratedValue
 	private Integer id;
 	@Column(name = "name")
 	private String name;
@@ -48,6 +48,8 @@ public class UsersEntity implements Serializable{
 	private String billpayed;
 	@Column(name = "rcount")
 	private String rcount;
+	@Column(name = "fnumber")
+	private String fnumber;
 
 	public String getEmailid() {
 		return emailid;
@@ -167,5 +169,13 @@ public class UsersEntity implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getFnumber() {
+		return fnumber;
+	}
+
+	public void setFnumber(String fnumber) {
+		this.fnumber = fnumber;
 	}
 }

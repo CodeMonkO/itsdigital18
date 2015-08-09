@@ -9,20 +9,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Billing implements Serializable {
 
 	private static final long serialVersionUID = -7988394113856044045L;
-	@NotEmpty(message = "Please Enter Email ID")
-	@Email(message = "Email ID is not valid")
-	private String emailid;
+	private String fnumber;
 	@NotEmpty(message = "No Billing items found")
 	private List<String> list;
 	private List<String> item;
-
-	public String getEmailid() {
-		return emailid;
-	}
-
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
-	}
 
 	public List<String> getList() {
 		return list;
@@ -38,6 +28,14 @@ public class Billing implements Serializable {
 
 	public void setItem(List<String> item) {
 		this.item = item;
+	}
+
+	public String getFnumber() {
+		return fnumber;
+	}
+
+	public void setFnumber(String fnumber) {
+		this.fnumber = fnumber;
 	}
 
 }

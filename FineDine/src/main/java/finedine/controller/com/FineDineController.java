@@ -498,8 +498,9 @@ public class FineDineController {
 					Map<String, Object> internalMap = cache.get(emailId);
 					if (internalMap != null && internalMap.size() > 0) {
 						GenerateInvoice generateInvoice = new GenerateInvoice();
-						generateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(), billingform.getEmailid().replace(".", "_"), internalMap);
-						System.out.println(billingform.getList());
+						UsersEntity usersEntity=consumer.usersTableBillAmount(billingform.getFnumber(), internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString(), "N");
+						float netAmount = generateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(), usersEntity.getEmailid().replace(".", "_"), internalMap);
+						consumer.usersTableBillAmount(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString(), Float.toString(netAmount), usersEntity.getEmailid(), "N");
 					}
 				}
 			}
@@ -538,7 +539,8 @@ public class FineDineController {
 			usersEntity.setContactnum(bookingform.getContactno());
 			usersEntity.setOccasion(bookingform.getEvent());
 			usersEntity.setSeatsbooked(bookingform.getBooking());
-
+			usersEntity.setFnumber(bookingform.getFnumber());
+			
 			SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 			String emailId = signinForm.getEmail();
 			Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
