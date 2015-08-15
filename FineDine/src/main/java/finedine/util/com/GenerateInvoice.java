@@ -24,10 +24,12 @@ public class GenerateInvoice {
 	private List<String> billList = null;
 	private Map map;
 	private float netTotal = 0;
+	private String BillNo = null;
 
-	public float Generate(List<String> objectList, String filePath, String fileName, Object object) {
+	public float Generate(List<String> objectList, String filePath, String fileName, Object object, String BillNo) {
 		map = (Map) object;
 		billList = objectList;
+		this.BillNo = BillNo;
 		StringBuffer stringBuffer = new StringBuffer(fileName);
 		stringBuffer.append(Constant.BILLPDFEXTENSTION.getConstantValue());
 		String pdfFilename = stringBuffer.toString();
@@ -184,7 +186,7 @@ public class GenerateInvoice {
 			createHeadings(cb, 124, 705, map.get(Constant.RESTAURANTCOUNTRY.getConstantValue()).toString());
 
 			createHeadings(cb, 482, 743, map.get(Constant.RESTAURANTNAME.getConstantValue()).toString()+"'s User");
-			createHeadings(cb, 482, 723, CustomUtils.getInstance().currentDate("yyyyMMddHHmmssSSS"));
+			createHeadings(cb, 482, 723, this.BillNo);
 			createHeadings(cb, 482, 703, CustomUtils.getInstance().currentDate("mm/dd/yyyy"));
 
 		}

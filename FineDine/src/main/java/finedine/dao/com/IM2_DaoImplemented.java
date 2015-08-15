@@ -83,7 +83,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		return restaurantLiveEntity;
 	}
 
-	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed) {
+	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed, String billnum) {
 		Query query = null;
 
 		String SqlQuery = messages.getProperty(SqlQueries.USERSTABLEBILLAMOUNT.getSqlQueries());
@@ -94,6 +94,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 			query.setParameter("billamt", billAmount);
 			query.setParameter("billpayed", billpayed);
 			query.setParameter("emailid", emailid);
+			query.setParameter("billnum", billnum);
 			query.executeUpdate();
 		} catch (HibernateException e) {
 			e.printStackTrace();

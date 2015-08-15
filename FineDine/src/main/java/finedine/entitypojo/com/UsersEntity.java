@@ -38,8 +38,8 @@ public class UsersEntity implements Serializable {
 	private String vdtime;
 	@Column(name = "visited")
 	private String visited;
-	@Column(name = "tablenum")
-	private String tablenum;
+	@Column(name = "billnum")
+	private String billnum;
 	@Column(name = "seatsbooked")
 	private String seatsbooked;
 	@Column(name = "billamt")
@@ -123,14 +123,6 @@ public class UsersEntity implements Serializable {
 		this.name = name;
 	}
 
-	public String getTablenum() {
-		return tablenum;
-	}
-
-	public void setTablenum(String tablenum) {
-		this.tablenum = tablenum;
-	}
-
 	public String getSeatsbooked() {
 		return seatsbooked;
 	}
@@ -177,5 +169,13 @@ public class UsersEntity implements Serializable {
 
 	public void setFnumber(String fnumber) {
 		this.fnumber = fnumber;
+	}
+
+	public String getBillnum() {
+		return billnum;
+	}
+
+	public void setBillnum(String billnum) {
+		this.billnum = billnum;
 	}
 }

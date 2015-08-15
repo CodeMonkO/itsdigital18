@@ -15,7 +15,7 @@ public interface IM2_Dbservice {
 
 	public RestaurantLiveEntity usersTable(UsersEntity record);
 
-	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed);
+	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed, String billnum);
 	
 	public UsersEntity usersTableBillAmount(String fnumber, String restaurantUUID, String billpayed);
 

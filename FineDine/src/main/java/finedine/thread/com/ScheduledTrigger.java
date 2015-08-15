@@ -65,23 +65,23 @@ public class ScheduledTrigger implements Runnable {
 
 				if (null != formattedDate && formattedDate.equalsIgnoreCase(Messages.getProperty(MidnightCycle.MNC1.getMidnightCycle()))) {
 					BackgroundDbOperations.getInstance().resetBookingTable(Consumer, +5, +8);
-					BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC1.getMidnightCycle()));
+					//BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC1.getMidnightCycle()));
 				} else if (null != formattedDate && formattedDate.equalsIgnoreCase(Messages.getProperty(MidnightCycle.MNC2.getMidnightCycle()))) {
 					BackgroundDbOperations.getInstance().resetBookingTable(Consumer, +0, +2);
-					BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC2.getMidnightCycle()));
+					//BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC2.getMidnightCycle()));
 				} else if (null != formattedDate && formattedDate.equalsIgnoreCase(Messages.getProperty(MidnightCycle.MNC3.getMidnightCycle()))) {
 					BackgroundDbOperations.getInstance().resetBookingTable(Consumer, -3, -5);
-					BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC3.getMidnightCycle()));
+					//BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC3.getMidnightCycle()));
 				} else if (null != formattedDate && formattedDate.equalsIgnoreCase(Messages.getProperty(MidnightCycle.MNC4.getMidnightCycle()))) {
 					BackgroundDbOperations.getInstance().resetBookingTable(Consumer, -6, -10);
-					BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC4.getMidnightCycle()));
+					//BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC4.getMidnightCycle()));
 				} else if (null != formattedDate && formattedDate.equalsIgnoreCase(Messages.getProperty(MidnightCycle.MNC5.getMidnightCycle()))) {
 					BackgroundDbOperations.getInstance().resetBookingTable(Consumer, +9, +12);
-					BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC5.getMidnightCycle()));
+					//BackgroundDbOperations.getInstance().updateProfile(Consumer, updateMapThread(MidnightCycle.MNC5.getMidnightCycle()));
 				} else {
 					System.out.println("Midnight Trigger Scheduled ");
 				}
-
+				
 				Thread.sleep(Long.parseLong(Messages.getProperty(Constant.THREADSLEEPINTERVAL.getConstantValue()))); // 1
 				// min
 			} catch (InterruptedException e) {

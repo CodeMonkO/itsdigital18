@@ -25,8 +25,8 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	}
 
 	@Transactional
-	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed) {
-		im2DAO.usersTableBillAmount(uuid, billAmount, emailid, billpayed);
+	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed, String billnum) {
+		im2DAO.usersTableBillAmount(uuid, billAmount, emailid, billpayed, billnum);
 	}
 
 	@Transactional

@@ -103,10 +103,11 @@ public class FineDineController {
 		return model;
 	}
 
-	@RequestMapping(value = "/updateprofileform", method = RequestMethod.GET)
-	public ModelAndView updateProfileFormGet() {
-		return new ModelAndView(Views.HOME.getViewName());
-	}
+	/*
+	 * @RequestMapping(value = "/updateprofileform", method = RequestMethod.GET)
+	 * public ModelAndView updateProfileFormGet() { return new
+	 * ModelAndView(Views.HOME.getViewName()); }
+	 */
 
 	@RequestMapping(value = "/updateprofileform", method = RequestMethod.POST)
 	public ModelAndView updateproFilePost(@ModelAttribute("updateprofileform") @Valid UpdateProfile updateProfileform, BindingResult result, ModelMap model) throws IOException {
@@ -135,8 +136,8 @@ public class FineDineController {
 								if (new UploadFilesOnToServer().fileWriting(multipartFile, multipartFile.getOriginalFilename(), Constant.UPLOADFILE.getConstantValue().replace("?", updateProfileform.getRmailid()))) {
 									updateProfileFormEntity.setMenufilelocation(Constant.UPLOADFILE.getConstantValue().replace("?", updateProfileform.getRmailid()) + multipartFile.getOriginalFilename());
 								}
-								Caching.getInstance();
-								Caching.getUpdateProfileMap().put(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString(), updateProfileFormEntity);
+								consumer.updateRestaurantDetailsFromTable(updateProfileFormEntity, internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
+								cache.remove(emailId);
 								model.addAttribute("sucessmsg", "Sucessfully Updated");
 							}
 						}
@@ -498,9 +499,14 @@ public class FineDineController {
 					Map<String, Object> internalMap = cache.get(emailId);
 					if (internalMap != null && internalMap.size() > 0) {
 						GenerateInvoice generateInvoice = new GenerateInvoice();
-						UsersEntity usersEntity=consumer.usersTableBillAmount(billingform.getFnumber(), internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString(), "N");
-						float netAmount = generateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(), usersEntity.getEmailid().replace(".", "_"), internalMap);
-						consumer.usersTableBillAmount(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString(), Float.toString(netAmount), usersEntity.getEmailid(), "N");
+						UsersEntity usersEntity = consumer.usersTableBillAmount(billingform.getFnumber(), internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString(), "N");
+						if (usersEntity != null) {
+							String billnum = CustomUtils.getInstance().currentDate("yyyyMMddHHmmssSSS");
+							float netAmount = generateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(), usersEntity.getEmailid().replace(".", "_"), internalMap, billnum);
+							consumer.usersTableBillAmount(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString(), Float.toString(netAmount), usersEntity.getEmailid(), "N", billnum);
+						}else{
+							System.out.println("FLAG IS NOT ISSUED");
+						}
 					}
 				}
 			}
@@ -531,7 +537,7 @@ public class FineDineController {
 			usersEntity.setBillamt("0");
 			usersEntity.setBillpayed("N");
 			usersEntity.setRcount("W");
-			usersEntity.setTablenum("N");
+			usersEntity.setBillnum("N");
 			usersEntity.setTimezone("IST");
 			usersEntity.setVdtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
 			usersEntity.setVisited("Y");
@@ -540,7 +546,7 @@ public class FineDineController {
 			usersEntity.setOccasion(bookingform.getEvent());
 			usersEntity.setSeatsbooked(bookingform.getBooking());
 			usersEntity.setFnumber(bookingform.getFnumber());
-			
+
 			SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 			String emailId = signinForm.getEmail();
 			Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
