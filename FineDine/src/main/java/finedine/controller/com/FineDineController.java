@@ -35,7 +35,7 @@ import main.java.finedine.util.com.GenerateInvoice;
 import main.java.finedine.util.com.GenerateUUID;
 import main.java.finedine.util.com.JPassGenerator;
 import main.java.finedine.util.com.ReadCSVFile;
-import main.java.finedine.util.com.SeatsCalculation;
+import main.java.finedine.util.com.GenericModel;
 import main.java.finedine.util.com.UploadFilesOnToServer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -321,9 +321,6 @@ public class FineDineController {
 
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView signIn(Model model) {
-		/*
-		 * if (!session.isNew()) { session.invalidate(); }
-		 */
 		SignIn signIn = new SignIn();
 		model.addAttribute(Constant.SIGNINFORM.getConstantValue(), signIn);
 		return new ModelAndView(Views.SIGNIN.getViewName());
@@ -369,7 +366,7 @@ public class FineDineController {
 						itemsList = (List<String>) objectItemsList;
 					}
 					RestaurantLiveEntity restaurantLiveEntity = consumer.getFromBookingTable(cache.get(Constant.RESTAURANTUUID.getConstantValue()).toString()).get(0);
-					SeatsCalculation seatsCalculation = new SeatsCalculation();
+					GenericModel seatsCalculation = new GenericModel();
 					model = seatsCalculation.getSeats(restaurantLiveEntity, model);
 					model.addObject(Constant.BOOKINGFORM.getConstantValue(), booking);
 					model.addObject(Constant.BILLINGFORM.getConstantValue(), billing);
@@ -389,7 +386,7 @@ public class FineDineController {
 				List<Bill> billList = readMenuFile.getListOfMenuItems(restaurantSignUpFormEntity.getMenufilelocation());
 				List<String> itemsList = readMenuFile.getListOfItems(billList);
 				RestaurantLiveEntity restaurantLiveEntity = consumer.getFromBookingTable(restaurantSignUpFormEntity.getUuid()).get(0);
-				SeatsCalculation seatsCalculation = new SeatsCalculation();
+				GenericModel seatsCalculation = new GenericModel();
 				model = seatsCalculation.getSeats(restaurantLiveEntity, model);
 				model.addObject(Constant.BOOKINGFORM.getConstantValue(), booking);
 				model.addObject(Constant.BILLINGFORM.getConstantValue(), billing);
@@ -461,7 +458,7 @@ public class FineDineController {
 		List<RestaurantLiveEntity> listOfRestaurantLiveEntity = (List<RestaurantLiveEntity>) consumer.getFromBookingTable(uuid);
 		if (listOfRestaurantLiveEntity != null && listOfRestaurantLiveEntity.size() > 0) {
 			RestaurantLiveEntity restaurantLiveEntity = listOfRestaurantLiveEntity.get(0);
-			SeatsCalculation seatsCalculation = new SeatsCalculation();
+			GenericModel seatsCalculation = new GenericModel();
 			model = new ModelAndView(Views.RESTROFRAME.getViewName());
 			model = seatsCalculation.getSeats(restaurantLiveEntity, model);
 		} else {
@@ -480,14 +477,18 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/billingform", method = RequestMethod.GET)
-	public ModelAndView billingFormGet(Model model) {
-		Billing billing = new Billing();
-		model.addAttribute(Constant.BILLINGFORM.getConstantValue(), billing);
-		return new ModelAndView(Views.RESTROFRAME.getViewName());
+	public ModelAndView billingFormGet(ModelAndView model) {
+		model = new ModelAndView("billing");
+		SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
+		String emailId = signinForm.getEmail();
+		GenericModel genericModel = new GenericModel();
+		genericModel.getBillingFormModelMap(model, emailId);
+		return model;
 	}
 
 	@RequestMapping(value = "/billingform", method = RequestMethod.POST)
-	public String billingForm(@ModelAttribute("billingform") @Valid Billing billingform, BindingResult result, ModelMap model) throws AddressException, MessagingException {
+	public ModelAndView billingForm(@ModelAttribute("billingform") @Valid Billing billingform, BindingResult result, ModelAndView model) throws AddressException, MessagingException {
+		model = new ModelAndView("billing");
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
@@ -504,30 +505,55 @@ public class FineDineController {
 							String billnum = CustomUtils.getInstance().currentDate("yyyyMMddHHmmssSSS");
 							float netAmount = generateInvoice.Generate(billingform.getList(), Constant.BILLPDF.getConstantValue(), usersEntity.getEmailid().replace(".", "_"), internalMap, billnum);
 							consumer.usersTableBillAmount(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString(), Float.toString(netAmount), usersEntity.getEmailid(), "N", billnum);
-						}else{
+							GenericModel genericModel = new GenericModel();
+							genericModel.getBillingFormModelMap(model, emailId);
+						} else {
 							System.out.println("FLAG IS NOT ISSUED");
+							model.addObject("billingerror1", "Flag is not issued : CLICK 'BILLING' AGAIN");
 						}
 					}
 				}
 			}
 		}
+		billingform.setFnumber("");
 		billingform.getList().clear();
 
 		/*
 		 * Mailer.mailer(billingform.getEmailid(),MailTemplateReader.readfile());
 		 */
-		return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
+		return model;
+		// return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
 	}
 
 	@RequestMapping(value = "/bookingform", method = RequestMethod.GET)
-	public ModelAndView bookingformGet(Model model) {
+	public ModelAndView bookingformGet(ModelAndView model) {
+		model = new ModelAndView("booking");
 		Booking booking = new Booking();
-		model.addAttribute(Constant.BOOKINGFORM.getConstantValue(), booking);
-		return new ModelAndView(Views.RESTROFRAME.getViewName());
+		Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
+		SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
+		String emailId = signinForm.getEmail();
+		String uuid = null;
+		if (emailId != null) {
+			if (cache != null && cache.size() > 0) {
+				Map<String, Object> internalMap = cache.get(emailId);
+				if (internalMap != null && internalMap.size() > 0) {
+					uuid = internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString();
+				}
+			}
+		}
+		List<RestaurantLiveEntity> listOfRestaurantLiveEntity = (List<RestaurantLiveEntity>) consumer.getFromBookingTable(uuid);
+		if (listOfRestaurantLiveEntity != null && listOfRestaurantLiveEntity.size() > 0) {
+			RestaurantLiveEntity restaurantLiveEntity = listOfRestaurantLiveEntity.get(0);
+			GenericModel seatsCalculation = new GenericModel();
+			model = seatsCalculation.getSeats(restaurantLiveEntity, model);
+		}
+		model.addObject(Constant.BOOKINGFORM.getConstantValue(), booking);
+		return model;
 	}
 
 	@RequestMapping(value = "/bookingform", method = RequestMethod.POST)
-	public String bookingform(@ModelAttribute("bookingform") @Valid Booking bookingform, BindingResult result, ModelMap model) {
+	public ModelAndView bookingform(@ModelAttribute("bookingform") @Valid Booking bookingform, BindingResult result, ModelAndView model) {
+		model = new ModelAndView("booking");
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldError());
 		} else {
@@ -557,22 +583,22 @@ public class FineDineController {
 						usersEntity.setUuid(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
 						try {
 							RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
-							SeatsCalculation seatsCalculation = new SeatsCalculation();
+							GenericModel seatsCalculation = new GenericModel();
 							model = seatsCalculation.getSeats(restaurantLiveEntity, bookingform, model);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					} else {
-						return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 					}
-				} else {
-					return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 				}
-			} else {
-				return "redirect:" + Views.SIGNIN.getViewName() + ".im";
 			}
+			bookingform.setBooking(null);
+			bookingform.setContactno(null);
+			bookingform.setEmailid(null);
+			bookingform.setEvent(null);
+			bookingform.setFnumber(null);
+			bookingform.setName(null);
 		}
-		return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
+		return model;
 	}
 
 	@RequestMapping(value = "/customerform", method = RequestMethod.GET)

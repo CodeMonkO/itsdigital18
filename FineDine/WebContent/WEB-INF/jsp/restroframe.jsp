@@ -247,11 +247,11 @@ function renameRows(tBody) {
     
     <ul class="sf-menu pm-nav sf-js-enabled">
                         
-        <li><a href="home.im">Home</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">About Us</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Client & Partners</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Contact Us</a></li>
+         <li><a href="home.im">Home</a></li>
+							        <li><a href="bookingform.im">Table Reservation</a></li>
+							        <li><a href="billingform.im">Billing</a></li>
+							        <li><a href="">Checked-IN-Customers</a></li>
+							        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Bills Generated</a></li>
         <!-- <li>
             <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">About Us<span class="sf-sub-indicator"> »</span></a>
             <ul style="display: none;">
@@ -408,20 +408,11 @@ function renameRows(tBody) {
                         
                         	<ul class="sf-menu pm-nav sf-js-enabled">
                         
-                                 <li><a href="home.im">Home</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">About Us</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Client & Partners</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Contact Us</a></li>
-                               <!--  <li>
-                                    <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Menus<span class="sf-sub-indicator"> »</span></a>
-                                    <ul style="display: none;">
-                                        <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Breakfast</a></li>
-                                        <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Lunch</a></li>
-                                        <li><a href="http://projects.pulsarmedia.ca/vienna/menus.html">Dinner</a></li>
-                                    </ul>
-                                </li> -->
-                                                
+                                    <li><a href="home.im">Home</a></li>
+							        <li><a href="bookingform.im">Table Reservation</a></li>
+							        <li><a href="billingform.im">Billing</a></li>
+							        <li><a href="">Checked-IN-Customers</a></li>
+							        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Bills Generated</a></li>
                             </ul>
                         
                         </nav>  
