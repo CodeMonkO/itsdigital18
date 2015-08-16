@@ -250,8 +250,7 @@ function renameRows(tBody) {
          <li><a href="home.im">Home</a></li>
 							        <li><a href="bookingform.im">Table Reservation</a></li>
 							        <li><a href="billingform.im">Billing</a></li>
-							        <li><a href="">Checked-IN-Customers</a></li>
-							        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Bills Generated</a></li>
+							        <li><a href="customerform.im">Checked-IN-Customers</a></li>
         <!-- <li>
             <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">About Us<span class="sf-sub-indicator"> »</span></a>
             <ul style="display: none;">
@@ -411,8 +410,7 @@ function renameRows(tBody) {
                                     <li><a href="home.im">Home</a></li>
 							        <li><a href="bookingform.im">Table Reservation</a></li>
 							        <li><a href="billingform.im">Billing</a></li>
-							        <li><a href="">Checked-IN-Customers</a></li>
-							        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Bills Generated</a></li>
+							        <li><a href="customerform.im">Checked-IN-Customers</a></li>
                             </ul>
                         
                         </nav>  

@@ -602,13 +602,15 @@ public class FineDineController {
 	}
 
 	@RequestMapping(value = "/customerform", method = RequestMethod.GET)
-	public String customerFormGet(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
-		model.addAttribute("usersEntity", session.getAttribute("usersEntity"));
-		return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
+	public ModelAndView customerFormGet(@ModelAttribute("customerform") ModelAndView model) throws AddressException, MessagingException {
+		model = new ModelAndView("customer");
+		model.addObject("usersEntity", session.getAttribute("usersEntity"));
+		return model;
 	}
 
 	@RequestMapping(value = "/customerform", method = RequestMethod.POST)
-	public String customerForm(@ModelAttribute("customerform") ModelMap model) throws AddressException, MessagingException {
+	public ModelAndView customerForm(@ModelAttribute("customerform") ModelAndView model) throws AddressException, MessagingException {
+		model = new ModelAndView("customer");
 		SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 		String emailId = signinForm.getEmail();
 		Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
@@ -620,10 +622,11 @@ public class FineDineController {
 					usersEntity = consumer.customerTable(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
 					session.setAttribute("usersEntity", usersEntity);
 				} else {
-					return "redirect:" + Views.SIGNIN.getViewName() + ".im";
+					model = new ModelAndView(Views.SIGNIN.getViewName());
+					return model;
 				}
 			}
 		}
-		return "redirect:" + Views.RESTROFRAME.getViewName() + ".im";
+		return model;
 	}
 }

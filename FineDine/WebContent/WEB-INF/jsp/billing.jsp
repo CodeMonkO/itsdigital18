@@ -245,64 +245,14 @@ function renameRows(tBody) {
         </form>
     </div>
     
-    <ul class="sf-menu pm-nav sf-js-enabled">
-                        
-         <li><a href="home.im">Home</a></li>
+    <ul class="sf-menu pm-nav sf-js-enabled">                    
+          							<li><a href="home.im">Home</a></li>
 							        <li><a href="bookingform.im">Table Reservation</a></li>
 							        <li><a href="billingform.im">Billing</a></li>
-							        <li><a href="">Checked-IN-Customers</a></li>
-							        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Bills Generated</a></li>
-        <!-- <li>
-            <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">About Us<span class="sf-sub-indicator"> »</span></a>
-            <ul style="display: none;">
-                <li><a href="menus.jsp">Breakfast</a></li>
-                <li><a href="menus.jsp">Lunch</a></li>
-                <li><a href="menus.jsp">Dinner</a></li>
-            </ul>
-        </li> -->
+							        <li><a href="customerform.im">Checked-IN-Customers</a></li>
     </ul>
         
-  </div><!-- /pm-mobile-nav-overlay -->
-  
-  <!-- Theme color selector -->
-  <!-- <div id="pm_theme_color_selector">
-        <a class="pm_theme_color_selector_btn"><i class="typcn typcn-cog"></i></a>
-        <p class="pm_theme_color_selector_title">Style Sampler</p>
-
-        <div class="pm_theme_color_selector_container">
-        	<p>Layout Style</p>
-        	<select name="pm_theme_color_selector_mode" id="pm_theme_color_selector_mode">
-        	  <option value="pm-full-mode" selected="">Fullscreen</option>
-              <option value="pm-boxed-mode">Boxed Mode</option>
-        	</select>
-        </div>
-        <div class="pm_theme_color_selector_container">
-        	<p>Patterns for Boxed Mode</p>
-        	<ul class="pm_theme_img_selector" id="pm_theme_pattern_selector">
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="pattern1"><img src="./images/pattern1.png" alt="pattern1"></a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="pattern2"><img src="./images/pattern2.png" alt="pattern2"></a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="pattern3"><img src="./images/pattern3.png" alt="pattern3"></a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="pattern4"><img src="./images/pattern4.png" alt="pattern4"></a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="pattern5"><img src="./images/pattern5.png" alt="pattern5"></a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="pattern6"><img src="./images/pattern6.png" alt="pattern6"></a></li>
-            </ul>
-        </div>
-        
-        <div class="pm_theme_color_selector_container">
-        	<p>Backgrounds for Boxed Mode</p>
-        	<ul class="pm_theme_img_selector" id="pm_theme_background_selector">
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="1a"><img src="./images/1.jpg" alt="bg1"></a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="2a"><img src="./images/2.jpg" alt="bg2"></a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="3a"><img src="./images/3.jpg" alt="bg3"></a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="4a"><img src="./images/4.jpg" alt="bg4"></a></li>
-                <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="5a"><img src="./images/5.jpg" alt="bg5"></a></li>
-            </ul>
-        </div>
-   
-    </div> -->
-    <!-- Theme color selector -->
-    
-
+  </div>
 	<div id="pm_layout_wrapper" class="pm-full-mode"><!-- Use wrapper for wide or boxed mode -->
     
     	<!-- Search overlay -->
@@ -411,8 +361,7 @@ function renameRows(tBody) {
                                     <li><a href="home.im">Home</a></li>
 							        <li><a href="bookingform.im">Table Reservation</a></li>
 							        <li><a href="billingform.im">Billing</a></li>
-							        <li><a href="">Checked-IN-Customers</a></li>
-							        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Bills Generated</a></li>
+							        <li><a href="customerform.im">Checked-IN-Customers</a></li>
                             </ul>
                         
                         </nav>  
