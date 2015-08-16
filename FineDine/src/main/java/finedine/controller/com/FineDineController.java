@@ -103,12 +103,6 @@ public class FineDineController {
 		return model;
 	}
 
-	/*
-	 * @RequestMapping(value = "/updateprofileform", method = RequestMethod.GET)
-	 * public ModelAndView updateProfileFormGet() { return new
-	 * ModelAndView(Views.HOME.getViewName()); }
-	 */
-
 	@RequestMapping(value = "/updateprofileform", method = RequestMethod.POST)
 	public ModelAndView updateproFilePost(@ModelAttribute("updateprofileform") @Valid UpdateProfile updateProfileform, BindingResult result, ModelMap model) throws IOException {
 		if (!result.hasErrors()) {
