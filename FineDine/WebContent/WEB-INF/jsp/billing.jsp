@@ -323,10 +323,7 @@
 						<ul class="pm-sub-navigation">
 							<li>
 								<div class="pm-dropdown pm-language-selector-menu">
-									<div class="pm-dropmenu">
-										<p class="pm-menu-title">Language</p>
-										<i class="fa fa-angle-down"></i>
-									</div>
+									<div class="pm-dropmenu"></div>
 									<div class="pm-dropmenu-active">
 										<ul>
 											<li><a href="http://projects.pulsarmedia.ca/vienna/#">English</a></li>

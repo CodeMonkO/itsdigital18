@@ -410,7 +410,7 @@ public class FineDineController {
 	}
 
 	@RequestMapping("/restroframe")
-	public ModelAndView restroFrame(ModelAndView model) {
+	public ModelAndView restroFrame(ModelAndView model) {/*
 		Billing billing = new Billing();
 		Booking booking = new Booking();
 		UsersEntity usersEntity = new UsersEntity();
@@ -467,6 +467,8 @@ public class FineDineController {
 		model.addObject(Constant.CUSTOMERFORM.getConstantValue(), usersEntity);
 		model.addObject(Constant.MENU.getConstantValue(), billList);
 		model.addObject(Constant.ITEMSLIST.getConstantValue(), itemsList);
+*/
+		model = new ModelAndView(Views.RESTROFRAME.getViewName());
 		return model;
 	}
 

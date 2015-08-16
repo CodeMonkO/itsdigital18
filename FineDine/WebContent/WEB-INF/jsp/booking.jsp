@@ -95,147 +95,21 @@
 </style>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-
 <script type="text/javascript">
-	var array = new Array();
-	var array_str = new Array();
-	function addToList() {
-		var qty = document.getElementById('qty');
-		var item = document.getElementById('item');
-		if (qty.value != "" && item.value != "") {
-			var array_str = item.value.split('|');
-			array.push(array_str[0] + "," + qty.value + "," + array_str[1]
-					+ "," + array_str[2]);
-			var item = array_str[0];
-			var amount = array_str[1].toString();
-			var discount = array_str[2].toString();
-			addRow(item, qty.value, amount, discount);
+	function formVisibility() {
+		document.getElementById('mbookingform').style.display = "none";
+		if (document.getElementById('formdecide').checked) {
+			document.getElementById('wbookingform').style.display = "none";
+			document.getElementById('mbookingform').style.display = "block";
 		} else {
-			alert("Fields can't be left empty");
-		}
-	}
-	function addRow(item, qty, amount, discount) {
-		var tabNode = document.getElementById("datatable");
-		var tBody = tabNode.getElementsByTagName("tbody")[0];
-		var rows = tBody.getElementsByTagName("tr");
-		var rowIndex = rows.length;
-		var trNode = tabNode.insertRow(rowIndex);
-		trNode.id = "rowID_" + rowIndex;
-
-		tdNode = trNode.insertCell(0);
-		tdNode.width = '10%';
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = rowIndex;
-
-		tdNode = trNode.insertCell(1);
-		tdNode.width = '10%';
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = item;
-
-		tdNode = trNode.insertCell(2);
-		tdNode.width = '10%';
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = qty;
-
-		tdNode = trNode.insertCell(3);
-		tdNode.width = '10%';
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = amount;
-
-		tdNode = trNode.insertCell(4);
-		tdNode.width = '10%';
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = discount;
-
-		tdNode = trNode.insertCell(5);
-		tdNode.width = '10%';
-		tdNode.className = "script_data";
-		tdNode.style.color = "0033FF";
-		tdNode.innerHTML = "<img src=\"./images/red.gif\" align=\"absmiddle\" border=\"0\" width=\"15\" height=\"15\" onclick=\"javascript:removeRow("
-				+ rowIndex + ")\"/>";
-		document.getElementById('list').value = array;
-		document.getElementById('item').value = "";
-		document.getElementById('qty').value = "";
-
-	}
-
-	function removeRow(rowIndex) {
-		array.splice(rowIndex - 1, 1);
-		document.getElementById('list').value = array;
-		var table = document.getElementById("datatable");
-		var tBody = table.getElementsByTagName("tbody")[0];
-		var rows = tBody.getElementsByTagName("tr");
-		var row = rows[rowIndex];
-		if (rows.length > 1) {
-			tBody.removeChild(row);
-			renameRows(tBody);
-		} else {
-			alert("You cannot delete the last remaining row");
-		}
-	}
-
-	function renameRows(tBody) {
-		var rows = document.getElementById('datatable').rows
-		var row, tdNode, j, tdNodes;
-		var tabNode = document.getElementById(tBody);
-
-		for (var i = 0; i < rows.length; i++) {
-			if (i == 0) {
-				continue;
-			}
-			row = tabNode.getElementsByTagName('tr')[i];
-			row.id = "rowID_" + i;
-
-			tdNode = row.getElementsByTagName("td");
-
-			tdNode = trNode.insertCell(0);
-			tdNode.width = '10%';
-			tdNode.className = "script_data";
-			tdNode.style.color = "0033FF";
-			tdNode.innerHTML = rowIndex;
-
-			tdNode = trNode.insertCell(1);
-			tdNode.width = '10%';
-			tdNode.className = "script_data";
-			tdNode.style.color = "0033FF";
-			tdNode.innerHTML = document.getElementById('item').value;
-
-			tdNode = trNode.insertCell(2);
-			tdNode.width = '10%';
-			tdNode.className = "script_data";
-			tdNode.style.color = "0033FF";
-			tdNode.innerHTML = document.getElementById('qty').value
-
-			tdNode = trNode.insertCell(3);
-			tdNode.width = '10%';
-			tdNode.className = "script_data";
-			tdNode.style.color = "0033FF";
-			tdNode.innerHTML = document.getElementById('qty').value
-
-			tdNode = trNode.insertCell(4);
-			tdNode.width = '10%';
-			tdNode.className = "script_data";
-			tdNode.style.color = "0033FF";
-			tdNode.innerHTML = document.getElementById('qty').value
-
-			tdNode = trNode.insertCell(5);
-			tdNode.width = '10%';
-			tdNode.className = "script_data";
-			tdNode.style.color = "0033FF";
-			tdNode.innerHTML = "<img src=\"./images/red.gif\" align=\"absmiddle\" border=\"0\" width=\"15\" height=\"15\" onclick=\"javascript:removeRow("
-					+ rowIndex + ")\"/>";
-
+			document.getElementById('wbookingform').style.display = "block";
+			document.getElementById('mbookingform').style.display = "none";
 		}
 	}
 </script>
 </head>
 
-<body>
+<body onload="formVisibility()">
 
 	<!-- Mobile Menu -->
 	<div class="pm-mobile-menu-overlay" id="pm-mobile-menu-overlay"></div>
@@ -311,25 +185,13 @@
 
 					<div
 						class="col-lg-2 col-md-2 col-sm-6 visible-lg visible-md pm-book-event">
-						<!-- <div class="pm-sub-menu-book-event">
-                        	<a href="http://projects.pulsarmedia.ca/vienna/book-an-event.html">Book an Event <i class="fa fa-calendar"></i></a>
-                        </div> -->
 					</div>
 
 					<div class="col-lg-5 col-md-5 col-sm-6">
 						<ul class="pm-sub-navigation">
 							<li>
 								<div class="pm-dropdown pm-language-selector-menu">
-									<div class="pm-dropmenu">
-										<p class="pm-menu-title">Language</p>
-										<i class="fa fa-angle-down"></i>
-									</div>
-									<div class="pm-dropmenu-active">
-										<ul>
-											<li><a href="http://projects.pulsarmedia.ca/vienna/#">English</a></li>
-											<li><a href="http://projects.pulsarmedia.ca/vienna/#">Italian</a></li>
-										</ul>
-									</div>
+									<div class="pm-dropmenu"></div>
 								</div>
 							</li>
 							<li><a href="updateprofile.im">Update&nbsp;Profile</a></li>
@@ -387,11 +249,18 @@
 					</div>
 					<div id="bind">
 						<div id="popupbox">
-
-
 							<div id="deviceId2">
+								<div id="row">
+									<div id="col">
+										<div id="text_setting">Check, If Mobile Check-IN</div>
+									</div>
+									<div id="col">
+										<input id="formdecide" type="checkbox"
+											onclick="formVisibility()">
+									</div>
+								</div>
 								<form:form method="POST" action="bookingform.im"
-									modelAttribute="bookingform" id="bookingform">
+									modelAttribute="bookingform" id="wbookingform">
 									<div id="row">
 										<div id="col">
 											<div id="text_setting">Total Capacity</div>
@@ -490,8 +359,8 @@
 											<div id="col">
 												<form:input path="fnumber" type="text" id="textfield2"
 													onkeyup="autoTab(this, document.form_device.locality)"
-													maxlength="21"
-													placeholder="Flag Number" value="${vacantseats}" readonly="true"/>
+													maxlength="21" placeholder="Flag Number"
+													value="${vacantseats}" readonly="true" />
 											</div>
 										</div>
 										<div id="row">
@@ -500,13 +369,42 @@
 										</div>
 									</c:if>
 								</form:form>
+
+								<form:form method="POST" action="mbookingform.im"
+									modelAttribute="mbookingform" id="mbookingform">
+									<div id="row">
+										<div id="col">
+											<div id="text_setting">Booking ID</div>
+										</div>
+										<div id="col">
+											<form:input path="booking" type="tel" id="textfield2"
+												onkeyup="autoTab(this, document.form_device.locality)"
+												maxlength="20" required="required"
+												placeholder="Mobile Booking ID"
+												title="Please enter Mobile Booking ID" />
+										</div>
+									</div>
+									<div id="row">
+										<div id="col">
+											<div id="text_setting">Flag Number</div>
+										</div>
+										<div id="col">
+											<form:input path="fnumber" type="text" id="textfield2"
+												onkeyup="autoTab(this, document.form_device.locality)"
+												maxlength="21" placeholder="Flag Number"
+												value="${vacantseats}" readonly="true" />
+										</div>
+									</div>
+									<div id="row">
+										<button type="submit"
+											class="pm-rounded-btn animated pm-primary">Check IN</button>
+									</div>
+								</form:form>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
-
 		</header>
 		<!-- /Main navigation -->
 
