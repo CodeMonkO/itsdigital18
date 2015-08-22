@@ -21,6 +21,7 @@ public class Booking implements Serializable {
 	private String contactno;
 	private String event;
 	private String fnumber;
+	private String bookingId;
 	public String getBooking() {
 		return booking;
 	}
@@ -67,5 +68,13 @@ public class Booking implements Serializable {
 
 	public void setFnumber(String fnumber) {
 		this.fnumber = fnumber;
+	}
+
+	public String getBookingId() {
+		return bookingId;
+	}
+
+	public void setBookingId(String bookingId) {
+		this.bookingId = bookingId;
 	}
 }

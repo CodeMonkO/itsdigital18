@@ -411,7 +411,7 @@
 														<tr>
 															<td><span style="color: red; text-align: center">${usersEntity.fnumber}</span></td>
 															<td><span style="color: red; text-align: center">${usersEntity.name}</span></td>
-															<td><span style="color: red; text-align: center">${usersEntity.rcount}</span></td>
+															<td><span style="color: red; text-align: center">${usersEntity.bookingmode}</span></td>
 															<td><span style="color: red; text-align: center">${usersEntity.occasion}</span></td>
 															<td><span style="color: red; text-align: center">${usersEntity.billamt}</span></td>
 															<td><span style="color: red; text-align: center">${usersEntity.billpayed}</span></td>

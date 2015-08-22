@@ -17,15 +17,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class GenericModel {
 	
-	public ModelAndView getSeats(RestaurantLiveEntity restaurantLiveEntity, Booking bookingform, ModelAndView model) {
+	public ModelAndView getSeats(RestaurantLiveEntity restaurantLiveEntity, String requestedSeats, ModelAndView model) {
 		int bookedseats = Integer.parseInt(restaurantLiveEntity.getBookedseat());
 		int maxseats = Integer.parseInt(restaurantLiveEntity.getMaxseat());
 		int vacantSeats = maxseats - bookedseats;
-		if (Integer.parseInt(bookingform.getBooking()) <= (vacantSeats)) {
+		if (Integer.parseInt(requestedSeats) <= (vacantSeats)) {
 			System.out.println("hello :" + restaurantLiveEntity.getBookedseat());
-			model.addObject("bookedseats", bookedseats + Integer.parseInt(bookingform.getBooking()));
+			model.addObject("bookedseats", bookedseats + Integer.parseInt(requestedSeats));
 			model.addObject("maxseats", maxseats);
-			model.addObject("vacantseats", vacantSeats - Integer.parseInt(bookingform.getBooking()));
+			model.addObject("vacantseats", vacantSeats - Integer.parseInt(requestedSeats));
 			model.addObject("visible", true);
 		} else {
 			model.addObject("bookedseats", bookedseats);

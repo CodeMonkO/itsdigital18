@@ -20,6 +20,8 @@ public class UsersEntity implements Serializable {
 	@Column(name = "id")
 	@GeneratedValue
 	private Integer id;
+	@Column(name = "bookingid")
+	private String bookingid;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "emailid")
@@ -46,8 +48,8 @@ public class UsersEntity implements Serializable {
 	private String billamt;
 	@Column(name = "billpayed")
 	private String billpayed;
-	@Column(name = "rcount")
-	private String rcount;
+	@Column(name = "bookingmode")
+	private String bookingmode;
 	@Column(name = "fnumber")
 	private String fnumber;
 
@@ -147,14 +149,6 @@ public class UsersEntity implements Serializable {
 		this.billpayed = billpayed;
 	}
 
-	public String getRcount() {
-		return rcount;
-	}
-
-	public void setRcount(String rcount) {
-		this.rcount = rcount;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -177,5 +171,21 @@ public class UsersEntity implements Serializable {
 
 	public void setBillnum(String billnum) {
 		this.billnum = billnum;
+	}
+
+	public String getBookingmode() {
+		return bookingmode;
+	}
+
+	public void setBookingmode(String bookingmode) {
+		this.bookingmode = bookingmode;
+	}
+
+	public String getBookingid() {
+		return bookingid;
+	}
+
+	public void setBookingid(String bookingid) {
+		this.bookingid = bookingid;
 	}
 }

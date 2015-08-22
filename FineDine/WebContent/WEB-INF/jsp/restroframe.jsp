@@ -141,7 +141,7 @@ function addRow(item,qty,amount,discount) {
 		tdNode.innerHTML = amount;	
 		
 		tdNode = trNode.insertCell(4);		
-		tdNode.width = '10%';		
+		tdNode.width = '10%';
 		tdNode.className = "script_data";
 		tdNode.style.color = "0033FF";
 		tdNode.innerHTML = discount;
@@ -684,17 +684,17 @@ function renameRows(tBody) {
 			        	</form:form>
 			        </div>
             </div>
-			<div id="col">
+			<!-- <div id="col">
 			    <div id="lmenu">
 					<div id="storage" style="display:none;"></div>
 						<ul id="menu">
-							<!-- <li><a href="javascript:Show_faded_box('order_device');">Payments Analysis</a></li> -->
+							<li><a href="javascript:Show_faded_box('order_device');">Payments Analysis</a></li>
 							<li><a href="javascript:Show_faded_box('add_device');">Reservation</a></li>
 							<li><a href="javascript:Show_faded_box('share_ownership');">Billing</a></li>
 			        		<li><a href="javascript:Show_faded_box('history_device');">Customer</a></li>
 						</ul>
 			      </div> 
-			  </div>
+			  </div> -->
               </div>   
               </div>
             

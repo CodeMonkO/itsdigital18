@@ -66,7 +66,9 @@ public class IM2_DaoImplemented implements IM2_Dao {
 			restaurantLiveEntity = (RestaurantLiveEntity) object;
 		}
 		if (Integer.parseInt(record.getSeatsbooked()) <= Integer.parseInt(restaurantLiveEntity.getMaxseat()) - Integer.parseInt(restaurantLiveEntity.getBookedseat())) {
-			sessionFactory.getCurrentSession().save(record);
+			if (record.getBookingmode().equalsIgnoreCase("W")) {
+				sessionFactory.getCurrentSession().save(record);
+			}
 			procSqlQuery = messages.getProperty(SqlQueries.USERSTABLE.getSqlQueries());
 			query = null;
 			try {
@@ -216,6 +218,32 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		List<UsersEntity> list = query.list();
 		if (list.size() == 1) {
 			UsersEntity usersEntity = list.get(0);
+			return usersEntity;
+		}
+		return null;
+	}
+
+	@Override
+	public UsersEntity mobileUsersTable(UsersEntity record) {
+		Query query = null;
+		String selectSqlQuery = null;
+		selectSqlQuery = messages.getProperty(SqlQueries.MOBILESELECT.getSqlQueries());
+		query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
+		query.setParameter("uuid", record.getUuid());
+		query.setParameter("bookingid", record.getBookingid());
+		query.setParameter("bookingmode", record.getBookingmode());
+		List<UsersEntity> list = query.list();
+		if (list.size() == 1) {
+			UsersEntity usersEntity = list.get(0);
+			selectSqlQuery = messages.getProperty(SqlQueries.MOBILEUSERUPDATE.getSqlQueries());
+			query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
+			query.setParameter("visited", record.getVisited());
+			query.setParameter("vdtime", record.getVdtime());
+			query.setParameter("fnumber", record.getFnumber());
+			query.setParameter("uuid", record.getUuid());
+			query.setParameter("bookingid", record.getBookingid());
+			query.setParameter("bookingmode", record.getBookingmode());
+			query.executeUpdate();
 			return usersEntity;
 		}
 		return null;

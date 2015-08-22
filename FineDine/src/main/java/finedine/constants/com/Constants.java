@@ -78,6 +78,8 @@ public class Constants {
 
 		RESTAURANTLIVEENTITY("booking.restaurantliveentity"),
 		RESETRESTAURANTLIVEENTITY("reset.booking.restaurantliveentity"),
+		MOBILEUSERUPDATE("mobile.booking"),
+		MOBILESELECT("mobile.select"),
 		USERSTABLE("users.update"),
 		USERSTABLEBILLAMOUNT("customer.billing"),
 		CUSTOMERTABLE("customer.usersentity"),

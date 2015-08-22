@@ -374,31 +374,111 @@
 									modelAttribute="mbookingform" id="mbookingform">
 									<div id="row">
 										<div id="col">
-											<div id="text_setting">Booking ID</div>
+											<div id="text_setting">Total Capacity</div>
 										</div>
 										<div id="col">
-											<form:input path="booking" type="tel" id="textfield2"
-												onkeyup="autoTab(this, document.form_device.locality)"
-												maxlength="20" required="required"
-												placeholder="Mobile Booking ID"
-												title="Please enter Mobile Booking ID" />
+											<span
+												style="font-size: 14px; font-family: Georgia, 'Times New Roman', Times, serif; color: red; text-align: center">${maxseats}</span>
 										</div>
 									</div>
 									<div id="row">
 										<div id="col">
-											<div id="text_setting">Flag Number</div>
+											<div id="text_setting">Reserved Seats</div>
 										</div>
 										<div id="col">
-											<form:input path="fnumber" type="text" id="textfield2"
-												onkeyup="autoTab(this, document.form_device.locality)"
-												maxlength="21" placeholder="Flag Number"
-												value="${vacantseats}" readonly="true" />
+											<span
+												style="font-size: 14px; font-family: Georgia, 'Times New Roman', Times, serif; color: red; text-align: center">${bookedseats}</span>
 										</div>
 									</div>
 									<div id="row">
-										<button type="submit"
-											class="pm-rounded-btn animated pm-primary">Check IN</button>
+										<div id="col">
+											<div id="text_setting">Vacant Seats</div>
+										</div>
+										<div id="col">
+											<span
+												style="font-size: 14px; font-family: Georgia, 'Times New Roman', Times, serif; color: red; text-align: center">${vacantseats}</span>
+										</div>
+										<div id="col">
+											<span
+												style="font-size: 14px; font-family: Georgia, 'Times New Roman', Times, serif; color: red; text-align: center">${housefull}</span>
+										</div>
 									</div>
+									<c:if test="${visible}">
+										<div id="row">
+											<div id="col">
+												<div id="text_setting">Mobile Booking ID</div>
+											</div>
+											<div id="col">
+												<form:input path="bookingId" type="tel" id="textfield2"
+													onkeyup="autoTab(this, document.form_device.locality)"
+													maxlength="20" required="required"
+													placeholder="Seats to be booked"
+													title="Please enter seats to be booked"/>
+											</div>
+										</div>
+										<%-- <div id="row">
+											<div id="col">
+												<div id="text_setting">Name</div>
+											</div>
+											<div id="col">
+												<form:input path="name" type="text" id="textfield2"
+													onkeyup="autoTab(this, document.form_device.locality)"
+													maxlength="100" required="required"
+													placeholder="Name of customer"
+													title="Please enter name of customer" readonly="true"/>
+											</div>
+										</div>
+										<div id="row">
+											<div id="col">
+												<div id="text_setting">Email-ID</div>
+											</div>
+											<div id="col">
+												<form:input path="emailid" type="email" id="textfield2"
+													onkeyup="autoTab(this, document.form_device.locality)"
+													maxlength="100" required="required"
+													placeholder="eg.abc@example.com"
+													title="Please enter customer's mail-id" readonly="true"/>
+											</div>
+										</div>
+										<div id="row">
+											<div id="col">
+												<div id="text_setting">Mobile No</div>
+											</div>
+											<div id="col">
+												<form:input path="contactno" type="tel" id="textfield2"
+													onkeyup="autoTab(this, document.form_device.locality)"
+													maxlength="10" required="required" pattern="\d{10}"
+													placeholder="10 Digit mobile number"
+													title="Please enter 10 digit mobile number" readonly="true"/>
+											</div>
+										</div>
+										<div id="row">
+											<div id="col">
+												<div id="text_setting">Event</div>
+											</div>
+											<div id="col">
+												<form:input path="event" type="text" id="textfield2"
+													onkeyup="autoTab(this, document.form_device.locality)"
+													maxlength="21"
+													placeholder="eg.birthday, kitty party, treat etc" readonly="true"/>
+											</div>
+										</div>
+ --%>										<div id="row">
+												<div id="col">
+													<div id="text_setting">Flag Number</div>
+												</div>
+											<div id="col">
+												<form:input path="fnumber" type="text" id="textfield2"
+													onkeyup="autoTab(this, document.form_device.locality)"
+													maxlength="21" placeholder="Flag Number"
+													value="${vacantseats}" readonly="true" />
+											</div>
+										</div>
+										<div id="row">
+											<button type="submit"
+												class="pm-rounded-btn animated pm-primary">Check-IN</button>
+										</div>
+									</c:if>
 								</form:form>
 							</div>
 						</div>

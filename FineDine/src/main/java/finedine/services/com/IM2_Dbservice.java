@@ -14,6 +14,8 @@ public interface IM2_Dbservice {
 	public boolean resetBookingTable(List list);
 
 	public RestaurantLiveEntity usersTable(UsersEntity record);
+	
+	public UsersEntity mobileUsersTable(UsersEntity record);
 
 	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed, String billnum);
 	

@@ -74,4 +74,9 @@ public class IM2_DbserviceImplemented implements IM2_Dbservice {
 	public UsersEntity usersTableBillAmount(String fnumber, String restaurantUUID, String billpayed) {
 		return im2DAO.usersTableBillAmount(fnumber, restaurantUUID, billpayed);
 	}
+
+	@Transactional
+	public UsersEntity mobileUsersTable(UsersEntity record) {
+		return im2DAO.mobileUsersTable(record);
+	}
 }

@@ -15,6 +15,8 @@ public interface IM2_Dao {
 
 	public RestaurantLiveEntity usersTable(UsersEntity record);
 	
+	public UsersEntity mobileUsersTable(UsersEntity record);
+	
 	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed, String billnum);
 	
 	public UsersEntity usersTableBillAmount(String fnumber, String restaurantUUID, String billpayed);
