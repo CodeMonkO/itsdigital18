@@ -411,10 +411,31 @@
 														<tr>
 															<td><span style="color: red; text-align: center">${usersEntity.fnumber}</span></td>
 															<td><span style="color: red; text-align: center">${usersEntity.name}</span></td>
-															<td><span style="color: red; text-align: center">${usersEntity.bookingmode}</span></td>
+															<c:choose>
+																<c:when test="${usersEntity.bookingmode=='M'}">
+																	<td>&nbsp;&nbsp;<img src="./images/mobilebooking.png"></img></td>
+																</c:when>
+																<c:otherwise>
+																	<td><img src="./images/webbooking.png"></img></td>
+																</c:otherwise>
+															</c:choose>
 															<td><span style="color: red; text-align: center">${usersEntity.occasion}</span></td>
-															<td><span style="color: red; text-align: center">${usersEntity.billamt}</span></td>
-															<td><span style="color: red; text-align: center">${usersEntity.billpayed}</span></td>
+															<c:choose>
+																<c:when test="${usersEntity.billamt=='0'}">
+																	<td><img src="./images/online.png"></img></td>
+																</c:when>
+																<c:otherwise>
+																	<td><span style="color: red; text-align: center">${usersEntity.billamt}</span></td>
+																</c:otherwise>
+															</c:choose>
+															<c:choose>
+																<c:when test="${usersEntity.billpayed=='N'}">
+																	<td><img src="./images/paymentpending.png"></img></td>
+																</c:when>
+																<c:otherwise>
+																	<td><img src="./images/payment.png"></img></td>
+																</c:otherwise>
+															</c:choose>
 														</tr>
 													</c:forEach>
 												</c:if>

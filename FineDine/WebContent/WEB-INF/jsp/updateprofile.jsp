@@ -237,10 +237,7 @@
 						<ul class="pm-sub-navigation">
 							<li>
 								<div class="pm-dropdown pm-language-selector-menu">
-									<div class="pm-dropmenu">
-										<p class="pm-menu-title">Language</p>
-										<i class="fa fa-angle-down"></i>
-									</div>
+									<div class="pm-dropmenu"></div>
 									<div class="pm-dropmenu-active">
 										<ul>
 											<li><a href="http://projects.pulsarmedia.ca/vienna/#">English</a></li>
@@ -249,7 +246,6 @@
 									</div>
 								</div>
 							</li>
-							<li><a href="restroframe.im">Restroframe</a></li>
 							<li><a href="signout.im">Sign&nbsp;Out</a></li>
 							<!-- <li class="pm-search-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/#" class="pm-search-btn" id="pm-search-btn"><i class="fa fa-search"></i></a></li> -->
 							<!-- <li class="pm-cart-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/cart.html" class="pm-cart-btn"><i class="fa fa-shopping-cart"></i></a></li> -->
@@ -583,11 +579,9 @@
 
 				<nav id="pm-nav-arrows">
 					<span class="pm-prev reset-pulse-sizing"><div
-							class="pm-slide-count">1 / 3</div>
-						<i class="fa fa-angle-left"></i></span><span
+							class="pm-slide-count">1 / 3</div> <i class="fa fa-angle-left"></i></span><span
 						class="pm-next reset-pulse-sizing"><div
-							class="pm-slide-count">1 / 3</div>
-						<i class="fa fa-angle-right"></i></span>
+							class="pm-slide-count">1 / 3</div> <i class="fa fa-angle-right"></i></span>
 				</nav>
 				<div class="pm-dots">
 					<span class="pm-currentDot"></span><span class=""></span><span
