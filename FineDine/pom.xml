@@ -9,6 +9,7 @@
 	<packaging>war</packaging>
 
 	<properties>
+		<jackson.version>1.9.10</jackson.version>
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<hibernate.version>4.0.1.Final</hibernate.version>
 	</properties>
@@ -107,6 +108,23 @@
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
+		</dependency>
+		<!-- Jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-json-org</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<!-- need this for @Configuration -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
 		</dependency>
 		<!-- Spring 4 dependencies -->
 		<dependency>

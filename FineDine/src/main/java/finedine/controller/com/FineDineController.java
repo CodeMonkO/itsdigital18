@@ -3,6 +3,7 @@ package main.java.finedine.controller.com;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -34,9 +35,9 @@ import main.java.finedine.util.com.AESencrp;
 import main.java.finedine.util.com.CustomUtils;
 import main.java.finedine.util.com.GenerateInvoice;
 import main.java.finedine.util.com.GenerateUUID;
+import main.java.finedine.util.com.GenericModel;
 import main.java.finedine.util.com.JPassGenerator;
 import main.java.finedine.util.com.ReadCSVFile;
-import main.java.finedine.util.com.GenericModel;
 import main.java.finedine.util.com.UploadFilesOnToServer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -421,11 +424,24 @@ public class FineDineController {
 	@RequestMapping(value = "/billingform", method = RequestMethod.GET)
 	public ModelAndView billingFormGet(ModelAndView model) {
 		model = new ModelAndView("billing");
+		Billing billing = new Billing();
+		model.addObject(Constant.BILLINGFORM.getConstantValue(), billing);
+		return model;
+	}
+
+	@RequestMapping(value = "/billinglist", method = RequestMethod.GET, headers = "Accept=*/*")
+	public @ResponseBody List<String> getCountryList(@RequestParam("term") String query) {
 		SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 		String emailId = signinForm.getEmail();
 		GenericModel genericModel = new GenericModel();
-		genericModel.getBillingFormModelMap(model, emailId);
-		return model;
+		List<String> itemsList = genericModel.getItemList(emailId);
+		List<String> list = new ArrayList<String>();
+		for(String str:itemsList){
+			if(str.toUpperCase().contains(query.toUpperCase())){
+				list.add(str);
+			}
+		}
+		return list;
 	}
 
 	@RequestMapping(value = "/billingform", method = RequestMethod.POST)
@@ -579,7 +595,7 @@ public class FineDineController {
 			usersEntity.setOccasion(bookingform.getEvent());
 			usersEntity.setSeatsbooked(bookingform.getBooking());
 			usersEntity.setFnumber(bookingform.getFnumber());
-			usersEntity.setBookingid("BKD"+CustomUtils.getInstance().currentDate("yyyyMMddHHmmssSSS"));
+			usersEntity.setBookingid("BKD" + CustomUtils.getInstance().currentDate("yyyyMMddHHmmssSSS"));
 
 			SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
 			String emailId = signinForm.getEmail();

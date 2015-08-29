@@ -16,7 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
 public class GenericModel {
-	
+
 	public ModelAndView getSeats(RestaurantLiveEntity restaurantLiveEntity, String requestedSeats, ModelAndView model) {
 		int bookedseats = Integer.parseInt(restaurantLiveEntity.getBookedseat());
 		int maxseats = Integer.parseInt(restaurantLiveEntity.getMaxseat());
@@ -56,8 +56,8 @@ public class GenericModel {
 		}
 		return model;
 	}
-	
-	public ModelAndView getBillingFormModelMap(ModelAndView model, String emailId){
+
+	public ModelAndView getBillingFormModelMap(ModelAndView model, String emailId) {
 		Billing billing = new Billing();
 		Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
 		List<Bill> billList = new ArrayList<Bill>();
@@ -81,6 +81,24 @@ public class GenericModel {
 		}
 		model.addObject(Constant.BILLINGFORM.getConstantValue(), billing);
 		return model;
+	}
+
+	public List<String> getItemList(String emailId) {
+		Map<String, Map<String, Object>> cache = Caching.getLoggedInUsers();
+		List<String> itemsList = new ArrayList<String>();
+		if (emailId != null) {
+			if (cache != null && cache.size() > 0) {
+				Map<String, Object> internalMap = cache.get(emailId);
+				if (internalMap != null && internalMap.size() > 0) {
+					Object objectMenu = internalMap.get(Constant.MENU.getConstantValue());
+					Object objectItemsList = internalMap.get(Constant.ITEMSLIST.getConstantValue());
+					if (objectMenu instanceof List && objectItemsList instanceof List) {
+						itemsList = (List<String>) objectItemsList;
+					}
+				}
+			}
+		}
+		return itemsList;
 	}
 
 }

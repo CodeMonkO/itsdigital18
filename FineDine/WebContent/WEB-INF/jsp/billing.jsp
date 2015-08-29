@@ -8,6 +8,12 @@
 
 <html lang="en" class=" js csstransforms csstransforms3d csstransitions">
 <head>
+<link rel="stylesheet" type="text/css" href="./css/jquery-ui.css" />
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport"
@@ -22,16 +28,15 @@
 <link href="./css/bootstrap.css" rel="stylesheet">
 
 <!-- main css -->
-<link href="./css/bootstrap-fileupload.css" rel="stylesheet">
-<link href="./css/main.css" rel="stylesheet">
-<link href="./css/form.css" rel="stylesheet">
+<link type="text/css" href="./css/bootstrap-fileupload.css"
+	rel="stylesheet">
+<link type="text/css" href="./css/main.css" rel="stylesheet">
+<link type="text/css" href="./css/form.css" rel="stylesheet">
 <!-- mobile css -->
 <link href="./css/responsive.css" rel="stylesheet">
-
 <!-- FontAwesome Support -->
 <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
 <!-- FontAwesome Support -->
-
 <!-- Btns -->
 <link rel="stylesheet" type="text/css" href="./css/btn.css">
 <!-- Btns -->
@@ -86,16 +91,13 @@
 	position: absolute;
 	background: #FFFFFF;
 	border: solid #000000 0px;
-	z-index: 9;
-	opacity: 1;
+	/* z-index: 9;
+	opacity: 1; */
 	font-family: arial;
 	visibility: visible;
 	overflow: scroll;
 }
 </style>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-
 <script type="text/javascript">
 	var array = new Array();
 	var array_str = new Array();
@@ -407,12 +409,13 @@
 												<div id="text_setting">Item</div>
 											</div>
 											<div id="col">
-												<!-- <input name="item" type="text" id="item" size="60" onkeyup="autoTab(this, document.form_device.name)" maxlength="6"/> -->
-												<form:select path="item" multiple="false"
+												<form:input id="item" path="item" placeholder="Name of item"
+													size="60" />
+												<%-- <form:select path="item" multiple="false"
 													title="Please select items from menu">
 													<form:option value="" label="Select" />
 													<form:options items="${items}" />
-												</form:select>
+												</form:select> --%>
 											</div>
 										</div>
 										<div id="row">
@@ -892,7 +895,16 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="./js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$("#item").autocomplete({
+				source : '${pageContext. request. contextPath}/billinglist.im'
+			});
+
+		});
+	</script>
+	<!-- <script src="./js/jquery-2.1.1.min.js"></script> -->
 	<script src="./js/jquery.viewport.mini.js"></script>
 	<script src="./js/jquery.easing.1.3.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
@@ -912,8 +924,5 @@
 	<script src="./js/Show_faded_box.js"></script>
 	<p id="back-top" class="visible-lg visible-md visible-sm"
 		style="right: -70px;"></p>
-
-
-
 </body>
 </html>
