@@ -3,7 +3,6 @@ package main.java.finedine.controller.com;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -296,7 +295,7 @@ public class FineDineController {
 					RestaurantLiveEntity restaurantLiveEntity = new RestaurantLiveEntity();
 					restaurantLiveEntity.setMaxseat(signupform.getRmaxseats());
 					restaurantLiveEntity.setBookedseat("0");
-					restaurantLiveEntity.setStatusflag(true);
+					restaurantLiveEntity.setVdtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString().split(" ")[0]);
 					restaurantLiveEntity.setUuid(restaurantSignUpFormEntity.getUuid());
 					if (!consumer.signupTable(restaurantSignUpFormEntity, restaurantLiveEntity)) {
 						model = new ModelAndView(Views.SIGNUP.getViewName());
@@ -554,13 +553,18 @@ public class FineDineController {
 						usersEntity.setVdtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
 						usersEntity.setVisited("Y");
 						usersEntity.setBookingmode("M");
-						usersEntity.setFnumber(mbookingform.getFnumber());
+						usersEntity.setFnumber(mbookingform.getFnumber()+"M");
 						usersEntity.setBookingid(mbookingform.getBookingId());
 						try {
 							usersEntity = consumer.mobileUsersTable(usersEntity);
 							RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
-							GenericModel seatsCalculation = new GenericModel();
-							model = seatsCalculation.getSeats(restaurantLiveEntity, usersEntity.getSeatsbooked(), model);
+							// user already logged in
+							model.addObject("bookedseats",restaurantLiveEntity.getBookedseat());
+							model.addObject("maxseats", restaurantLiveEntity.getMaxseat());
+							model.addObject("vacantseats", Integer.parseInt(restaurantLiveEntity.getMaxseat()) - Integer.parseInt(restaurantLiveEntity.getBookedseat()));
+							model.addObject("visible", true);
+							/*GenericModel seatsCalculation = new GenericModel();
+							model = seatsCalculation.getSeats(restaurantLiveEntity, usersEntity.getSeatsbooked(), model);*/
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -594,7 +598,7 @@ public class FineDineController {
 			usersEntity.setContactnum(bookingform.getContactno());
 			usersEntity.setOccasion(bookingform.getEvent());
 			usersEntity.setSeatsbooked(bookingform.getBooking());
-			usersEntity.setFnumber(bookingform.getFnumber());
+			usersEntity.setFnumber(bookingform.getFnumber()+"W");
 			usersEntity.setBookingid("BKD" + CustomUtils.getInstance().currentDate("yyyyMMddHHmmssSSS"));
 
 			SignIn signinForm = (SignIn) session.getAttribute(Constant.AUTHENTICATEUSER.getConstantValue());
@@ -607,6 +611,7 @@ public class FineDineController {
 						usersEntity.setUuid(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
 						try {
 							RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
+							//user just logged in
 							GenericModel seatsCalculation = new GenericModel();
 							model = seatsCalculation.getSeats(restaurantLiveEntity, bookingform.getBooking(), model);
 						} catch (Exception e) {

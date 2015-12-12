@@ -102,6 +102,7 @@
 	var array = new Array();
 	var array_str = new Array();
 	function addToList() {
+		autotab('add', '3', 'item');
 		var qty = document.getElementById('qty');
 		var item = document.getElementById('item');
 		if (qty.value != "" && item.value != "") {
@@ -232,6 +233,12 @@
 			tdNode.innerHTML = "<img src=\"./images/red.gif\" align=\"absmiddle\" border=\"0\" width=\"15\" height=\"15\" onclick=\"javascript:removeRow("
 					+ rowIndex + ")\"/>";
 
+		}
+	}
+
+	function autotab(field1, len, field2) {
+		if (document.getElementById(field1).value.length == len) {
+			document.getElementById(field2).focus();
 		}
 	}
 </script>
@@ -410,7 +417,7 @@
 											</div>
 											<div id="col">
 												<form:input id="item" path="item" placeholder="Name of item"
-													size="60" />
+													size="60" onselect="autotab('item','3','qty')" />
 												<%-- <form:select path="item" multiple="false"
 													title="Please select items from menu">
 													<form:option value="" label="Select" />
@@ -424,12 +431,12 @@
 											</div>
 											<div id="col">
 												<input name="qty" type="tel" id="qty" size="60"
-													onkeyup="autoTab(this, document.form_device.contact)"
-													maxlength="3" placeholder="Quantity of item" />
+													onkeyup="autotab('qty','3','add')" maxlength="3"
+													placeholder="Quantity of item" />
 											</div>
 										</div>
 										<div id="row">
-											<button type="button"
+											<button type="button" id="add"
 												class="pm-rounded-btn animated pm-primary"
 												onclick="addToList()">Add</button>
 											<!-- <button type="submit" class="pm-rounded-btn animated pm-primary">submit</button> -->

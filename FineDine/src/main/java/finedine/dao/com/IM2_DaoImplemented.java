@@ -32,6 +32,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		selectSqlQuery = messages.getProperty(SqlQueries.RESTAURANTLIVEENTITY.getSqlQueries());
 		query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
 		query.setParameter("uuid", restaurantUUID);
+		query.setParameter("vdtime", new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString().split(" ")[0]);
 		List<RestaurantLiveEntity> list = query.list();
 		return list;
 	}
@@ -51,38 +52,123 @@ public class IM2_DaoImplemented implements IM2_Dao {
 
 			query.setParameter("countrytimezone", temp);
 			query.setParameter("bookedseat", "0");
-			query.setParameter("statusflag", true);
+			//query.setParameter("statusflag", true);
 			query.executeUpdate();
 		}
 		return true;
 	}
 
-	public RestaurantLiveEntity usersTable(UsersEntity record) {
+	public RestaurantLiveEntity usersTable(UsersEntity users) {
+		// Query query = null;
+		// String procSqlQuery = null;
+		// String uuid = record.getUuid();
+		// RestaurantLiveEntity restaurantLiveEntity = null;
+		// for (Object object : getFromBookingTable(uuid)) {
+		// restaurantLiveEntity = (RestaurantLiveEntity) object;
+		// }
+		// if (Integer.parseInt(record.getSeatsbooked()) <=
+		// Integer.parseInt(restaurantLiveEntity.getMaxseat()) -
+		// Integer.parseInt(restaurantLiveEntity.getBookedseat())) {
+		// if (record.getBookingmode().equalsIgnoreCase("W")) {
+		// sessionFactory.getCurrentSession().save(record);
+		// }
+		// procSqlQuery =
+		// messages.getProperty(SqlQueries.USERSTABLE.getSqlQueries());
+		// query = null;
+		// try {
+		// query =
+		// sessionFactory.getCurrentSession().createSQLQuery(procSqlQuery);
+		// query.setParameter("uuid", uuid);
+		// query.setParameter("bookedseat", record.getSeatsbooked());
+		// query.executeUpdate();
+		// } catch (HibernateException e) {
+		// e.printStackTrace();
+		// }
+		// } else {
+		// System.out.println("ALL FULL");
+		// }
+
+		String uuid = users.getUuid();
 		Query query = null;
-		String procSqlQuery = null;
-		String uuid = record.getUuid();
-		RestaurantLiveEntity restaurantLiveEntity = null;
-		for (Object object : getFromBookingTable(uuid)) {
-			restaurantLiveEntity = (RestaurantLiveEntity) object;
-		}
-		if (Integer.parseInt(record.getSeatsbooked()) <= Integer.parseInt(restaurantLiveEntity.getMaxseat()) - Integer.parseInt(restaurantLiveEntity.getBookedseat())) {
-			if (record.getBookingmode().equalsIgnoreCase("W")) {
-				sessionFactory.getCurrentSession().save(record);
-			}
-			procSqlQuery = messages.getProperty(SqlQueries.USERSTABLE.getSqlQueries());
-			query = null;
-			try {
-				query = sessionFactory.getCurrentSession().createSQLQuery(procSqlQuery);
+		String sqlQuery = null;
+		int seatsUpdated = 0;
+		RestaurantLiveEntity restaurantLive = null;
+		try {
+			sqlQuery = "from UsersEntity users  where users.uuid = :uuid AND users.vdtime LIKE :vdtime AND (users.emailid = :emailid OR users.contactnum = :contactnum)";
+			query = sessionFactory.getCurrentSession().createQuery(sqlQuery);
+			query.setParameter("uuid", uuid);
+			query.setParameter("emailid", users.getEmailid());
+			query.setParameter("contactnum", users.getContactnum());
+			query.setParameter("vdtime", users.getVdtime().split(" ")[0] + "%");
+			List<Object> listOfUsers = query.list();
+			
+			// Prevents duplicate registration
+			if (listOfUsers.size() == 0) {
+				
+				// Check for restro status for particular date
+				sqlQuery = "from RestaurantLiveEntity restaurantLive  where restaurantLive.uuid = :uuid AND restaurantLive.vdtime =:vdtime";
+				query = sessionFactory.getCurrentSession().createQuery(sqlQuery);
 				query.setParameter("uuid", uuid);
-				query.setParameter("bookedseat", record.getSeatsbooked());
+				query.setParameter("vdtime", users.getVdtime().split(" ")[0]);
+				List<Object> list = query.list();
+				// update restrolive with same date & save users
+				if (list.size() == 1) {
+					restaurantLive = new RestaurantLiveEntity();
+					for (Object object : list) {
+						restaurantLive = (RestaurantLiveEntity) object;
+					}
+					sessionFactory.getCurrentSession().save(users);
+					seatsUpdated = Integer.parseInt(restaurantLive.getBookedseat()) + Integer.parseInt(users.getSeatsbooked());
+					sqlQuery = "UPDATE RestaurantLiveEntity restaurantLive SET bookedseat=:bookedseat WHERE restaurantLive.uuid =:uuid AND restaurantLive.vdtime =:vdtime";
+					query = sessionFactory.getCurrentSession().createQuery(sqlQuery);
+					query.setParameter("uuid", uuid);
+					query.setParameter("bookedseat", Integer.toString(seatsUpdated));
+					query.setParameter("vdtime", users.getVdtime().split(" ")[0]);
+					query.executeUpdate();
+				} else {// create entry in restrolive with new date & save users
+					sqlQuery = "from RestaurantSignUpFormEntity restaurantSignUpFormEntity  where restaurantSignUpFormEntity.uuid = :uuid";
+					query = sessionFactory.getCurrentSession().createQuery(sqlQuery);
+					query.setParameter("uuid", uuid);
+					List<Object> listOfrestaurantSignUpFormEntity = query.list();
+					if (listOfrestaurantSignUpFormEntity.size() == 1) {
+						RestaurantSignUpFormEntity restaurantSignUpFormEntity = new RestaurantSignUpFormEntity();
+						for (Object object : listOfrestaurantSignUpFormEntity) {
+							restaurantSignUpFormEntity = (RestaurantSignUpFormEntity) object;
+						}
+						restaurantLive = new RestaurantLiveEntity();
+						restaurantLive.setBookedseat(users.getSeatsbooked());
+						restaurantLive.setMaxseat(restaurantSignUpFormEntity.getMaxseat());
+						restaurantLive.setUuid(uuid);
+						restaurantLive.setVdtime(users.getVdtime().split(" ")[0]);
+						sessionFactory.getCurrentSession().save(users);
+						sessionFactory.getCurrentSession().save(restaurantLive);
+					}
+				}
+			} else {
+				// Mobile pre booked customers update visited status as y
+				sqlQuery = "UPDATE UsersEntity users SET visited=:visited where users.uuid = :uuid AND users.bookingid = :bookingid";
+				query = sessionFactory.getCurrentSession().createQuery(sqlQuery);
+				query.setParameter("uuid", uuid);
+				query.setParameter("visited", "Y");
+				query.setParameter("bookingid", users.getBookingid());
 				query.executeUpdate();
-			} catch (HibernateException e) {
-				e.printStackTrace();
 			}
-		} else {
-			System.out.println("ALL FULL");
+			// Check current restro live seat status
+			sqlQuery = "from RestaurantLiveEntity restaurantLive  where restaurantLive.uuid = :uuid AND restaurantLive.vdtime =:vdtime";
+			query = sessionFactory.getCurrentSession().createQuery(sqlQuery);
+			query.setParameter("uuid", uuid);
+			query.setParameter("vdtime", users.getVdtime().split(" ")[0]);
+			List<Object> list = query.list();
+			if (list.size() == 1) {
+				restaurantLive = new RestaurantLiveEntity();
+				for (Object object : list) {
+					restaurantLive = (RestaurantLiveEntity) object;
+				}
+			}
+		} catch (NumberFormatException | HibernateException e) {
+			e.printStackTrace();
 		}
-		return restaurantLiveEntity;
+		return restaurantLive;
 	}
 
 	public void usersTableBillAmount(String uuid, String billAmount, String emailid, String billpayed, String billnum) {

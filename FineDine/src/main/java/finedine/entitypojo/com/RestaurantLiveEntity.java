@@ -25,15 +25,16 @@ public class RestaurantLiveEntity implements Serializable {
 	private String maxseat;
 	@Column(name = "bookedseat")
 	private String bookedseat;
-	@Column(name = "statusflag")
-	private boolean statusflag;
+	@Column(name = "vdtime")
+	private String vdtime;
 
-	public boolean isStatusflag() {
-		return statusflag;
+
+	public String getVdtime() {
+		return vdtime;
 	}
 
-	public void setStatusflag(boolean statusflag) {
-		this.statusflag = statusflag;
+	public void setVdtime(String vdtime) {
+		this.vdtime = vdtime;
 	}
 
 	public String getBookedseat() {
