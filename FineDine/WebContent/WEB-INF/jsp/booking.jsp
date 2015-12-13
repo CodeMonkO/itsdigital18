@@ -117,7 +117,7 @@
 	<div class="pm-mobile-global-menu" style="height: 4263px;">
 
 		<div class="pm-mobile-global-menu-logo">
-			<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img
+			<a href=""><img
 				src="./css/vienna-logo.png" alt="Vienna Restaurant"></a>
 		</div>
 
@@ -217,7 +217,7 @@
 					<div class="col-lg-4 col-md-4 col-sm-12">
 
 						<div class="pm-header-logo-container">
-							<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img
+							<a href=""><img
 								src="./images/vienna-logo.png"
 								class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a>
 						</div>
@@ -310,7 +310,7 @@
 												<div id="text_setting">Name</div>
 											</div>
 											<div id="col">
-												<form:input path="name" type="text" id="textfield2"
+												<form:input path="name" type="text" id="textfield2" pattern="[a-zA-Z]+"
 													onkeyup="autoTab(this, document.form_device.locality)"
 													maxlength="100" required="required"
 													placeholder="Name of customer"
@@ -412,8 +412,8 @@
 												<form:input path="bookingId" type="tel" id="textfield2"
 													onkeyup="autoTab(this, document.form_device.locality)"
 													maxlength="20" required="required"
-													placeholder="Seats to be booked"
-													title="Please enter seats to be booked"/>
+													placeholder="Enter Mobile booking ID"
+													title="Please enter Mobile booking ID"/>
 											</div>
 										</div>
 										<%-- <div id="row">

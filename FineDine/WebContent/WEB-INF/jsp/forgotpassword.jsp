@@ -97,11 +97,11 @@
   <div class="pm-mobile-global-menu" style="height: 4263px;">
                 	
     <div class="pm-mobile-global-menu-logo">
-        <a href="http://projects.pulsarmedia.ca/vienna/index.html"><img src="./css/vienna-logo.png" alt="Vienna Restaurant"></a> 
+        <a href=""><img src="./css/vienna-logo.png" alt="Vienna Restaurant"></a> 
     </div>
     
     <div class="pm-mobile-global-menu-search">
-    	<form action="http://projects.pulsarmedia.ca/vienna/#" method="post">
+    	<form action="" method="post">
             <input name="" type="text" class="pm-search-field-mobile" placeholder="Type Keywords...">
         </form>
     </div>
@@ -109,10 +109,10 @@
     <ul class="sf-menu pm-nav sf-js-enabled">
                         
         <li><a href="home.im">Home</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">About Us</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Client & Partners</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Contact Us</a></li>
+        <li><a href="">About Us</a></li>
+        <li><a href="">Client & Partners</a></li>
+        <li><a href="">News</a></li>
+        <li><a href="">Contact Us</a></li>
         <!-- <li>
             <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">About Us<span class="sf-sub-indicator"> »</span></a>
             <ul style="display: none;">
@@ -214,20 +214,6 @@
                     
                     <div class="col-lg-5 col-md-5 col-sm-6">
                     	<ul class="pm-sub-navigation">
-                        	<li>
-                                <div class="pm-dropdown pm-language-selector-menu">
-                                    <div class="pm-dropmenu">
-                                        <p class="pm-menu-title">Language</p>
-                                        <i class="fa fa-angle-down"></i>
-                                    </div>
-                                    <div class="pm-dropmenu-active">
-                                        <ul>
-                                           <li><a href="http://projects.pulsarmedia.ca/vienna/#">English</a></li>
-                                           <li><a href="http://projects.pulsarmedia.ca/vienna/#">Italian</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
                             <li><a href="signin.im">Sign&nbsp;In</a></li>
                             <li><a href="signup.im">Sign&nbsp;Up</a></li>
                             <!-- <li class="pm-search-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/#" class="pm-search-btn" id="pm-search-btn"><i class="fa fa-search"></i></a></li> -->
@@ -253,7 +239,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-12">
                     	
                         <div class="pm-header-logo-container">
-                    		<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img src="./images/vienna-logo.png" class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a> 
+                    		<a href=""><img src="./images/vienna-logo.png" class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a> 
                         </div>
                         
                         <div class="pm-header-mobile-btn-container">
@@ -270,10 +256,10 @@
                         	<ul class="sf-menu pm-nav sf-js-enabled">
                         
                                  <li><a href="home.im">Home</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">About Us</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Client & Partners</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Contact Us</a></li>
+						         <li><a href="">About Us</a></li>
+						         <li><a href="">Client & Partners</a></li>
+						         <li><a href="">News</a></li>
+						         <li><a href="">Contact Us</a></li>
                                <!--  <li>
                                     <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Menus<span class="sf-sub-indicator"> »</span></a>
                                     <ul style="display: none;">
@@ -291,7 +277,7 @@
                     <div id="bind">
                     <div id="popupbox">
 				    	<div id="deviceId">
-				    	<form:form method="POST" action="forgotpasswordform.im" modelAttribute="forgotpasswordform">
+				    	<form:form method="POST" action="forgotpasswordform.im" modelAttribute="forgotpasswordform" autocomplete="off">
 					    	<c:set var="emailError">
 										<form:errors  path="email" />
 							</c:set>

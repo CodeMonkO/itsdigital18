@@ -375,6 +375,8 @@ public class FineDineController {
 					model.setViewName(Views.RESTROFRAME.getViewName());
 					session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
 					return model;
+				} else {
+					signinform = new SignIn();
 				}
 			} else if ((restaurantSignUpFormEntity = consumer.signInTable(signinform)) != null) {
 				ModelAndView model = new ModelAndView();
@@ -553,7 +555,7 @@ public class FineDineController {
 				if (cache != null && cache.size() > 0) {
 					Map<String, Object> internalMap = cache.get(emailId);
 					if (internalMap != null && internalMap.size() > 0) {
-						usersEntity.setUuid(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());					
+						usersEntity.setUuid(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
 						usersEntity.setBookingmode("M");
 						usersEntity.setBookingid(mbookingform.getBookingId());
 						try {

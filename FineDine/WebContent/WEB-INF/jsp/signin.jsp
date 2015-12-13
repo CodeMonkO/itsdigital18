@@ -103,7 +103,7 @@
 	<div class="pm-mobile-global-menu" style="height: 4263px;">
 
 		<div class="pm-mobile-global-menu-logo">
-			<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img
+			<a href=""><img
 				src="./css/vienna-logo.png" alt="Vienna Restaurant"></a>
 		</div>
 
@@ -117,12 +117,12 @@
 		<ul class="sf-menu pm-nav sf-js-enabled">
 
 			<li><a href="home.im">Home</a></li>
-			<li><a href="http://projects.pulsarmedia.ca/vienna/index.html">About
+			<li><a href="">About
 					Us</a></li>
-			<li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Client
+			<li><a href="">Client
 					& Partners</a></li>
-			<li><a href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
-			<li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Contact
+			<li><a href="">News</a></li>
+			<li><a href="">Contact
 					Us</a></li>
 			<!-- <li>
             <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">About Us<span class="sf-sub-indicator"> »</span></a>
@@ -265,7 +265,7 @@
 					<div class="col-lg-4 col-md-4 col-sm-12">
 
 						<div class="pm-header-logo-container">
-							<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img
+							<a href=""><img
 								src="./images/vienna-logo.png"
 								class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a>
 						</div>
@@ -288,15 +288,15 @@
 
 								<li><a href="home.im">Home</a></li>
 								<li><a
-									href="http://projects.pulsarmedia.ca/vienna/index.html">About
+									href="">About
 										Us</a></li>
 								<li><a
-									href="http://projects.pulsarmedia.ca/vienna/index.html">Client
+									href="">Client
 										& Partners</a></li>
 								<li><a
-									href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
+									href="">News</a></li>
 								<li><a
-									href="http://projects.pulsarmedia.ca/vienna/index.html">Contact
+									href="">Contact
 										Us</a></li>
 								<!--  <li>
                                     <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Menus<span class="sf-sub-indicator"> »</span></a>
@@ -316,7 +316,7 @@
 						<div id="popupbox">
 							<div id="deviceId">
 								<form:form method="POST" action="signinform.im"
-									modelAttribute="signinform">
+									modelAttribute="signinform" autocomplete="off">
 									<c:set var="emailError">
 										<form:errors path="email" />
 									</c:set>

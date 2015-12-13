@@ -87,6 +87,20 @@
 	visibility: visible;
 	overflow: scroll;
 }</style>
+<script type="text/javascript">
+var password = document.getElementById("password"), confirm_password = document.getElementById("cpassword");
+alert(password+cpassword);
+function validatePassword(){
+if(password.value != confirm_password.value) {
+  confirm_password.setCustomValidity("Passwords Don't Match");
+} else {
+  confirm_password.setCustomValidity('');
+}
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
   </head>
 
   <body>
@@ -97,7 +111,7 @@
   <div class="pm-mobile-global-menu" style="height: 4263px;">
                 	
     <div class="pm-mobile-global-menu-logo">
-        <a href="http://projects.pulsarmedia.ca/vienna/index.html"><img src="./css/vienna-logo.png" alt="Vienna Restaurant"></a> 
+        <a href=""><img src="./css/vienna-logo.png" alt="Vienna Restaurant"></a> 
     </div>
     
     <div class="pm-mobile-global-menu-search">
@@ -109,10 +123,10 @@
     <ul class="sf-menu pm-nav sf-js-enabled">
                         
         <li><a href="home.im">Home</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">About Us</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Client & Partners</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
-        <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Contact Us</a></li>
+        <li><a href="">About Us</a></li>
+        <li><a href="">Client & Partners</a></li>
+        <li><a href="">News</a></li>
+        <li><a href="">Contact Us</a></li>
         <!-- <li>
             <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">About Us<span class="sf-sub-indicator"> »</span></a>
             <ul style="display: none;">
@@ -179,8 +193,8 @@
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2">
                     	<ul class="pm-search-controls">
-                        	<li><a href="http://projects.pulsarmedia.ca/vienna/#"><i class="fa fa-search"></i></a></li>
-                            <li><a href="http://projects.pulsarmedia.ca/vienna/#" id="pm-search-collapse"><i class="fa fa-times"></i></a></li>
+                        	<li><a href=""><i class="fa fa-search"></i></a></li>
+                            <li><a href="" id="pm-search-collapse"><i class="fa fa-times"></i></a></li>
                         </ul>
                     </div>
                     
@@ -214,20 +228,6 @@
                     
                     <div class="col-lg-5 col-md-5 col-sm-6">
                     	<ul class="pm-sub-navigation">
-                        	<li>
-                                <div class="pm-dropdown pm-language-selector-menu">
-                                    <div class="pm-dropmenu">
-                                        <p class="pm-menu-title">Language</p>
-                                        <i class="fa fa-angle-down"></i>
-                                    </div>
-                                    <div class="pm-dropmenu-active">
-                                        <ul>
-                                           <li><a href="http://projects.pulsarmedia.ca/vienna/#">English</a></li>
-                                           <li><a href="http://projects.pulsarmedia.ca/vienna/#">Italian</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
                             <li><a href="signin.im">Sign&nbsp;In</a></li>
                             <li><a href="signup.im">Sign&nbsp;Up</a></li>
                             <!-- <li class="pm-search-btn-li"><a href="http://projects.pulsarmedia.ca/vienna/#" class="pm-search-btn" id="pm-search-btn"><i class="fa fa-search"></i></a></li> -->
@@ -253,7 +253,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-12">
                     	
                         <div class="pm-header-logo-container">
-                    		<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img src="./images/vienna-logo.png" class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a> 
+                    		<a href=""><img src="./images/vienna-logo.png" class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a> 
                         </div>
                         
                         <div class="pm-header-mobile-btn-container">
@@ -270,10 +270,10 @@
                         	<ul class="sf-menu pm-nav sf-js-enabled">
                         
                                  <li><a href="home.im">Home</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">About Us</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Client & Partners</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">News</a></li>
-						         <li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Contact Us</a></li>
+						         <li><a href="">About Us</a></li>
+						         <li><a href="">Client & Partners</a></li>
+						         <li><a href="">News</a></li>
+						         <li><a href="">Contact Us</a></li>
                                <!--  <li>
                                     <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">Menus<span class="sf-sub-indicator"> »</span></a>
                                     <ul style="display: none;">
@@ -291,7 +291,7 @@
                     <div id="bind">
                     <div id="popupbox">
 				    	<div id="deviceId">
-				    	<form:form method="POST" action="resetpasswordform.im" modelAttribute="resetpasswordform">
+				    	<form:form method="POST" action="resetpasswordform.im" modelAttribute="resetpasswordform" autocomplete="off">
 							<c:set var="passwordError">
 										<form:errors  path="password" />
 							</c:set>
@@ -315,7 +315,7 @@
 				                </div>
 				                <div id="col">
 				                <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${passwordError}</span>
-				                	<form:input path="password" type="password" id="password" size="60" onkeyup="autoTab(this, document.form_device.contact)"  maxlength="20" required="required" placeholder="Please enter 20 Char Password"/>
+				                	<form:input path="password" type="password" id="password" size="60" onpaste="return false;" onkeyup="autoTab(this, document.form_device.contact)"  maxlength="20" required="required" placeholder="Please enter max 20 Char Password"/>
 				                </div>
 				             </div>	
 				             <div id="row"  >
@@ -326,7 +326,7 @@
 				                </div>
 				                <div id="col">
 				                <span style="font-size:14px;font-family:Georgia, 'Times New Roman', Times, serif;color:red; text-align:center">${passwordError}</span>
-				                	<form:input path="cpassword" type="password" id="cpassword" size="60" onkeyup="autoTab(this, document.form_device.contact)"/>
+				                	<form:input path="cpassword" type="password" id="cpassword" size="60" onpaste="return false;" onkeyup="autoTab(this, document.form_device.contact)"  maxlength="20" required="required" placeholder="Please enter max 20 Char Password"/>
 				                </div>
 				             </div>
 				             <div id="row"  >

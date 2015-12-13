@@ -252,7 +252,7 @@
 	<div class="pm-mobile-global-menu" style="height: 4263px;">
 
 		<div class="pm-mobile-global-menu-logo">
-			<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img
+			<a href=""><img
 				src="./css/vienna-logo.png" alt="Vienna Restaurant"></a>
 		</div>
 
@@ -287,9 +287,9 @@
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2">
 						<ul class="pm-search-controls">
-							<li><a href="http://projects.pulsarmedia.ca/vienna/#"><i
+							<li><a href=""><i
 									class="fa fa-search"></i></a></li>
-							<li><a href="http://projects.pulsarmedia.ca/vienna/#"
+							<li><a href=""
 								id="pm-search-collapse"><i class="fa fa-times"></i></a></li>
 						</ul>
 					</div>
@@ -366,7 +366,7 @@
 					<div class="col-lg-4 col-md-4 col-sm-12">
 
 						<div class="pm-header-logo-container">
-							<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img
+							<a href=""><img
 								src="./images/vienna-logo.png"
 								class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a>
 						</div>
@@ -430,8 +430,8 @@
 												<div id="text_setting">Qty</div>
 											</div>
 											<div id="col">
-												<input name="qty" type="tel" id="qty" size="60"
-													onkeyup="autotab('qty','3','add')" maxlength="3"
+												<input name="qty" type="number" min="1" max="1000" id="qty" size="60"
+													onkeyup="autotab('qty','3','add')" maxlength="4"
 													placeholder="Quantity of item" />
 											</div>
 										</div>

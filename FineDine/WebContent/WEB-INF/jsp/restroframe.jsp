@@ -243,7 +243,7 @@
 	<div class="pm-mobile-global-menu" style="height: 4263px;">
 
 		<div class="pm-mobile-global-menu-logo">
-			<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img
+			<a href=""><img
 				src="./css/vienna-logo.png" alt="Vienna Restaurant"></a>
 		</div>
 
@@ -260,7 +260,7 @@
 			<li><a href="bookingform.im">Table Reservation</a></li>
 			<li><a href="billingform.im">Billing</a></li>
 			<li><a href="customerform.im">Checked-IN-Customers</a></li>
-			<li><a href="http://projects.pulsarmedia.ca/vienna/index.html">Bills
+			<li><a href="">Bills
 					Generated</a></li>
 			<!-- <li>
             <a href="http://projects.pulsarmedia.ca/vienna/#" class="sf-with-ul">About Us<span class="sf-sub-indicator"> »</span></a>
@@ -409,7 +409,7 @@
 					<div class="col-lg-4 col-md-4 col-sm-12">
 
 						<div class="pm-header-logo-container">
-							<a href="http://projects.pulsarmedia.ca/vienna/index.html"><img
+							<a href=""><img
 								src="./images/vienna-logo.png"
 								class="img-responsive pm-header-logo" alt="Vienna Restaurant"></a>
 						</div>
