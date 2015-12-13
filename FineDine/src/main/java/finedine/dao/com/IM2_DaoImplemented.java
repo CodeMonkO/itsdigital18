@@ -59,35 +59,6 @@ public class IM2_DaoImplemented implements IM2_Dao {
 	}
 
 	public RestaurantLiveEntity usersTable(UsersEntity users) {
-		// Query query = null;
-		// String procSqlQuery = null;
-		// String uuid = record.getUuid();
-		// RestaurantLiveEntity restaurantLiveEntity = null;
-		// for (Object object : getFromBookingTable(uuid)) {
-		// restaurantLiveEntity = (RestaurantLiveEntity) object;
-		// }
-		// if (Integer.parseInt(record.getSeatsbooked()) <=
-		// Integer.parseInt(restaurantLiveEntity.getMaxseat()) -
-		// Integer.parseInt(restaurantLiveEntity.getBookedseat())) {
-		// if (record.getBookingmode().equalsIgnoreCase("W")) {
-		// sessionFactory.getCurrentSession().save(record);
-		// }
-		// procSqlQuery =
-		// messages.getProperty(SqlQueries.USERSTABLE.getSqlQueries());
-		// query = null;
-		// try {
-		// query =
-		// sessionFactory.getCurrentSession().createSQLQuery(procSqlQuery);
-		// query.setParameter("uuid", uuid);
-		// query.setParameter("bookedseat", record.getSeatsbooked());
-		// query.executeUpdate();
-		// } catch (HibernateException e) {
-		// e.printStackTrace();
-		// }
-		// } else {
-		// System.out.println("ALL FULL");
-		// }
-
 		String uuid = users.getUuid();
 		Query query = null;
 		String sqlQuery = null;
@@ -146,11 +117,12 @@ public class IM2_DaoImplemented implements IM2_Dao {
 				}
 			} else {
 				// Mobile pre booked customers update visited status as y
-				sqlQuery = "UPDATE UsersEntity users SET visited=:visited where users.uuid = :uuid AND users.bookingid = :bookingid";
+				sqlQuery = "UPDATE UsersEntity users SET visited=:visited, fnumber=:fnumber where users.uuid = :uuid AND users.bookingid = :bookingid";
 				query = sessionFactory.getCurrentSession().createQuery(sqlQuery);
 				query.setParameter("uuid", uuid);
-				query.setParameter("visited", "Y");
+				query.setParameter("visited", users.getVisited());
 				query.setParameter("bookingid", users.getBookingid());
+				query.setParameter("fnumber", users.getFnumber());
 				query.executeUpdate();
 			}
 			// Check current restro live seat status
@@ -321,7 +293,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 		List<UsersEntity> list = query.list();
 		if (list.size() == 1) {
 			UsersEntity usersEntity = list.get(0);
-			selectSqlQuery = messages.getProperty(SqlQueries.MOBILEUSERUPDATE.getSqlQueries());
+			/*selectSqlQuery = messages.getProperty(SqlQueries.MOBILEUSERUPDATE.getSqlQueries());
 			query = sessionFactory.getCurrentSession().createQuery(selectSqlQuery);
 			query.setParameter("visited", record.getVisited());
 			query.setParameter("vdtime", record.getVdtime());
@@ -329,7 +301,7 @@ public class IM2_DaoImplemented implements IM2_Dao {
 			query.setParameter("uuid", record.getUuid());
 			query.setParameter("bookingid", record.getBookingid());
 			query.setParameter("bookingmode", record.getBookingmode());
-			query.executeUpdate();
+			query.executeUpdate();*/
 			return usersEntity;
 		}
 		return null;

@@ -411,7 +411,7 @@ public class FineDineController {
 				Caching.getLoggedInUsers().put(signinform.getEmail(), cache);
 				session.setAttribute(Constant.AUTHENTICATEUSER.getConstantValue(), signinform);
 				return model;
-			}else{
+			} else {
 				signinform = new SignIn();
 			}
 		}
@@ -553,26 +553,28 @@ public class FineDineController {
 				if (cache != null && cache.size() > 0) {
 					Map<String, Object> internalMap = cache.get(emailId);
 					if (internalMap != null && internalMap.size() > 0) {
-						usersEntity.setUuid(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());
-						usersEntity.setVdtime(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).toString());
-						usersEntity.setVisited("Y");
+						usersEntity.setUuid(internalMap.get(Constant.RESTAURANTUUID.getConstantValue()).toString());					
 						usersEntity.setBookingmode("M");
-						usersEntity.setFnumber(mbookingform.getFnumber() + "M");
 						usersEntity.setBookingid(mbookingform.getBookingId());
 						try {
 							usersEntity = consumer.mobileUsersTable(usersEntity);
-							RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
-							// user already logged in
-							model.addObject("bookedseats", restaurantLiveEntity.getBookedseat());
-							model.addObject("maxseats", restaurantLiveEntity.getMaxseat());
-							model.addObject("vacantseats", Integer.parseInt(restaurantLiveEntity.getMaxseat()) - Integer.parseInt(restaurantLiveEntity.getBookedseat()));
+							if (null != usersEntity) {
+								usersEntity.setVisited("Y");
+								usersEntity.setFnumber(mbookingform.getFnumber() + "M");
+								RestaurantLiveEntity restaurantLiveEntity = consumer.usersTable(usersEntity);
+								// user already logged in
+								model.addObject("bookedseats", restaurantLiveEntity.getBookedseat());
+								model.addObject("maxseats", restaurantLiveEntity.getMaxseat());
+								model.addObject("vacantseats", Integer.parseInt(restaurantLiveEntity.getMaxseat()) - Integer.parseInt(restaurantLiveEntity.getBookedseat()));
+								/*
+								 * GenericModel seatsCalculation = new
+								 * GenericModel(); model =
+								 * seatsCalculation.getSeats
+								 * (restaurantLiveEntity,
+								 * usersEntity.getSeatsbooked(), model);
+								 */
+							}
 							model.addObject("visible", true);
-							/*
-							 * GenericModel seatsCalculation = new
-							 * GenericModel(); model =
-							 * seatsCalculation.getSeats(restaurantLiveEntity,
-							 * usersEntity.getSeatsbooked(), model);
-							 */
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
