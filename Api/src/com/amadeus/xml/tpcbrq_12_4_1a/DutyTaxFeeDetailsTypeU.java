@@ -1,0 +1,173 @@
+
+package com.amadeus.xml.tpcbrq_12_4_1a;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * To transmit tax data as it should appear in the tax boxes of the ticket.
+ * 
+ * <p>Java class for DutyTaxFeeDetailsTypeU complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="DutyTaxFeeDetailsTypeU">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="taxQualifier" type="{http://xml.amadeus.com/TPCBRQ_12_4_1A}AlphaNumericString_Length1To3"/>
+ *         &lt;element name="taxIdentification" type="{http://xml.amadeus.com/TPCBRQ_12_4_1A}DutyTaxFeeTypeDetailsTypeU"/>
+ *         &lt;element name="taxType" type="{http://xml.amadeus.com/TPCBRQ_12_4_1A}DutyTaxFeeAccountDetailTypeU" minOccurs="0"/>
+ *         &lt;element name="taxNature" type="{http://xml.amadeus.com/TPCBRQ_12_4_1A}AlphaNumericString_Length1To3" minOccurs="0"/>
+ *         &lt;element name="taxData" type="{http://xml.amadeus.com/TPCBRQ_12_4_1A}DutyTaxFeeDetailTypeU" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "DutyTaxFeeDetailsTypeU", propOrder = {
+    "taxQualifier",
+    "taxIdentification",
+    "taxType",
+    "taxNature",
+    "taxData"
+})
+public class DutyTaxFeeDetailsTypeU {
+
+    @XmlElement(required = true)
+    protected String taxQualifier;
+    @XmlElement(required = true)
+    protected DutyTaxFeeTypeDetailsTypeU taxIdentification;
+    protected DutyTaxFeeAccountDetailTypeU taxType;
+    protected String taxNature;
+    protected DutyTaxFeeDetailTypeU taxData;
+
+    /**
+     * Gets the value of the taxQualifier property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTaxQualifier() {
+        return taxQualifier;
+    }
+
+    /**
+     * Sets the value of the taxQualifier property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTaxQualifier(String value) {
+        this.taxQualifier = value;
+    }
+
+    /**
+     * Gets the value of the taxIdentification property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DutyTaxFeeTypeDetailsTypeU }
+     *     
+     */
+    public DutyTaxFeeTypeDetailsTypeU getTaxIdentification() {
+        return taxIdentification;
+    }
+
+    /**
+     * Sets the value of the taxIdentification property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DutyTaxFeeTypeDetailsTypeU }
+     *     
+     */
+    public void setTaxIdentification(DutyTaxFeeTypeDetailsTypeU value) {
+        this.taxIdentification = value;
+    }
+
+    /**
+     * Gets the value of the taxType property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DutyTaxFeeAccountDetailTypeU }
+     *     
+     */
+    public DutyTaxFeeAccountDetailTypeU getTaxType() {
+        return taxType;
+    }
+
+    /**
+     * Sets the value of the taxType property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DutyTaxFeeAccountDetailTypeU }
+     *     
+     */
+    public void setTaxType(DutyTaxFeeAccountDetailTypeU value) {
+        this.taxType = value;
+    }
+
+    /**
+     * Gets the value of the taxNature property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTaxNature() {
+        return taxNature;
+    }
+
+    /**
+     * Sets the value of the taxNature property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTaxNature(String value) {
+        this.taxNature = value;
+    }
+
+    /**
+     * Gets the value of the taxData property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DutyTaxFeeDetailTypeU }
+     *     
+     */
+    public DutyTaxFeeDetailTypeU getTaxData() {
+        return taxData;
+    }
+
+    /**
+     * Sets the value of the taxData property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DutyTaxFeeDetailTypeU }
+     *     
+     */
+    public void setTaxData(DutyTaxFeeDetailTypeU value) {
+        this.taxData = value;
+    }
+
+}

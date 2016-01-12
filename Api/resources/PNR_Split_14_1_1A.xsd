@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xml.amadeus.com/PNRSPL_14_1_1A" xmlns="http://xml.amadeus.com/PNRSPL_14_1_1A" elementFormDefault="qualified">
+  <xs:element name="PNR_Split">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">PNR SPLIT
+This message is used for the PNR split
+</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="reservationInfo" minOccurs="0" type="ReservationControlInformationType">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">reservation information</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="splitDetails" type="SplitPNRType">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">split details</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ReservationControlInformationDetailsTypeI">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">RESERVATION CONTROL INFORMATION</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="controlNumber" type="AlphaNumericString_Length1To20">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">profile or PNR record locator</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReservationControlInformationType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Reservation control information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="reservation" type="ReservationControlInformationDetailsTypeI">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">record information</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SplitPNRDetailsType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">determine the element to split</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="type" type="AlphaNumericString_Length1To3">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">ELEMENT TYPE - PT for Passenger Tattoo reference number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="quantity" minOccurs="0" type="NumericInteger_Length1To2">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">number of unassigned name to split</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tattoo" minOccurs="0" maxOccurs="49" type="AlphaNumericString_Length1To5">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Tattoo number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SplitPNRDetailsType_6435C">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">determine the element to split</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="type" type="AlphaNumericString_Length1To3">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">ELEMENT TYPE - ST for Segment Tattoo reference number OT for Other Tattoo reference number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="quantity" type="NumericInteger_Length1To2">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">quantity of service</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tattoo" type="AlphaNumericString_Length1To5">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Tattoo number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SplitPNRType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Split specified elements out of Parent PNR to new Associated PNR.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="passenger" type="SplitPNRDetailsType">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">passenger to split</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="otherElement" minOccurs="0" maxOccurs="999" type="SplitPNRDetailsType_6435C">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">other element to split</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AlphaNumericString_Length1To20">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Format limitations: an..20</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericString_Length1To3">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericInteger_Length1To2">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Format limitations: n..2</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:integer">
+      <xs:pattern value="-?[0-9]{1,2}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericString_Length1To5">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Format limitations: an..5</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="5" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+<!-- SchemaRules="2010/01"-->
+<!--Created with SchemaBuilder 5.0.0 by Amadeus S.A.S.-->
+<!--"Amadeus Proprietary and Confidential Information: unauthorized use and disclosure strictly forbidden. 2010 - Amadeus s.a.s - All Rights Reserved."-->
+<!--Build Key:
+1F8B080000000000000095534D6FDB300CBDEB5708BDEC30C4B1DB62E802E8E0366937A0498324BD0530148B4984CA9227CA45BDA2FF7D94EDACDD69DBC520299A1FEF3DDECD16B355BE994D8B8785384FB3CB51FA65947DE59B63E351C99667E793EC6A7271C9EFE69BCF693A495396CFF3D0D680B7DA809515080A14D71275B989E1E40515DB498405BD612D4B10C710EAC978FC5299445652418349E9AA31DB355619986A2FC60821687BC0B1D225B2F208E5D39ABE9514C137C04AA78052505867A3575560C91BDEAA5ADA36B613B631860275EBF5E118C459DEB7E34BEF6AAF2148DF726915BF7176AF15D5D0D2F0EF76EF7C25837676C21B2B9B70745EFF04C51B842E5D692C8DC3C603C7E075194CCBE99F9D565423E1045CCA47FCD40C139960F48DE1AB3807F2154DEF9F4125674CC15E3626DCF93AC2A5C45E1A04A65CB333B0861F0DD812963294C7E105ECF53F8109F63DE73512F456BC3E8347DA8A2C0F06A80C59F2401DDA37B627FA568D21CC5C64B2F33B3ABB9FA3F59702C695D20C901B775044E374B2FD36CBA7DB99D27B59868D7306B7B34D31D518A40D37C414F147CC6DE7D23F4164BCCFC18E6BDCDEBB03D5B2876E10AD1EAC695905FE0003189D7DABC1285C3B1F7EC3478B23CD9563C4F4CFD89458D766508EFD2F886AA76D5840E8E9E8C4E69D0B1F10EAFC28E084F52B4444315E523A4EB32186B7CEE74653ED41B1510BBA049C9292A83789B247112BE943ACFB6875A9433B2C12BCB4683A7D123E82B0C6F1507993CFC7AF0A8CA6352409E82DA15716C7531FCF87C47273BA99BE26453AA8BA4BD6B6642F68C24313EA26DC3AA3C08B18606C349AF7307E42AEDFEF6434623D4822CBD987FE225FE6C572B12AB2CB0BD27425B515CB45C6E0A526BA0A89C574762736ABC7D9891E2E3D48915D9E7C4A5FAD97F7ACA67BD07824867BDC7B72C40559CF3A3226B21E18D961187F2BD6B5D1819DC8114BEBFBC8C0B148AFD82FC854554DF1040000
+-->
+
