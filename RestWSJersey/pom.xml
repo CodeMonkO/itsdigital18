@@ -55,9 +55,9 @@
 
 	</repositories>
 	<!-- -->
-</project>  
-●PINが14桁にたりない場合のポップアップメッセージ
-→「ICチップ読み取り用PINコードの入力桁数に誤りがあります。修正してください。」
-
-●画面の文字列
-　「安全保障」→「セキュリティコード」
+1. From NFC write byte array into pkc.txt file.
+2. openssl x509 -inform der -in cacert_20180407.crt -out cacert_20180407.pem
+3. ln -s cacert_20180407.pem "$(openssl x509 -hash -noout -in cacert_20180407.pem).0"
+4. openssl x509 -inform der -in pkc.txt -out certificatenfc.pem
+5. Run : openssl x509 -in < certificatenfc.pem/cacert_20180407.pem > -text -noout to check if PEM formatted is ok.
+6. openssl verify -CApath final/ final/certificatenfc.pem
